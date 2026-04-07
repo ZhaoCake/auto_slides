@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STEP 生态、历史与工业实践</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-bg" aria-hidden="true">
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+      <span class="orb orb-c"></span>
+      <span class="grid"></span>
+    </div>
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <section>
+            <p class="eyebrow">技术分享 · STEP First</p>
+            <h1>STEP 文件生态的历史演进、工业实践与实施路径</h1>
+            <p class="lead">
+              本次内容不再以某一个建模库为主角，而是把 STEP 当作跨工具、跨组织、跨生命周期的数据公共语言。重点回答三个问题：第一，STEP 为什么能成为工业协作基础；第二，工业界到底如何真实使用；第三，团队怎样把 STEP-first 变成可执行、可治理、可扩展的工程体系。
+            </p>
+            <div class="cover-tags">
+              <span class="fragment fade-up">标准化历史</span>
+              <span class="fragment fade-up">产业落地案例</span>
+              <span class="fragment fade-up">组织协同机制</span>
+              <span class="fragment fade-up">实施路线与指标</span>
+            </div>
+          </section>
+
+          <section>
+            <h2>今天这场分享，我们讨论四件真正有价值的事</h2>
+            <div class="timeline">
+              <div class="node fragment fade-up">
+                <h3>第一件：行业为什么离不开 STEP</h3>
+                <p>不是因为它“古老而通用”，而是因为它在跨组织协作和长期归档里，提供了难以替代的稳定边界。</p>
+              </div>
+              <div class="node fragment fade-up">
+                <h3>第二件：标准如何一步步长成生态</h3>
+                <p>从 IGES 时代的局限，到 AP203/AP214/AP242 的连续演进，背后是产业协作复杂度的不断上升。</p>
+              </div>
+              <div class="node fragment fade-up">
+                <h3>第三件：工业界在真实场景中怎么用</h3>
+                <p>航空、汽车、装备和医疗并不把 STEP 当“导出格式”，而是把它当交付契约与追溯基线。</p>
+              </div>
+              <div class="node fragment fade-up">
+                <h3>第四件：团队如何低风险落地</h3>
+                <p>从规则、流程、角色到指标体系，给出一条能在 90 天内看到结果、并可持续扩展的实施路径。</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>核心观点先行</h2>
+            <ul>
+              <li class="fragment fade-up">STEP 的价值不在“替代 CAD 软件”，而在于提供一个稳定、可审计、可交换的数据边界，让上游建模工具可替换、下游制造流程可对接。</li>
+              <li class="fragment fade-up">真正决定协作效率的不是某个建模命令，而是跨组织语义一致性，包括单位、容差、装配关系、命名与版本策略。</li>
+              <li class="fragment fade-up">工业团队推进 STEP-first，必须同步建设“标准理解能力 + 工程实现能力 + 组织治理能力”，缺一不可。</li>
+              <li class="fragment fade-up">技术试点成功并不等于规模化成功，规模化依赖数据规范、角色责任和自动化校验体系共同驱动。</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>章节一：STEP 生态的发展历史</h2>
+            <p class="lead">
+              如果只把 STEP 看成“一个文件后缀”，你会低估它。它本质上是制造业在全球供应链背景下，为解决 CAD 数据互操作、语义损失、长期可读性和数字主线延续性而形成的标准体系。理解这段历史，才能理解今天为什么很多企业把 STEP 放在 PLM、MBD、质量与归档流程的关键节点。
+            </p>
+          </section>
+
+          <section>
+            <h2>从 IGES 时代到 STEP 体系化</h2>
+            <div class="two-col">
+              <article class="panel fragment fade-right">
+                <h3>早期交换挑战</h3>
+                <p>
+                  在早期 CAD 协作中，企业经常遇到几何可见但语义丢失的问题：曲面能打开，装配意图却不完整；外形可传递，制造约束无法复用。IGES 解决了部分几何交换问题，但在产品结构表达和长期治理方面能力有限。
+                </p>
+              </article>
+              <article class="panel fragment fade-left">
+                <h3>STEP 的历史任务</h3>
+                <p>
+                  STEP（ISO 10303）出现的核心动机，是让产品数据交换从“图形传递”升级为“工程语义传递”。它不仅考虑几何，还考虑配置、结构、属性、生命周期信息，从而支持更复杂的工业协作链条。
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>AP203、AP214、AP242 的演进逻辑</h2>
+            <div class="cards">
+              <article class="card fragment fade-up">
+                <h3>AP203</h3>
+                <p>在工程领域应用广泛，强调三维设计数据交换与配置管理，为早期跨系统协作奠定基础。</p>
+              </article>
+              <article class="card fragment fade-up">
+                <h3>AP214</h3>
+                <p>强化汽车与机械行业语义，扩展颜色、层、设计背景信息，提升跨企业协作可用性。</p>
+              </article>
+              <article class="card fragment fade-up">
+                <h3>AP242</h3>
+                <p>被广泛视为融合路线，整合前代能力并强化 MBD、PMI、模型驱动工程语义，成为当前主流推进方向。</p>
+              </article>
+              <article class="card fragment fade-up">
+                <h3>演进结论</h3>
+                <p>标准演进不是“推倒重来”，而是将产业需求逐层吸收，最终形成更适配数字线程与全生命周期协同的能力集合。</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>生态组织的长期作用</h2>
+            <div class="tool-grid">
+              <article class="fragment fade-up"><h3>ISO/TC184/SC4</h3><p>STEP 标准体系核心标准化组织，持续维护工业数据模型的国际一致性。</p></article>
+              <article class="fragment fade-up"><h3>CAx-IF</h3><p>通过实现论坛和互操作测试推动厂商一致落地，减少“标准写了但互通不了”的现实差距。</p></article>
+              <article class="fragment fade-up"><h3>ProSTEP iViP</h3><p>在汽车与制造协同领域影响显著，推动跨企业数据流程规范化实践。</p></article>
+              <article class="fragment fade-up"><h3>PDES, Inc.</h3><p>连接产业、软件厂商和标准生态，支持模型定义与数字线程能力持续演化。</p></article>
+              <article class="fragment fade-up"><h3>LOTAR 体系</h3><p>强调长期归档可读性与可验证性，推动 STEP 成为长期数字资产的基础载体。</p></article>
+              <article class="fragment fade-up"><h3>行业联盟价值</h3><p>标准真正生效，依赖“标准文本 + 互操作测试 + 实施指南”三位一体，不只是文档发布。</p></article>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>章节二：工业界如何确切使用 STEP</h2>
+            <p class="lead">
+              工业场景里 STEP 的作用，不是“把一个文件传出去”这么简单，而是把设计、仿真、工艺、供应链、质量和归档系统串成可追踪的业务闭环。下面给出公开实践中最典型、最可复用的使用路径。
+            </p>
+          </section>
+
+          <section>
+            <h2>案例一：航空航天的长期归档与跨代维护</h2>
+            <p>
+              航空航天项目生命周期常常跨越十年以上，甚至更久。组织在更换 CAD 平台、供应商重组、软件版本迭代后，仍然需要读取、理解并重用历史设计。公开资料与行业实践显示，航空链路通常把 STEP 与长期归档规范结合使用，以保障“几十年后仍可解释”的工程可读性。这里的关键不只是几何可视化，而是上下文可追溯：零件身份、版本关系、变更依据、关键尺寸语义都必须可恢复。
+            </p>
+            <p class="fragment fade-up">
+              因此，航空领域对 STEP 的要求往往高于一般交换：强调一致的 AP 选择、稳定的导出策略、严格的校验流程，以及与 PLM 的主数据一致性。没有这套治理，文件能打开并不等于工程上可用。
+            </p>
+          </section>
+
+          <section>
+            <h2>案例二：汽车 OEM 与供应链协同交付</h2>
+            <p>
+              在汽车行业，主机厂与一级、二级供应商之间存在高频设计迭代与多轮验证。现实情况是各方 CAD 栈并不统一，直接共享原生模型通常伴随许可证、版本和转换损失问题。STEP 因其中立性成为协同交付主通道之一，常用于设计冻结阶段的基线交换、工装夹具协同、外协制造数据交接以及质量问题回溯。
+            </p>
+            <p class="fragment fade-up">
+              工业实践中最关键的经验是：STEP 必须和“版本策略 + 变更流程 + 指标审查”绑定。换句话说，企业并不是把 STEP 当附件，而是把 STEP 当交付契约。谁在什么时间交付了哪一版、参数边界是什么、差异如何解释，必须在流程上可回答。
+            </p>
+          </section>
+
+          <section>
+            <h2>案例三：能源装备与重型机械的跨组织工程协作</h2>
+            <div class="two-col">
+              <article class="panel fragment fade-right">
+                <h3>业务特征</h3>
+                <p>设备体量大、项目周期长、分包层级深，且常伴随海外协作与多系统并行，数据一致性要求极高。</p>
+              </article>
+              <article class="panel fragment fade-left">
+                <h3>STEP 的作用</h3>
+                <p>作为中立交换面，把设计模型、加工准备、装配校核与运维文档关联在同一数字线程上，降低跨系统解释偏差。</p>
+              </article>
+            </div>
+            <p class="fragment fade-up">
+              对这类行业而言，STEP 的价值经常体现在“避免返工”：当多家单位围绕同一交付基线工作时，争议会明显减少，技术会议也更容易从“你这文件怎么打不开”转向“这个约束是否满足工况”。
+            </p>
+          </section>
+
+          <section>
+            <h2>案例四：医疗设备与合规导向研发</h2>
+            <p>
+              医疗设备开发强调可追溯性、设计控制和风险管理。对于涉及结构件、工装和外包制造的团队，STEP 能成为连接研发与外部制造伙伴的统一交换语言，便于在审查链路中保持“同一版本语义一致”。当团队需要解释某次设计变更对零件几何和装配关系的影响时，标准化交换格式能显著降低沟通噪声。
+            </p>
+            <p class="fragment fade-up">
+              这类场景的经验是：标准格式本身并不能自动满足合规，必须与组织内的变更审批、文件命名规范、版本冻结机制共同实施，才能形成真正可审计的闭环。
+            </p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>章节三：STEP-first 的实施方法与治理框架</h2>
+            <p class="lead">
+              这一章不讨论具体代码，而讨论如何让策略落地。我们把实施拆成“数据治理、流程治理、组织治理”三层：数据层保证一致性，流程层保证可执行，组织层保证持续改进。只有三层协同，STEP 才会从概念变成生产力。
+            </p>
+          </section>
+
+          <section>
+            <h2>数据治理：先定义“统一口径”，再谈互通</h2>
+            <ul>
+              <li class="fragment fade-up">统一 AP 策略：同一业务域内明确采用 AP 版本与适用边界，避免项目间标准碎片化。</li>
+              <li class="fragment fade-up">统一单位与精度：把单位、容差、舍入规则写进规范，纳入交付前检查而不是口头约定。</li>
+              <li class="fragment fade-up">统一命名与版本：零件号、修订号、变体标识要在文件名、元数据和流程系统中一致。</li>
+              <li class="fragment fade-up">统一校验基线：几何有效性、包围盒、体积阈值、关键尺寸偏差应形成固定清单。</li>
+              <li class="fragment fade-up">统一归档策略：STEP、参数描述、预览图、评审结论和变更单一起归档，保证事后可解释。</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>流程治理：把 STEP 放进业务主线而非末端附件</h2>
+            <div class="pipeline">
+              <div class="fragment fade-up"><strong>需求阶段</strong><span>定义交付对象与语义边界</span></div>
+              <div class="fragment fade-up"><strong>设计阶段</strong><span>围绕统一口径输出交换基线</span></div>
+              <div class="fragment fade-up"><strong>评审阶段</strong><span>以结构化检查替代纯人工目检</span></div>
+              <div class="fragment fade-up"><strong>发布阶段</strong><span>版本冻结并同步业务系统</span></div>
+              <div class="fragment fade-up"><strong>追溯阶段</strong><span>问题回放与改进策略沉淀</span></div>
+            </div>
+            <p class="fragment fade-up">
+              流程设计的重点是“前置约束”。如果到了发布当天才发现单位冲突、命名不一致或结构缺失，往往意味着治理位置放错了。
+            </p>
+          </section>
+
+          <section>
+            <h2>组织治理：角色、责任和协同节奏</h2>
+            <div class="roadmap">
+              <article class="fragment fade-up">
+                <h3>标准 Owner</h3>
+                <p>负责 AP 策略、命名规范、校验清单维护，确保组织内规则有唯一责任主体。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>工程实现组</h3>
+                <p>负责建模流程接入与自动化执行，确保交付可重复、可扩展、可持续运行。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>业务评审组</h3>
+                <p>从制造、质量、采购视角检查交付可用性，防止“技术正确但业务不可用”。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>改进委员会</h3>
+                <p>定期复盘问题来源，更新规则和模板，把一次次事故转化为组织能力增长。</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>风险清单：STEP-first 常见失败模式</h2>
+            <div class="two-col">
+              <article class="panel warn fragment fade-right">
+                <h3>高频失败</h3>
+                <ul>
+                  <li>把 STEP 当作最终导出按钮，而不是全流程规范对象。</li>
+                  <li>忽略跨部门培训，导致同一术语在不同岗位含义不同。</li>
+                  <li>缺少指标管理，实施效果只能靠主观感受评估。</li>
+                  <li>只做试点不做制度化，人员变动后能力快速衰减。</li>
+                </ul>
+              </article>
+              <article class="panel good fragment fade-left">
+                <h3>修正策略</h3>
+                <ul>
+                  <li>把标准规则写成流程门禁并纳入发布清单。</li>
+                  <li>建立跨角色术语表，统一表达和评审语言。</li>
+                  <li>用数据指标衡量返工率、交付周期和问题定位时长。</li>
+                  <li>通过季度复盘持续更新规范，形成组织记忆。</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>章节四：落地路线图与结束说明</h2>
+            <p class="lead">
+              最后一章聚焦执行层。我们给出一个可操作的 90 天计划，不追求一次到位，而是通过可衡量的阶段目标快速建立最小闭环，再逐步扩展到更多业务域和供应链节点。
+            </p>
+          </section>
+
+          <section>
+            <h2>90 天推进节奏（建议模板）</h2>
+            <div class="roadmap">
+              <article class="fragment fade-up">
+                <h3>第 1-2 周：定义与对齐</h3>
+                <p>确定试点业务、统一术语、明确 AP 策略、冻结命名规则和版本规则，完成组织层共识。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>第 3-6 周：建立最小闭环</h3>
+                <p>跑通交付链路，形成固定校验清单与发布模板，建立问题登记与责任追踪机制。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>第 7-10 周：扩展与稳态</h3>
+                <p>把流程推广到第二类零件或第二条供应链，验证规则可迁移性并收敛异常场景。</p>
+              </article>
+              <article class="fragment fade-up">
+                <h3>第 11-13 周：制度化发布</h3>
+                <p>沉淀标准手册、培训材料和审核规范，完成从项目经验到组织制度的迁移。</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>衡量指标：没有指标就没有治理</h2>
+            <ul>
+              <li class="fragment fade-up">交付一致性：随机抽样中单位、命名、版本、校验结果一致率，建议作为第一优先级指标。</li>
+              <li class="fragment fade-up">协作效率：跨组织一次性交付通过率、沟通轮次、问题关闭时长，直接反映业务收益。</li>
+              <li class="fragment fade-up">质量结果：返工率、制造前问题发现率、发布后异常率，用于检验流程是否真正降低风险。</li>
+              <li class="fragment fade-up">可持续性：新成员上手周期、规范更新周期、历史项目复用率，体现组织能力是否固化。</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>结论与下一步</h2>
+            <p class="lead">
+              今天的主线很明确：把 STEP 从“文件格式”升级为“协同契约”。当你真正围绕 STEP 建立标准口径、流程门禁和责任机制时，团队会从工具依赖转向数据治理，跨系统协作成本会显著下降，项目可追溯性与长期可维护性会明显提升。
+            </p>
+            <p class="fragment fade-up">
+              感谢聆听。关于演示部分，我们已准备好可手动运行的 CadQuery 示例脚本用于现场展示，建议在会后按团队环境逐步执行，以便结合你们实际流程做定制化扩展。
+            </p>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
