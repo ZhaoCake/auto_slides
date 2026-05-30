@@ -6,9 +6,9 @@
   --accent-b: #ffd27a;
   --accent-c: #a9ffcc;
   --line: rgba(210, 226, 255, 0.34);
-  --glass: rgba(9, 18, 30, 0.48);
-  --glass-strong: rgba(7, 14, 24, 0.62);
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.42);
+  --glass: rgba(9, 18, 30, 0.30);
+  --glass-strong: rgba(7, 14, 24, 0.44);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
 }
 
 html,
@@ -25,7 +25,7 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url("../templ/background.jpg");
+  background-image: url("background.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -35,16 +35,16 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(90% 70% at 12% 10%, rgba(123, 225, 255, 0.2), transparent 70%),
-    radial-gradient(70% 65% at 90% 85%, rgba(255, 199, 106, 0.16), transparent 72%),
-    linear-gradient(130deg, rgba(2, 8, 14, 0.86), rgba(6, 14, 24, 0.7) 48%, rgba(5, 8, 16, 0.88));
+    radial-gradient(90% 70% at 12% 10%, rgba(123, 225, 255, 0.15), transparent 70%),
+    radial-gradient(70% 65% at 90% 85%, rgba(255, 199, 106, 0.10), transparent 72%),
+    linear-gradient(130deg, rgba(2, 8, 14, 0.55), rgba(6, 14, 24, 0.40) 48%, rgba(5, 8, 16, 0.58));
 }
 
 .ambient-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(0.8px);
 }
 
 .reveal {
@@ -71,8 +71,8 @@ body {
   border-radius: 28px;
   border: 1px solid var(--line);
   background: var(--glass);
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(8px) saturate(110%);
+  -webkit-backdrop-filter: blur(8px) saturate(110%);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -196,6 +196,134 @@ body {
 
 .reveal .controls {
   color: #c8ffe5;
+}
+
+/* --- 代码块样式 --- */
+.reveal pre {
+  box-shadow: none;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.reveal pre code {
+  max-height: 480px;
+  padding: 20px 24px;
+  font-size: clamp(16px, 1.1vw, 22px);
+  line-height: 1.55;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  tab-size: 4;
+}
+
+.reveal .code-wrapper {
+  background: transparent;
+}
+
+/* highlight.js 高亮行标记 */
+.reveal .hljs-ln-line.highlight-line {
+  background: rgba(131, 232, 255, 0.12);
+  border-left: 3px solid var(--accent-a);
+}
+
+.reveal .hljs-ln-numbers {
+  user-select: none;
+  opacity: 0.5;
+  text-align: right;
+  padding-right: 12px !important;
+}
+
+/* --- 内联代码 --- */
+.reveal code:not(.hljs) {
+  background: rgba(131, 232, 255, 0.12);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  color: var(--accent-a);
+}
+
+/* --- kbd 键盘快捷键 --- */
+.reveal kbd {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--glass-strong);
+  font-family: inherit;
+  font-size: 0.85em;
+  color: var(--ink-0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 表格样式 --- */
+.reveal table {
+  font-size: clamp(20px, 1.4vw, 28px);
+  border-collapse: collapse;
+}
+
+.reveal table th,
+.reveal table td {
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+}
+
+.reveal table th {
+  background: var(--glass-strong);
+  color: var(--accent-a);
+  font-weight: 600;
+}
+
+.reveal table tbody tr:hover {
+  background: rgba(131, 232, 255, 0.06);
+}
+
+/* --- zoom-in fragment --- */
+.reveal .fragment.zoom-in {
+  opacity: 1;
+  visibility: inherit;
+}
+.reveal .fragment.zoom-in.visible {
+  transform: scale(1.04);
+  transition: transform 0.3s ease;
+}
+
+/* --- data-state 驱动的样式 --- */
+
+/* chapter-cover: 章节封面加独特边框 */
+body[data-state*="chapter-cover"] .slides section.present {
+  border-color: var(--accent-c);
+  box-shadow: 0 0 40px rgba(169, 255, 204, 0.08);
+}
+
+/* code-tips: 代码技巧页 */
+body[data-state*="code-tips"] .slides section.present h2 {
+  color: var(--accent-b);
+}
+
+body[data-state*="code-tips"] .slides section.present h2::after {
+  background: linear-gradient(90deg, var(--accent-b), var(--accent-c));
+}
+
+/* --- Markdown 插件内容对齐 --- */
+.reveal section[data-markdown] p,
+.reveal section[data-markdown] li {
+  color: var(--ink-1);
+  font-size: clamp(24px, 1.65vw, 31px);
+  line-height: 1.56;
+}
+
+.reveal section[data-markdown] ul,
+.reveal section[data-markdown] ol {
+  display: block;
+  max-width: 46em;
+}
+
+/* --- 搜索框适配深色主题 --- */
+.searchbox input.searchinput {
+  background: rgba(20, 30, 50, 0.9) !important;
+  color: #fff !important;
+  border: 1px solid rgba(210, 226, 255, 0.34) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5) !important;
 }
 
 @media (max-width: 1200px) {
