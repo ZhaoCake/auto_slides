@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>工训赛智能物流赛道 · 视觉开发课程大纲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-1: #060d1c;
+    --bg-2: #0a1a36;
+    --bg-3: #0d2547;
+    --grid: rgba(0, 212, 255, 0.05);
+    --card: rgba(14, 32, 64, 0.55);
+    --card-strong: rgba(14, 32, 64, 0.78);
+    --border: rgba(0, 212, 255, 0.22);
+    --border-strong: rgba(0, 212, 255, 0.55);
+    --text-1: #e8f3ff;
+    --text-2: #a7b9d6;
+    --text-3: #5d7596;
+    --cyan: #00d4ff;
+    --cyan-soft: rgba(0, 212, 255, 0.15);
+    --blue: #4a9eff;
+    --purple: #a78bfa;
+    --gold: #fbbf24;
+    --amber: #fbbf24;
+    --phase-1: #00d4ff;
+    --phase-2: #4a9eff;
+    --phase-3: #a78bfa;
+    --phase-4: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    background: #04080f;
+    color: var(--text-1);
+    font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  .slide {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    margin: 0 auto;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 120, 200, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(120, 80, 220, 0.12) 0%, transparent 60%),
+      linear-gradient(180deg, #060d1c 0%, #0a1a36 50%, #060d1c 100%);
+    overflow: hidden;
+  }
+  /* Tech grid background */
+  .slide::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 60px 60px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 60px 60px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 30%, transparent 100%);
+  }
+  /* Decorative ambient orbs */
+  .slide::after {
+    content: "";
+    position: absolute;
+    top: -180px; right: -180px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .orb-bl {
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.12) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ================= HEADER ================= */
+  .header {
+    position: absolute;
+    top: 56px; left: 96px; right: 96px;
+    z-index: 10;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 32px; height: 1px;
+    background: var(--cyan);
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .title {
+    font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-1);
+    letter-spacing: -0.02em;
+  }
+  .title .accent {
+    background: linear-gradient(135deg, #00d4ff 0%, #4a9eff 50%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .subtitle {
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--text-2);
+    letter-spacing: 0.05em;
+  }
+  .subtitle b {
+    color: var(--cyan);
+    font-weight: 500;
+    margin: 0 4px;
+  }
+
+  /* ================= META ================= */
+  .meta {
+    position: absolute;
+    top: 70px; right: 96px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .meta-item .label { color: var(--text-3); }
+  .meta-item .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--cyan);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .meta-divider {
+    width: 1px; height: 32px;
+    background: var(--border);
+  }
+
+  /* ================= PATH SVG ================= */
+  .path-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ================= CARDS ================= */
+  .grid {
+    position: absolute;
+    top: 220px; left: 0; right: 0; bottom: 60px;
+    z-index: 5;
+  }
+  .row {
+    position: absolute;
+    left: 0; right: 0;
+    height: 180px;
+  }
+  .row-0 { top: 0; }
+  .row-1 { top: 200px; }
+  .row-2 { top: 400px; }
+  .row-3 { top: 600px; }
+
+  .phase-tag {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 60px;
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+  }
+  .phase-tag .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+  }
+  .phase-tag .name {
+    font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .phase-tag .bar {
+    width: 40px; height: 3px;
+    border-radius: 2px;
+  }
+  .row-0 .phase-tag .num, .row-0 .phase-tag .name { color: var(--phase-1); }
+  .row-0 .phase-tag .bar { background: var(--phase-1); box-shadow: 0 0 12px var(--phase-1); }
+  .row-1 .phase-tag .num, .row-1 .phase-tag .name { color: var(--phase-2); }
+  .row-1 .phase-tag .bar { background: var(--phase-2); box-shadow: 0 0 12px var(--phase-2); }
+  .row-2 .phase-tag .num, .row-2 .phase-tag .name { color: var(--phase-3); }
+  .row-2 .phase-tag .bar { background: var(--phase-3); box-shadow: 0 0 12px var(--phase-3); }
+  .row-3 .phase-tag .num, .row-3 .phase-tag .name { color: var(--phase-4); }
+  .row-3 .phase-tag .bar { background: var(--phase-4); box-shadow: 0 0 12px var(--phase-4); }
+
+  .card {
+    position: absolute;
+    width: 440px;
+    height: 170px;
+    padding: 22px 26px;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s var(--ease, cubic-bezier(.4,0,.2,1)), border-color 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+    opacity: 0.5;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--border-strong);
+  }
+  .card.left::after { background: linear-gradient(180deg, var(--card-color, var(--cyan)), transparent); }
+  .card.right::after { background: linear-gradient(180deg, transparent, var(--card-color, var(--cyan))); }
+
+  .card-left { left: 220px; }
+  .card-right { right: 220px; }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-num {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--card-color, var(--cyan));
+    text-shadow: 0 0 18px color-mix(in srgb, var(--card-color, var(--cyan)) 55%, transparent);
+    letter-spacing: -0.04em;
+    display: inline-flex;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+  .card-num i {
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-3);
+    margin-right: 6px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .card-title {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-1);
+    letter-spacing: 0.02em;
+  }
+  .card-why {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 12.5px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--amber);
+    line-height: 1.55;
+    opacity: 0.92;
+    padding: 4px 0;
+    border-top: 1px dashed rgba(251, 191, 36, 0.18);
+    border-bottom: 1px dashed rgba(251, 191, 36, 0.18);
+  }
+  .card-why b {
+    font-style: normal;
+    font-weight: 700;
+    color: #fcd34d;
+    margin-right: 6px;
+    letter-spacing: 0.1em;
+  }
+  .card-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.4;
+  }
+  .card-points span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card-points span::before {
+    content: "◆";
+    font-size: 8px;
+    color: var(--card-color, var(--cyan));
+    opacity: 0.7;
+  }
+
+  /* Card color variants */
+  .c-p1 { --card-color: var(--phase-1); }
+  .c-p2 { --card-color: var(--phase-2); }
+  .c-p3 { --card-color: var(--phase-3); }
+  .c-p4 { --card-color: var(--phase-4); }
+
+  /* ================= LEGEND / FOOTER ================= */
+  .footer {
+    position: absolute;
+    bottom: 32px; left: 96px; right: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-left .legend {
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .footer-left .legend i {
+    display: inline-block; width: 8px; height: 8px;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    border-radius: 50%;
+  }
+  .footer-right {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .footer-right .key {
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--cyan);
+    background: rgba(0, 212, 255, 0.05);
+    font-size: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="orb-bl"></div>
+
+  <!-- ============ HEADER ============ -->
+  <div class="header">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      <span>Engineering Training · Visual Module</span>
+    </div>
+    <h1 class="title">工训赛智能物流赛道 · <span class="accent">视觉开发课程大纲</span></h1>
+    <p class="subtitle">从 AI 能力认知到嵌入式落地 · 完整方法论闭环 · 共 <b>8 个阶段</b> · 分 <b>4 个递进阶段</b></p>
+  </div>
+
+  <div class="meta">
+    <div class="meta-item">
+      <span class="label">Modules</span>
+      <span class="value">08</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="label">Phases</span>
+      <span class="value">04</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="label">Track</span>
+      <span class="value">CV / Edge</span>
+    </div>
+  </div>
+
+  <!-- ============ PATH ============ -->
+  <svg class="path-layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.9"/>
+        <stop offset="33%" stop-color="#4a9eff" stop-opacity="0.9"/>
+        <stop offset="66%" stop-color="#a78bfa" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.9"/>
+      </linearGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="8"/>
+      </filter>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#00d4ff"/>
+      </marker>
+      <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a9eff"/>
+      </marker>
+      <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#a78bfa"/>
+      </marker>
+      <marker id="arrow4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/>
+      </marker>
+    </defs>
+
+    <!-- Soft glow underlay -->
+    <path d="M 440 305
+             L 1480 305
+             C 1560 305 1560 385 1560 385
+             L 1560 505
+             C 1560 505 1560 505 1480 505
+             L 440 505
+             C 360 505 360 585 360 585
+             L 360 705
+             C 360 705 360 705 440 705
+             L 1480 705
+             C 1560 705 1560 785 1560 785
+             L 1560 905
+             C 1560 905 1560 905 1480 905
+             L 440 905"
+          fill="none"
+          stroke="url(#pathGrad)"
+          stroke-width="18"
+          opacity="0.22"
+          filter="url(#softGlow)"/>
+
+    <!-- Main path -->
+    <path id="mainPath" d="M 440 305
+             L 1480 305
+             C 1560 305 1560 385 1560 385
+             L 1560 505
+             C 1560 505 1560 505 1480 505
+             L 440 505
+             C 360 505 360 585 360 585
+             L 360 705
+             C 360 705 360 705 440 705
+             L 1480 705
+             C 1560 705 1560 785 1560 785
+             L 1560 905
+             C 1560 905 1560 905 1480 905
+             L 440 905"
+          fill="none"
+          stroke="url(#pathGrad)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-dasharray="0"/>
+
+    <!-- Animated dash overlay for "flowing" effect -->
+    <path d="M 440 305
+             L 1480 305
+             C 1560 305 1560 385 1560 385
+             L 1560 505
+             C 1560 505 1560 505 1480 505
+             L 440 505
+             C 360 505 360 585 360 585
+             L 360 705
+             C 360 705 360 705 440 705
+             L 1480 705
+             C 1560 705 1560 785 1560 785
+             L 1560 905
+             C 1560 905 1560 905 1480 905
+             L 440 905"
+          fill="none"
+          stroke="#00d4ff"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-dasharray="3 16"
+          opacity="0.9">
+      <animate attributeName="stroke-dashoffset" from="0" to="-380" dur="5s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- END arrow -->
+    <g transform="translate(440, 905)">
+      <circle r="26" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.4"/>
+      <path d="M 22 0 L 36 8 L 22 16 z" fill="#fbbf24" filter="url(#glow)"/>
+    </g>
+
+    <!-- START label -->
+    <g transform="translate(440, 305)">
+      <circle r="30" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5" stroke-dasharray="2 3"/>
+    </g>
+
+    <!-- Node markers -->
+    <g>
+      <!-- N0 (row 0 left) -->
+      <circle cx="440" cy="305" r="18" fill="#060d1c" stroke="#00d4ff" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="440" cy="305" r="6" fill="#00d4ff"/>
+      <!-- N1 (row 0 right) -->
+      <circle cx="1480" cy="305" r="18" fill="#060d1c" stroke="#00d4ff" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="1480" cy="305" r="6" fill="#00d4ff"/>
+      <!-- N2 (row 1 right) -->
+      <circle cx="1480" cy="505" r="18" fill="#060d1c" stroke="#4a9eff" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="1480" cy="505" r="6" fill="#4a9eff"/>
+      <!-- N3 (row 1 left) -->
+      <circle cx="440" cy="505" r="18" fill="#060d1c" stroke="#4a9eff" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="440" cy="505" r="6" fill="#4a9eff"/>
+      <!-- N4 (row 2 left) -->
+      <circle cx="440" cy="705" r="18" fill="#060d1c" stroke="#a78bfa" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="440" cy="705" r="6" fill="#a78bfa"/>
+      <!-- N5 (row 2 right) -->
+      <circle cx="1480" cy="705" r="18" fill="#060d1c" stroke="#a78bfa" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="1480" cy="705" r="6" fill="#a78bfa"/>
+      <!-- N6 (row 3 right) -->
+      <circle cx="1480" cy="905" r="18" fill="#060d1c" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="1480" cy="905" r="6" fill="#fbbf24"/>
+      <!-- N7 (row 3 left) -->
+      <circle cx="440" cy="905" r="18" fill="#060d1c" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+      <circle cx="440" cy="905" r="6" fill="#fbbf24"/>
+    </g>
+
+    <!-- Phase connector bars (vertical accent lines on the path turns) -->
+    <line x1="1560" y1="323" x2="1560" y2="487" stroke="#4a9eff" stroke-width="1" opacity="0.25" stroke-dasharray="2 4"/>
+    <line x1="360" y1="523" x2="360" y2="687" stroke="#a78bfa" stroke-width="1" opacity="0.25" stroke-dasharray="2 4"/>
+    <line x1="1560" y1="723" x2="1560" y2="887" stroke="#fbbf24" stroke-width="1" opacity="0.25" stroke-dasharray="2 4"/>
+  </svg>
+
+  <!-- ============ GRID ============ -->
+  <div class="grid">
+    <!-- Row 0: Phase 1 启航 -->
+    <div class="row row-0">
+      <div class="phase-tag">
+        <span class="num">PHASE 01</span>
+        <span class="name">启航</span>
+        <span class="bar"></span>
+      </div>
+      <div class="card card-left left c-p1">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>0</span>
+          <span class="card-title">引言 · AI 能力认知</span>
+        </div>
+        <div class="card-why"><b>WHY</b>明确 AI 能力边界，才能判断 AI 写的代码靠不靠谱</div>
+        <div class="card-points">
+          <span>AI 能力边界</span><span>核心认知</span><span>最低认知基线</span><span>视觉任务三场景</span>
+        </div>
+      </div>
+      <div class="card card-right right c-p1">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>1</span>
+          <span class="card-title">准备工作</span>
+        </div>
+        <div class="card-why"><b>WHY</b>方案和环境先敲定，否则中途返工代价巨大</div>
+        <div class="card-points">
+          <span>方案设计准则</span><span>软硬件权衡</span><span>WSL · Git · LabelStudio · SSH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 1: Phase 2 筑基 -->
+    <div class="row row-1">
+      <div class="phase-tag">
+        <span class="num">PHASE 02</span>
+        <span class="name">筑基</span>
+        <span class="bar"></span>
+      </div>
+      <div class="card card-left left c-p2">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>3</span>
+          <span class="card-title">模块集成</span>
+        </div>
+        <div class="card-why"><b>WHY</b>尽早统一通信协议，避免后期改协议成本极高</div>
+        <div class="card-points">
+          <span>通信方案 UART</span><span>状态机设计</span><span>视觉模块集成</span>
+        </div>
+      </div>
+      <div class="card card-right right c-p2">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>2</span>
+          <span class="card-title">视觉基础开发</span>
+        </div>
+        <div class="card-why"><b>WHY</b>跑通最简视觉流程，作为后续复杂功能的起点</div>
+        <div class="card-points">
+          <span>CV 基础速通</span><span>二维码识别</span><span>WSL 打通摄像头</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Phase 3 进阶 -->
+    <div class="row row-2">
+      <div class="phase-tag">
+        <span class="num">PHASE 03</span>
+        <span class="name">进阶</span>
+        <span class="bar"></span>
+      </div>
+      <div class="card card-left left c-p3">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>4</span>
+          <span class="card-title">视觉进阶开发</span>
+        </div>
+        <div class="card-why"><b>WHY</b>神经网络比传统 CV 更鲁棒，是赛题核心视觉任务</div>
+        <div class="card-points">
+          <span>神经网络基础</span><span>数据标注</span><span>训练推理</span><span>模型部署</span>
+        </div>
+      </div>
+      <div class="card card-right right c-p3">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>5</span>
+          <span class="card-title">视觉调试与优化</span>
+        </div>
+        <div class="card-why"><b>WHY</b>设计阶段就考虑可调性，省掉反复重跑</div>
+        <div class="card-points">
+          <span>可调参数</span><span>可视化</span><span>热重载</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Phase 4 落地 -->
+    <div class="row row-3">
+      <div class="phase-tag">
+        <span class="num">PHASE 04</span>
+        <span class="name">落地</span>
+        <span class="bar"></span>
+      </div>
+      <div class="card card-left left c-p4">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>7</span>
+          <span class="card-title">总结</span>
+        </div>
+        <div class="card-why"><b>WHY</b>串联全部知识点，形成完整的方法论闭环</div>
+        <div class="card-points">
+          <span>课程回顾</span><span>方法论沉淀</span><span>常见坑位速查</span>
+        </div>
+      </div>
+      <div class="card card-right right c-p4">
+        <div class="card-head">
+          <span class="card-num"><i>step</i>6</span>
+          <span class="card-title">板端移植</span>
+        </div>
+        <div class="card-why"><b>WHY</b>解决算力差异与接口适配，让 PC 原型上嵌入式</div>
+        <div class="card-points">
+          <span>推理移植</span><span>C++ 重写</span><span>嵌入式 Linux 适配</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="footer">
+    <div class="footer-left">
+      <span class="legend"><i></i> Path 0 → 7</span>
+      <span style="opacity:0.5">·</span>
+      <span>Course Outline · v1.0</span>
+    </div>
+    <div class="footer-right">
+      <span>Press</span>
+      <span class="key">←</span>
+      <span class="key">→</span>
+      <span>to navigate</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

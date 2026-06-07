@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>方案设计的根本准则——权衡</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-bg" aria-hidden="true"></div>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- ===== 章节：开场 ===== -->
+        <section data-transition="zoom">
+          <section data-markdown>
+            <textarea data-template>
+              **智能物流赛道 · 视觉开发第1课**
+
+              # 方案设计的根本准则
+
+              ——权衡
+
+              常见的方案主要是传统视觉算法以及深度学习算法。本课将带你理解方案设计中最重要的思维模型——权衡。
+              <!-- .element: class="lead" -->
+
+              <div class="cover-tags">
+                <span>方案设计</span>
+                <span>权衡</span>
+                <span>传统视觉</span>
+                <span>深度学习</span>
+              </div>
+
+              notes: 开场白：30秒介绍主题——方案设计的核心思维模型是权衡。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 引言
+
+              常见的方案主要是传统视觉算法以及深度学习算法。其中传统视觉算法就是老一套了，但是在上上届国赛吉林大学超绝大灯与招牌杆杆之下，传统视觉算法取得了非常不好的效果，于是后面我换成了神经网络算法以取得更好的鲁棒性。
+
+              但在这套教程中，我将不会直接使用与比赛代码一致的方案，而是选择使用一个结合了传统视觉与神经网络的方案来进行。
+
+              但在这里，姑且先卖个关子，最后再来谈论在这套教程中具体使用什么方案。
+
+              notes: 传统CV受环境光干扰→换神经网络→本教程用混合方案，最终方案先卖关子。
+            </textarea>
+          </section>
+        </section>
+
+        <!-- ===== 章节：权衡思路 ===== -->
+        <section data-transition="convex">
+          <section data-markdown data-state="chapter-cover">
+            <textarea data-template>
+              ## 权衡思路
+              <!-- .element: class="lead" -->
+
+              notes: 方案设计的核心就是trade off。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 权衡概览
+
+              首先我们要理解到方案的权衡，或者更常见的说法，trade off。
+
+              通俗来说，在同样的实现指标下，如果你的硬件性能不够优秀，那么你就需要着手优化你的算法来达成这个指标；如果你无法优化你的算法，那么你就只能升级你的硬件。
+
+              这是一个笼统的说法，因为软硬件的选择也是一个trade off的过程。整个方案设计的过程本身就是不断的在软硬件之间进行权衡。
+
+              notes: 软硬件权衡是方案设计的基本方法——算法不够就升级硬件，硬件不够就优化算法。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 硬件权衡：OpenMV
+
+              <div class="panel" style="padding: 28px; position: relative;">
+                <span style="position: absolute; top: -10px; left: 24px; display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(255, 80, 80, 0.2); color: #ff8a8a; font-size: clamp(14px, 0.9vw, 18px); font-weight: 600;">不推荐</span>
+
+                <div style="margin-top: 16px;">
+                  <p>它的性能及其有限，最高也就是STM32H750，但是一个模块价格却能够卖到400元。</p>
+                  <p>为什么呢？因为它的价格其实在软件支持上。一个不会视觉的人，拿到OpenMV之后，就可以在比较短的时间内跑出来一个Demo。这就是它的价值所在。</p>
+                  <p>但是在AI时代，在相对常见的硬件上跑出来一个Demo已经很容易了，因此不建议大家买OpenMV。</p>
+                  <p style="color: var(--ink-2);">（实际上我以前也不建议大家买OpenMV）。</p>
+                </div>
+              </div>
+
+              notes: OpenMV——性能有限、价格贵、价值在软件支持，AI时代不推荐。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 硬件权衡：树莓派
+
+              <div class="panel" style="padding: 28px; position: relative;">
+                <span style="position: absolute; top: -10px; left: 24px; display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(255, 80, 80, 0.2); color: #ff8a8a; font-size: clamp(14px, 0.9vw, 18px); font-weight: 600;">不推荐</span>
+
+                <div style="margin-top: 16px;">
+                  <p>同时期内它的性能比较好。很多人一来听到Linux开发板首先知道的就是树莓派。</p>
+                  <p>但是同样的，我认为它的价格相对硬件来说依然偏贵了。它同样有非常好的软件支持。</p>
+                  <p>但是如果说嵌入式Linux是否推荐用树莓派来学习，依然是完全不推荐的。正是因为软件封装太好，所以很多细节无法接触到，就像你难以单纯用OpenMV深入学习视觉一样。</p>
+                </div>
+              </div>
+
+              notes: 树莓派——性能好、价格偏高、软件封装太好隐藏细节，学习不推荐。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 硬件权衡：香橙派
+
+              <div class="panel" style="padding: 28px;">
+                <p>这是国产派，并且是供人价格便宜的Linux板子。</p>
+                <p>性能不错，近几年的产品也都有NPU算力，CPU、GPU也都还不错。但是价格就是更便宜。</p>
+                <p>为什么呢？因为软件支持不好。平心而论，香橙派的文档还不错，但是全志和瑞芯微的文档就挺捞的了。</p>
+              </div>
+
+              notes: 香橙派——国产、便宜、有NPU，但芯片厂文档拉胯。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 硬件权衡：工业相机
+
+              <div class="panel" style="padding: 24px;">
+                <p>一个正儿八经能用的工业相机，七八百起步了，效果当然好，但是用不起，并且这个比赛也不至于要用工业相机。</p>
+              </div>
+
+              <div class="fragment fade-up" style="margin-top: 18px;">
+                <p style="color: var(--accent-c);">结论</p>
+                <p>所以就是使用数字摄像头。正常能用来打比赛的数字摄像头在几十到一两百之间，价格不等，这跟使用的模组以及镜头焦距、角度有关；这个水平的摄像头用来打比赛是足够的。</p>
+                <p>接口上我习惯于使用UVC免驱USB摄像头，如果使用MIPI等其他接口的需要自己权衡难度。</p>
+              </div>
+
+              notes: 工业相机太贵→用数字摄像头/UVC免驱即可。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 硬件权衡：廉价USB摄像头
+
+              <div class="panel" style="padding: 24px; position: relative;">
+                <span style="position: absolute; top: -10px; left: 24px; display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(255, 80, 80, 0.2); color: #ff8a8a; font-size: clamp(14px, 0.9vw, 18px); font-weight: 600;">不推荐</span>
+
+                <div style="margin-top: 16px;">
+                  <p>更低一些的比如十几块的电脑USB摄像头，其运动模糊太过严重，帧率与噪点也非常之严重，已经难以满足比赛的需求了。</p>
+                </div>
+              </div>
+
+              <div class="fragment fade-up" style="margin-top: 18px;">
+                <p>不过，如果是使用深度学习算法的话，摄像头可以稍微捞一点，而传统视觉算法则需要获取质量更稳定的图像，无法使用过于便宜的摄像头——</p>
+                <p style="color: var(--accent-b); font-size: clamp(22px, 1.5vw, 32px);">这也是权衡的一部分。</p>
+              </div>
+
+              notes: 廉价USB运动模糊严重，但深度学习可以稍微容忍差画质——这也是权衡。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 软件权衡：方案概览
+
+              <div class="panel" style="padding: 24px;">
+                <p>上面我们主要介绍了一些硬件上的选择，不过并没有展开来建议大家到底选择哪个，因为归根结底软硬件是协同的，如果我们在设计软件方案之前就敲定硬件方案，这完全是不负责任的。</p>
+              </div>
+
+              <div class="fragment fade-up" style="margin-top: 18px;">
+                <p>下面我们来比较几种可能使用的软件方案：</p>
+                <ul>
+                  <li>首先排除二维码扫描，这个就是一个zbar库调用的事情了，没什么好说的。后面实践到这一部分的时候再详述。</li>
+                  <li>而对于后面两项事务，也就是旋转台上物料的识别以及圆环识别，我们可以选择使用传统视觉算法或者深度学习算法来实现。</li>
+                </ul>
+              </div>
+
+              notes: 软件方案概述——二维码zbar，旋转台和圆环用传统CV或深度学习。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 软件权衡：传统视觉算法
+
+              <div class="panel" style="padding: 24px;">
+                <p>首先是传统视觉算法。通常来说对于不同颜色的物料处理手段都差不多。</p>
+                <p>转换到HSV空间，设定颜色阈值，进行二值化处理，之后进行一些形态学操作来去除噪点，最后进行轮廓检测来识别物料的位置，如果是圆环部分，轮廓检测之后可以做霍夫圆变换来确认这个圆并找到圆心位置。</p>
+                <p>这其中大部分操作都不算很费算力，霍夫圆变换相对费算力一些，如果实在算力缺失可以考虑用其他特征来约束这个圆，比方说取你选定的那个轮廓的三点来计算这个圆，取多组三点剔除离群点求平均，按道理来说也可以取得一个不错的效果。</p>
+                <p style="color: var(--ink-2);">这方法是我写slide的时候临时想到的，如果感兴趣的话可以自己实现一下。</p>
+              </div>
+
+              notes: 传统视觉管道——HSV→二值化→形态学→轮廓→霍夫圆/三点拟合。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 软件权衡：背景分离算法
+
+              <div class="panel" style="padding: 24px;">
+                <p>除了上面这种老一套之外，考虑到我们旋转台的旋转特点，我们也可以考虑做一个背景分离算法来找到运动物体，与我们颜色分割的结果AND一下，依次剔除掉环境中可能存在的静态干扰物体的影响。</p>
+                <p style="margin-top: 16px;">背景分离算法的基本原理也很好理解，想象一下对两帧做差我们可以得到什么——</p>
+                <p style="color: var(--ink-2);">实际实现要更为复杂，但原理上差不多。</p>
+              </div>
+
+              notes: 背景分离——帧差法+颜色分割AND，剔除静态干扰。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 软件权衡：深度学习算法
+
+              <div class="panel" style="padding: 24px;">
+                <p>而深度学习算法就比较力大砖飞了，如果不想面对各种传统方法调试过程的玄学问题，并且算力也还行（至少是有一些硬件算力的），那么深度学习算法就能节省大量的实践，最关键的是很省心，不太担心出现在自家调的时候正常到了场地出岔子的情况。</p>
+              </div>
+
+              <div class="fragment fade-up" style="margin-top: 18px;">
+                <p>深度学习算法的权衡在于使用什么模型。使用不同的模型，那么需要的算力和达成的效果都不一样。</p>
+                <ul>
+                  <li>如果你算力充足，最出名的YOLO或者说其实现ultralytics当然基本最优先选择。</li>
+                  <li>但是如果算力不太充足，就要考虑用更小的模型甚至于自己设计一个小模型了。</li>
+                </ul>
+                <p style="margin-top: 12px; color: var(--ink-2);">实际上硬件算力的分类以及特点也值得单独拿出来说道。</p>
+              </div>
+
+              notes: 深度学习——力大砖飞，省心、鲁棒，关键在模型选择与算力的权衡。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 算力硬件分类
+
+              <div class="cards" style="grid-template-columns: repeat(2, 1fr); gap: 14px;">
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-a);">CPU</h3>
+                  <p>通用性强，适合处理各种类型的任务，但在处理大规模并行计算时效率较低。但也有一些CPU有专门的SIMD指令集扩展（如AVX、NEON、RVV等）来加速特定类型的计算任务。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-c);">GPU</h3>
+                  <p>适合处理大规模并行计算任务，尤其是在训练和推理深度神经网络时表现出色。很多嵌入式GPU都是Mali GPU，支持OpenCL等通用计算接口，较新的也支持Vulkan。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-b);">NPU</h3>
+                  <p>专门为神经网络计算设计的ASIC，高效低功耗。通过厂家支持的软件框架来使用（如瑞芯微RKNN），一些常见算子会被固定下来以提升效率。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: #e8a0ff;">FPGA</h3>
+                  <p>可编程逻辑器件，具有高度的灵活性和并行处理能力。在视觉算法中可以用于加速特定的计算任务，如卷积操作，但开发周期较长，开发成本较高。</p>
+                </div>
+              </div>
+
+              notes: 四种算力硬件——CPU通用、GPU并行、NPU高效、FPGA灵活但开发成本高。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 我们会采用的方案
+
+              <div class="panel" style="padding: 24px;">
+                <p>之前我们提到，我们要权衡使用传统算法与深度学习算法，以及所需算力与硬件实际算力。那么是否可以找到一个方案既使用深度学习算法又不需要太高算力以至于在入门级的Linux板子上就能跑起来呢？</p>
+                <p style="color: var(--accent-a); font-size: clamp(24px, 1.5vw, 34px); margin-top: 16px;">答案是肯定的。</p>
+              </div>
+
+              <div class="fragment fade-up" style="margin-top: 18px;">
+                <p>神经网络模型除了本身的层数会影响算力需求，通道数也同样会影响。如果我们一开始只输入一个灰度图像，那么我们的输入形状实际上是(1, 224, 224, 1)，而不是更常用的(1, 224, 224, 3)，这就已经节省了一大半的算力。</p>
+                <p>而本身这个图像也很简单，那么我们也不需要太多层数来处理它。没有必要用yolo模型或者层数很多的通用模型来处理这个问题，我们完全可以自己设计一个小模型来处理这个问题。可以用卷积层来提取特征，最后用全连接层来输出结果，这样的模型结构非常简单，算力需求也不高，完全可以在入门级的Linux板子上跑起来。</p>
+                <p>而对于颜色需求，我们可以在使用灰度图得到物料位置之后，再回到原图上提取ROI去分析颜色，并且在这种情况下分析颜色实际上只需要加起来求平均就能得到一个不错的颜色特征。</p>
+              </div>
+
+              notes: 我们的方案——灰度图(1,224,224,1)省一大半算力 + 自设计小模型 + ROI颜色平均。
+            </textarea>
+          </section>
+        </section>
+
+        <!-- ===== 章节：结语 ===== -->
+        <section data-transition="fade">
+          <section data-markdown>
+            <textarea data-template>
+              ## 结语
+
+              <div class="panel" style="padding: 28px;">
+                <p>回顾这一节，我们其实只聊了一个话题——<strong style="color: var(--accent-b);">权衡</strong>。</p>
+                <ul style="margin-top: 14px;">
+                  <li>硬件的选择是在性能、价格、开发难度之间权衡</li>
+                  <li>软件方案是在传统视觉的精准可控与深度学习的鲁棒省心之间权衡</li>
+                  <li>甚至连选个摄像头，都要在画质和预算之间权衡</li>
+                </ul>
+              </div>
+
+              <div class="panel fragment fade-up" style="padding: 24px; margin-top: 16px; border-color: rgba(131, 232, 255, 0.3);">
+                <p style="color: var(--accent-a); font-size: clamp(22px, 1.5vw, 34px);">
+                  方案设计没有银弹。你做的每一个决定本质上都是在回答同一个问题：<strong>你的资源（算力、时间、预算、开发能力）和你的目标之间，怎么匹配最划算？</strong>
+                </p>
+                <p style="margin-top: 16px;">
+                  这一节我们把这些选项都摆在了桌面上，但并没有给出一个"标准答案"——因为本来就不存在标准答案。不同的队伍、不同的预算、不同的技术水平，适合的方案都不一样。
+                </p>
+                <p style="margin-top: 12px; color: var(--accent-b);">
+                  <strong>能够根据自己手里的牌，做出最适合自己的选择，这才是方案设计的能力。</strong>
+                </p>
+              </div>
+
+              <p class="fragment fade-up" style="margin-top: 20px; color: var(--ink-2);">
+                下一节，我们开始进入实战环节，聊聊搭建一个完整的视觉系统需要哪些基础设施，以及怎么把这些基础设施搭起来。
+              </p>
+
+              notes: 收尾——权衡没有标准答案，根据自己手里的牌做选择，下一节进入实战。
+            </textarea>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

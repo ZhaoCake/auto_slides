@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基础设施建设与开发环境</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-bg" aria-hidden="true"></div>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- ===== 章节：开场 ===== -->
+        <section data-transition="zoom">
+          <section data-markdown>
+            <textarea data-template>
+              **智能物流赛道 · 视觉开发第1课**
+
+              # 基础设施建设与开发环境
+
+              基础设施建设极其重要，如果没有良好的基础设施建设，开发与调试就会进入到想一出是一出的境地。
+              <!-- .element: class="lead" -->
+
+              <div class="cover-tags">
+                <span>基础设施</span>
+                <span>开发环境</span>
+                <span>Linux</span>
+                <span>WSL</span>
+              </div>
+
+              notes: 开场：基础设施建设的重要性——避免想一出是一出的开发方式。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 引言
+
+              基础设施建设极其重要，如果没有良好的基础设施建设，开发与调试就会进入到想一出是一出的境地，因此基础设施的建设是极其重要的。
+
+              而开发环境实际上也是基础设施的一部分，只是它过于重要，因此我们会单独把它拿出来讲。
+
+              notes: 开发环境是基础设施的一部分，单独拿出来重点讲。
+            </textarea>
+          </section>
+        </section>
+
+        <!-- ===== 章节：基础设施建设 ===== -->
+        <section data-transition="convex">
+          <section data-markdown data-state="chapter-cover">
+            <textarea data-template>
+              ## 基础设施建设
+              <!-- .element: class="lead" -->
+
+              notes: 什么是基础设施建设？提前为可预见的问题做准备。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 什么是基础设施建设？
+
+              <div class="panel" style="padding: 24px;">
+                <p>很简单一个道理，如果你之后可预见有一个必然会遇到的问题，那么你就应该提前做好准备，做好准备的过程就是基础设施建设，可复用的准备就是你的基础设施。</p>
+                <p style="margin-top: 14px;">由于我们进行二维码扫描的开发一定会需要二维码，那么我们应该找出如何生成符合条件的二维码，是调试时即时生成还是各个情况生成之后打印成纸质备用；由于我们视觉开发需要有视觉图像，那么我们应该准备如何获取到开发阶段的视觉图像，是做个仿真模型还是实物，是在摄像头装到车上录像还是直接用手机录像。</p>
+                <p style="margin-top: 14px; color: var(--accent-b);">我们需不需要打印物料？需不需要准备地图？这不仅是视觉需要考虑的，也是整个团队在预研过程中需要考虑清楚的。</p>
+              </div>
+
+              notes: 可预见的困难提前准备——二维码、图像源、物料、地图，全团队考虑。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 我们还需要什么基础设施
+
+              <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-a);">数据标注平台</h3>
+                  <p>上一节讲到我们将会使用神经网络，因此当然就会需要一个数据标注平台来对你的数据进行标注。</p>
+                  <p style="margin-top: 8px; color: var(--accent-c);">推荐使用 LabelStudio</p>
+                  <p>功能比较全，支持多种标注类型，界面也比较友好。其他选择：LabelImg、LabelMe。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-c);">版本控制工具</h3>
+                  <p>无论是个人开发还是团队开发，版本控制工具都是必不可少的。</p>
+                  <p style="margin-top: 8px;">推荐使用 <strong>Git</strong>，配合 GitHub、Codeberg 等平台进行代码托管和协作。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-b);">板卡连接工具</h3>
+                  <p>对于嵌入式Linux开发来说，常见的连接工具有 SSH、串口终端（如 PuTTY、minicom）等。</p>
+                  <p style="margin-top: 8px;">建议熟悉这些工具的使用，以便于调试和部署。</p>
+                </div>
+              </div>
+
+              notes: 三件基础设施——数据标注(LabelStudio)、版本控制(Git)、板卡连接(SSH/串口)。
+            </textarea>
+          </section>
+        </section>
+
+        <!-- ===== 章节：开发环境的建设 ===== -->
+        <section data-transition="slide">
+          <section data-markdown data-state="chapter-cover">
+            <textarea data-template>
+              ## 开发环境的建设
+              <!-- .element: class="lead" -->
+
+              notes: 不要一开始就在嵌入式Linux上搞开发。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 开发策略
+
+              <div class="panel" style="padding: 28px;">
+                <p style="font-size: clamp(26px, 1.7vw, 36px); line-height: 1.6;">
+                  前面我们提到，我们将会使用嵌入式Linux设备作为我们视觉的算力平台，但是我们真的要一开始就在这样一个性能孱弱的嵌入式Linux设备上面搞开发吗？
+                </p>
+                <p style="color: var(--accent-b); font-size: clamp(32px, 2.2vw, 48px); margin-top: 20px; text-align: center;">
+                  答案是否定的。
+                </p>
+              </div>
+
+              notes: 核心观点——不要在性能孱弱的嵌入式设备上开始开发。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## 三种开发方式
+
+              <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-a);">传统视觉</h3>
+                  <p>如果你使用传统视觉开发算法，你没有依赖问题，你完全可以在PC上开发。甚至于如果你是一个纯Python的程序，你直接使用Windows也没有问题。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-c);">深度学习</h3>
+                  <p>你完全可以在PC上进行开发，对于推理部分使用ONNX这种兼容性好的格式，等到框架流程都走通，再移植到具体的算力平台与板卡上。</p>
+                </div>
+                <div class="card fragment fade-up">
+                  <h3 style="color: var(--accent-b);">C++</h3>
+                  <p>建议一开始就在 Linux 环境下开发。Windows 上调通的代码可能会因为 POSIX 专有 API 或 Linux 特有的系统调用而无法直接编译。GPIO、I2C、SPI 这些硬件接口 Windows 上根本没有——直接从 Linux 环境起步可以避免后期移植时踩坑。</p>
+                </div>
+              </div>
+
+              notes: 三种开发方式——传统CV随便、DL用ONNX、C++直接Linux起步。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## Linux 环境的选择
+
+              <div class="panel" style="padding: 24px;">
+                <p>常见的Linux环境选择主要有这样几种：</p>
+                <p style="margin: 16px 0; font-size: clamp(22px, 1.5vw, 32px); text-align: center; color: var(--accent-a);">
+                  <strong>虚拟机Linux · 真机/双系统Linux · WSL Linux · Docker</strong>
+                </p>
+                <p>推荐使用WSL，也就是Windows Subsystem for Linux。WSL是微软提供的一个在Windows上运行Linux环境的工具，使用WSL可以让你在Windows上直接运行Linux命令行工具和应用程序，而不需要安装虚拟机或双系统。</p>
+                <p style="margin-top: 10px;">如果有兴趣也可以使用物理机（真机）Linux。</p>
+              </div>
+
+              notes: 四种Linux环境选择，推荐WSL。
+            </textarea>
+          </section>
+
+          <section data-markdown>
+            <textarea data-template>
+              ## WSL 搭建与学习建议
+
+              <div class="panel" style="padding: 24px;">
+                <p>Linux环境的使用，大部分操作现在已经可以在不断查找AI或者直接使用Coding Agent来完成了，但我依然建议针对Linux的常用命令与逻辑进行基本的学习。</p>
+
+                <div class="panel" style="margin-top: 14px; padding: 14px 20px; background: rgba(131, 232, 255, 0.06); border-color: rgba(131, 232, 255, 0.2);">
+                  <p style="color: var(--accent-a);">推荐资料：<strong>Linux101 教程</strong>（https://101.lug.ustc.edu.cn/）</p>
+                </div>
+
+                <p style="margin-top: 14px;">关于WSL环境具体的搭建，推荐微软官方文档，你也可以让AI解决，现在WSL案例已经是一行命令就解决，不用再自己进行各种设置了。</p>
+
+                <div class="panel" style="margin-top: 14px; padding: 10px 18px; background: rgba(255, 210, 122, 0.08); border-color: rgba(255, 210, 122, 0.3);">
+                  <p style="color: var(--accent-b); font-size: clamp(20px, 1.3vw, 28px;">
+                    如果你查了文档发现要这样做，建议尽早放弃使用CSDN。
+                  </p>
+                </div>
+              </div>
+
+              notes: WSL一行命令安装，学习Linux101教程，放弃CSDN。
+            </textarea>
+          </section>
+        </section>
+
+        <!-- ===== 章节：总结 ===== -->
+        <section data-transition="fade">
+          <section data-markdown>
+            <textarea data-template>
+              ## 总结
+
+              <div class="panel" style="padding: 28px;">
+                <p>基础设施建设是一个重要的环节，好的基础设施可以大大提高开发效率和调试效率。我们需要根据项目的需求和团队的情况来选择合适的基础设施，并且在开发过程中不断完善和优化这些基础设施，以支持我们的开发工作。</p>
+              </div>
+
+              <p class="fragment fade-up" style="margin-top: 20px; color: var(--accent-a);">
+                下面我们在实际进入到一个Linux环境中，使用Git初始化我们的项目并进行一次提交，并为我们的仓库设置上游以进行备份。这就算作是我们的项目正式启动了。
+              </p>
+
+              notes: 总结——好基础设施提高效率，下节正式用Git初始化项目。
+            </textarea>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
