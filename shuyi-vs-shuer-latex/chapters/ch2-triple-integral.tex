@@ -1,0 +1,111 @@
+% 第二章：三重积分
+
+\section{三重积分}
+
+数二只涉及二重积分，即在平面区域上对二元函数的积分。数一引入了三重积分，将积分的维度从二维提升到三维。三重积分的本质是在空间立体上"累加"一个三元函数的值，其物理原型包括计算变密度立体的质量、立体的转动惯量等。但三重积分的意义远不止于多了一个维度——它揭示了积分从低维到高维的统一结构，并为后续的曲面积分和场论公式提供了必要的舞台。
+
+\subsection{从二重到三重：维度的跃迁}
+
+\subsubsection{三重积分的定义}
+
+设 $f(x,y,z)$ 是空间有界闭区域 $\Omega$ 上的有界函数。将 $\Omega$ 任意分成 $n$ 个小立体 $\Delta v_i$，在每个小立体中任取一点 $(\xi_i, \eta_i, \zeta_i)$，作和式 $\sum_{i=1}^n f(\xi_i, \eta_i, \zeta_i)\Delta v_i$。当各小立体的最大直径 $\lambda\to 0$ 时，若此和式的极限存在，则称此极限为 $f$ 在 $\Omega$ 上的三重积分：
+\[
+\iiint_\Omega f(x,y,z)\,\mathrm{d}v = \lim_{\lambda\to 0}\sum_{i=1}^n f(\xi_i, \eta_i, \zeta_i)\Delta v_i
+\]
+
+\begin{essencebox}
+三重积分与二重积分在本质上是完全相同的——都是"分割、近似、求和、取极限"四步法的体现。维度的增加只改变了积分区域的几何形态和分割方式，但积分的思想内核——用微元上的局部近似来累积整体量——从未改变。理解这一点后，从二重到三重的推广是自然的、甚至是必然的。
+\end{essencebox}
+
+\subsubsection{物理原型}
+
+三重积分最直观的物理原型是\textbf{变密度立体的质量}。设立体 $\Omega$ 的密度函数为 $\rho(x,y,z)$，则立体的质量为：
+\[
+M = \iiint_\Omega \rho(x,y,z)\,\mathrm{d}v
+\]
+
+当 $\rho\equiv 1$ 时，三重积分退化为立体的体积 $V = \iiint_\Omega \mathrm{d}v$，这与二重积分中 $A = \iint_D \mathrm{d}\sigma$ 给出面积完全平行。
+
+\subsection{三重积分的计算方法}
+
+\subsubsection{先一后二法（投影法）}
+
+先一后二法的核心思想是：先将空间立体 $\Omega$ 投影到 $xy$ 平面上得到区域 $D$，然后对每个 $(x,y)\in D$，$z$ 的范围从下曲面 $z=z_1(x,y)$ 到上曲面 $z=z_2(x,y)$：
+\[
+\iiint_\Omega f(x,y,z)\,\mathrm{d}v = \iint_D \left[\int_{z_1(x,y)}^{z_2(x,y)} f(x,y,z)\,\mathrm{d}z\right]\mathrm{d}\sigma
+\]
+
+\begin{insightbox}
+\textbf{推理步骤}：先一后二法的逻辑
+\begin{enumerate}[leftmargin=2em]
+    \item 三重积分在空间立体 $\Omega$ 上进行，$\Omega$ 介于两个曲面之间
+    \item 将 $\Omega$ 投影到 $xy$ 平面得到区域 $D$
+    \item 对每个 $(x,y)\in D$，$z$ 的范围从 $z_1(x,y)$ 到 $z_2(x,y)$
+    \item 先对 $z$ 积分（内层），再对 $(x,y)$ 在 $D$ 上积分（外层）
+    \item 这就是"先一后二"——先积一个变量，再积两个变量
+\end{enumerate}
+\end{insightbox}
+
+\subsubsection{先二后一法（截面法）}
+
+先二后一法的思想是：先将 $\Omega$ 用垂直于 $z$ 轴的平面截成薄片，每个薄片的截面为 $D_z$，然后对每个 $z$，先在截面 $D_z$ 上积分，再对 $z$ 积分：
+\[
+\iiint_\Omega f(x,y,z)\,\mathrm{d}v = \int_{c_1}^{c_2} \left[\iint_{D_z} f(x,y,z)\,\mathrm{d}\sigma\right]\mathrm{d}z
+\]
+
+\subsubsection{柱坐标变换}
+
+柱坐标 $(r, \theta, z)$ 与直角坐标的关系为 $x=r\cos\theta$，$y=r\sin\theta$，$z=z$。体积元素为 $\mathrm{d}v = r\,\mathrm{d}r\,\mathrm{d}\theta\,\mathrm{d}z$。
+
+柱坐标适用于积分区域关于 $z$ 轴有旋转对称性的情形。因子 $r$ 来自极坐标变换的 Jacobian，其几何意义是：在极坐标中，面积元素 $\mathrm{d}\sigma = r\,\mathrm{d}r\,\mathrm{d}\theta$，$r$ 越大，同样的 $\mathrm{d}r\,\mathrm{d}\theta$ 对应的面积越大。
+
+\subsubsection{球坐标变换}
+
+球坐标 $(\rho, \varphi, \theta)$ 与直角坐标的关系为 $x=\rho\sin\varphi\cos\theta$，$y=\rho\sin\varphi\sin\theta$，$z=\rho\cos\varphi$。体积元素为 $\mathrm{d}v = \rho^2\sin\varphi\,\mathrm{d}\rho\,\mathrm{d}\varphi\,\mathrm{d}\theta$。
+
+\begin{insightbox}
+\textbf{推理步骤}：为什么体积元素是 $\rho^2\sin\varphi$？
+\begin{enumerate}[leftmargin=2em]
+    \item 在球坐标中，$\rho$ 变化 $\mathrm{d}\rho$ 对应径向长度 $\mathrm{d}\rho$
+    \item $\varphi$ 变化 $\mathrm{d}\varphi$ 对应经线方向弧长 $\rho\,\mathrm{d}\varphi$
+    \item $\theta$ 变化 $\mathrm{d}\theta$ 对应纬线方向弧长 $\rho\sin\varphi\,\mathrm{d}\theta$
+    \item 三个微元近似构成一个长方体，体积为 $\mathrm{d}v = \mathrm{d}\rho \cdot \rho\,\mathrm{d}\varphi \cdot \rho\sin\varphi\,\mathrm{d}\theta = \rho^2\sin\varphi\,\mathrm{d}\rho\,\mathrm{d}\varphi\,\mathrm{d}\theta$
+    \item 因子 $\rho^2$ 来自两个方向的弧长都正比于 $\rho$；因子 $\sin\varphi$ 来自极角方向的"纬度收缩"——在两极附近（$\varphi\approx 0$ 或 $\pi$），同样的 $\mathrm{d}\varphi\,\mathrm{d}\theta$ 对应的面积更小。这与地球上的经纬度网格类似：赤道附近一个"经纬格"的面积远大于极地附近。
+\end{enumerate}
+\end{insightbox}
+
+\subsubsection{坐标系的选取原则}
+
+\begin{table}[htbp]
+\centering
+\caption{三种坐标系的适用场景}
+\begin{tabularx}{0.95\textwidth}{llX}
+\toprule
+\textbf{坐标系} & \textbf{体积元素} & \textbf{适用场景} \\
+\midrule
+直角坐标 & $\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z$ & 积分区域为长方体或由平面围成 \\
+柱坐标 & $r\,\mathrm{d}r\,\mathrm{d}\theta\,\mathrm{d}z$ & 积分区域关于 $z$ 轴有旋转对称性，含 $x^2+y^2$ 项 \\
+球坐标 & $\rho^2\sin\varphi\,\mathrm{d}\rho\,\mathrm{d}\varphi\,\mathrm{d}\theta$ & 积分区域为球体、球壳或含 $x^2+y^2+z^2$ 项 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{如何促进其他部分的理解}
+
+\begin{connectionbox}
+\textbf{1. 深化对二重积分的理解}
+
+三重积分是二重积分的自然推广，理解三重积分后回看二重积分，会发现二重积分的所有性质（线性性、可加性、保序性、中值定理）在三重积分中都有完全平行的对应。这种平行性揭示了积分理论的\textbf{统一结构}：积分的本质不依赖于维数。
+
+\textbf{2. 为高斯公式提供必要舞台}
+
+高斯公式 $\oiint_\Sigma \vec{F}\cdot\mathrm{d}\vec{S} = \iiint_\Omega \nabla\cdot\vec{F}\,\mathrm{d}v$ 将曲面积分与三重积分联系起来。没有三重积分，高斯公式就无法表述。高斯公式是场论中最核心的定理之一，它揭示了"边界上的通量"与"区域内的源"之间的深刻关系。
+
+\textbf{3. 为物理应用提供数学框架}
+
+三重积分在物理学中的应用极为广泛：电磁学中的高斯定律 $\oiint \vec{E}\cdot\mathrm{d}\vec{S} = \frac{1}{\varepsilon_0}\iiint \rho\,\mathrm{d}v$、流体力学的连续性方程、热传导方程等，都涉及三重积分。理解三重积分是理解这些物理定律的数学前提。
+
+\textbf{4. 坐标变换思想的深化}
+
+从直角坐标到极坐标（二重积分），再到柱坐标和球坐标（三重积分），坐标变换的思想一脉相承。Jacobian 行列式 $|J|$ 的引入使得坐标变换有了统一的公式：$\mathrm{d}v = |J|\,\mathrm{d}u\,\mathrm{d}v\,\mathrm{d}w$。三重积分中的 Jacobian 计算比二重积分更复杂，但原理完全相同，这加深了对坐标变换本质的理解。
+\end{connectionbox}
