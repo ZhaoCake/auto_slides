@@ -1,0 +1,10 @@
+[project]
+name = "qr-code-tools"
+version = "0.1.0"
+description = "二维码生成与识别工具"
+requires-python = ">=3.10"
+dependencies = [
+    "qrcode[pil]",
+    "opencv-python",
+    "pyzbar",
+]
