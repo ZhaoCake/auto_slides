@@ -1,0 +1,142 @@
+% 第六章：傅里叶级数
+
+\section{傅里叶级数}
+
+数二的级数部分只涉及幂级数（泰勒级数），即用多项式逼近函数。数一额外引入了傅里叶级数——用三角函数逼近周期函数。傅里叶级数的核心思想与泰勒级数截然不同：泰勒展开关注函数在一点附近的局部信息，而傅里叶展开关注函数在全局周期上的频率信息。这种从"局部"到"全局"、从"幂次"到"频率"的视角转换，是数学思维的一次重大跃迁。
+
+\subsection{从泰勒到傅里叶：两种逼近的哲学}
+
+\subsubsection{泰勒展开：局部信息的提取}
+
+泰勒级数 $f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$ 的本质是：利用函数在一点 $x_0$ 处的各阶导数信息，构造一个多项式来逼近函数。泰勒展开的哲学是\textbf{局部决定全局}——只要知道函数在一点处的"无穷小行为"（各阶导数），就能推断函数在附近的值。
+
+但泰勒展开有明显的局限：它只能逼近光滑函数（需要无穷阶可导），且逼近只在收敛域内有效，收敛域可能很小。
+
+\subsubsection{傅里叶展开：全局频率的分解}
+
+傅里叶级数的本质是：将一个周期函数分解为不同频率的正弦和余弦函数的叠加：
+\[
+f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \left(a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l}\right)
+\]
+
+傅里叶展开的哲学是\textbf{全局频率分析}——它不关注函数在某一点的局部行为，而是关注函数在整个周期上的"频率成分"。即使函数不光滑（如分段连续），只要满足 Dirichlet 条件，傅里叶级数就能收敛。
+
+\begin{essencebox}
+泰勒展开和傅里叶展开代表了两种根本不同的函数分析哲学：
+
+\textbf{泰勒}：局部 $\to$ 全局。用一点处的导数信息（局部）来重构函数（全局）。基函数是 $\{1, x, x^2, \ldots\}$（单项式），它们在一点附近有良好的逼近性。
+
+\textbf{傅里叶}：全局 $\to$ 频率。用整个周期上的函数值（全局）来提取频率成分。基函数是 $\{1, \cos x, \sin x, \cos 2x, \sin 2x, \ldots\}$（三角函数），它们天然适合描述周期现象。
+
+这两种展开方式的选择取决于问题的性质：研究局部行为用泰勒，研究周期行为用傅里叶。
+\end{essencebox}
+
+\subsection{正交函数系：傅里叶级数的代数基础}
+
+\subsubsection{正交性的定义}
+
+在区间 $[-l, l]$ 上，三角函数系 $\{1, \cos\frac{n\pi x}{l}, \sin\frac{n\pi x}{l}\}_{n=1}^\infty$ 满足正交关系：
+\[
+\int_{-l}^{l} \cos\frac{m\pi x}{l}\cos\frac{n\pi x}{l}\,\mathrm{d}x = \begin{cases} 0, & m\neq n \\ l, & m=n \end{cases}
+\]
+\[
+\int_{-l}^{l} \sin\frac{m\pi x}{l}\sin\frac{n\pi x}{l}\,\mathrm{d}x = \begin{cases} 0, & m\neq n \\ l, & m=n \end{cases}
+\]
+\[
+\int_{-l}^{l} \cos\frac{m\pi x}{l}\sin\frac{n\pi x}{l}\,\mathrm{d}x = 0, \quad \forall m, n
+\]
+
+\begin{essencebox}
+正交性的本质是\textbf{不同频率的三角函数互不干扰}。就像不同频率的声波可以独立传播一样，不同频率的三角函数在内积意义下相互正交。这使得傅里叶系数可以独立计算——第 $n$ 个系数只依赖于 $f$ 与第 $n$ 个基函数的"重叠程度"，不受其他基函数的影响。
+
+这种正交性是傅里叶级数最重要的代数性质。没有正交性，傅里叶系数就无法独立计算，傅里叶级数的理论将变得极其复杂。
+\end{essencebox}
+
+\subsubsection{傅里叶系数的计算}
+
+利用正交性，可以独立计算每个傅里叶系数：
+\[
+a_0 = \frac{1}{l}\int_{-l}^{l} f(x)\,\mathrm{d}x
+\]
+\[
+a_n = \frac{1}{l}\int_{-l}^{l} f(x)\cos\frac{n\pi x}{l}\,\mathrm{d}x, \quad n = 1, 2, 3, \ldots
+\]
+\[
+b_n = \frac{1}{l}\int_{-l}^{l} f(x)\sin\frac{n\pi x}{l}\,\mathrm{d}x, \quad n = 1, 2, 3, \ldots
+\]
+
+\begin{insightbox}
+\textbf{推理步骤}：如何从正交性得到傅里叶系数？
+\begin{enumerate}[leftmargin=2em]
+    \item 设 $f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty (a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l})$
+    \item 两边乘以 $\cos\frac{m\pi x}{l}$，在 $[-l,l]$ 上积分
+    \item 由正交性，右边只有 $a_m$ 项的积分不为零：$\int_{-l}^l a_m\cos^2\frac{m\pi x}{l}\,\mathrm{d}x = a_m \cdot l$
+    \item 因此 $a_m = \frac{1}{l}\int_{-l}^l f(x)\cos\frac{m\pi x}{l}\,\mathrm{d}x$
+    \item 类似地，乘以 $\sin\frac{m\pi x}{l}$ 可得 $b_m$ 的公式
+\end{enumerate}
+\end{insightbox}
+
+\subsection{Dirichlet 收敛定理}
+
+若 $f(x)$ 在 $[-l, l]$ 上满足 Dirichlet 条件：（1）连续或只有有限个第一类间断点；（2）只有有限个极值点，则 $f(x)$ 的傅里叶级数收敛，且：
+\[
+\frac{a_0}{2} + \sum_{n=1}^\infty \left(a_n\cos\frac{n\pi x}{l} + b_n\sin\frac{n\pi x}{l}\right) = \begin{cases} f(x), & x\text{ 为连续点} \\ \frac{f(x^-)+f(x^+)}{2}, & x\text{ 为间断点} \end{cases}
+\]
+
+\subsection{正弦级数与余弦级数}
+
+若 $f(x)$ 是奇函数，则 $a_n = 0$（$n = 0, 1, 2, \ldots$），傅里叶级数退化为\textbf{正弦级数}：
+\[
+f(x) = \sum_{n=1}^\infty b_n\sin\frac{n\pi x}{l}
+\]
+
+若 $f(x)$ 是偶函数，则 $b_n = 0$（$n = 1, 2, \ldots$），傅里叶级数退化为\textbf{余弦级数}：
+\[
+f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n\cos\frac{n\pi x}{l}
+\]
+
+\begin{essencebox}
+正弦级数和余弦级数的本质是\textbf{利用对称性简化计算}。奇函数的傅里叶级数只有正弦项，偶函数只有余弦项——这不是巧合，而是正交性的必然结果。正弦函数是奇函数，余弦函数是偶函数，奇函数与偶函数在内积意义下正交：$\int_{-l}^l \text{奇}\cdot\text{偶}\,\mathrm{d}x = 0$。因此，奇函数的展开中余弦系数为零，偶函数的展开中正弦系数为零。
+\end{essencebox}
+
+\subsection{复数形式的傅里叶级数}
+
+利用欧拉公式 $e^{inx} = \cos(nx) + i\sin(nx)$，傅里叶级数可以写成更简洁的复数形式：
+\[
+f(x) = \sum_{n=-\infty}^{\infty} c_n e^{i\frac{n\pi x}{l}}
+\]
+其中
+\[
+c_n = \frac{1}{2l}\int_{-l}^{l} f(x)e^{-i\frac{n\pi x}{l}}\,\mathrm{d}x
+\]
+
+复数形式的优势在于：
+\begin{itemize}[leftmargin=2em]
+    \item 公式更简洁，只需一个系数 $c_n$ 代替 $a_n$ 和 $b_n$
+    \item 正频率和负频率对称出现，$c_{-n} = \overline{c_n}$（共轭对称）
+    \item 为傅里叶变换（从周期到非周期）的过渡提供了自然的桥梁
+\end{itemize}
+
+\subsection{如何促进其他部分的理解}
+
+\begin{connectionbox}
+\textbf{1. 深化对级数收敛性的理解}
+
+傅里叶级数的收敛性（Dirichlet 条件）与幂级数的收敛性（收敛半径）形成了鲜明对比。幂级数的收敛域是一个区间，由比值法或根值法确定；傅里叶级数的收敛性由函数的整体性质（而非局部光滑性）决定。这种对比深化了对"收敛"这一概念的理解——收敛不仅取决于函数本身，还取决于展开所用的基函数系。
+
+\textbf{2. 深化对正交性的理解}
+
+傅里叶级数是正交展开的最重要实例。正交性在数二中已经出现（如施密特正交化），但傅里叶级数提供了最直观、最实用的正交展开案例。理解了三角函数系的正交性，就能理解为什么傅里叶系数可以独立计算，以及为什么傅里叶级数具有"最佳逼近"性质（在均方意义下）。
+
+\textbf{3. 为积分变换奠定基础}
+
+傅里叶级数是傅里叶变换的离散版本。当周期 $l\to\infty$ 时，傅里叶级数过渡为傅里叶变换，求和过渡为积分，离散频率过渡为连续频率。傅里叶变换是信号处理、量子力学、偏微分方程等领域的核心工具，而傅里叶级数是理解傅里叶变换的起点。
+
+\textbf{4. 促进对偏微分方程的理解}
+
+分离变量法求解偏微分方程（如热传导方程、波动方程）的核心步骤就是将解展开为傅里叶级数。傅里叶级数将偏微分方程转化为常微分方程组（每个频率分量独立演化），大大简化了求解过程。不理解傅里叶级数，就无法理解分离变量法。
+
+\textbf{5. 从"时域"到"频域"的思维转换}
+
+傅里叶级数引入了"频域分析"的思维方式：同一个信号既可以在时域（$x$ 域）中描述，也可以在频域（$n$ 域）中描述。时域描述告诉我们"信号在何时取何值"，频域描述告诉我们"信号包含哪些频率成分"。这种双视角的思维方式在信号处理、通信工程、图像处理等领域至关重要。
+\end{connectionbox}

@@ -1,0 +1,871 @@
+% !TEX program = xelatex
+% 概率统计考研核心公式 - 强化版（变形与推导）
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8,heading=true]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\geometry{left=2.2cm,right=2.2cm,top=2.5cm,bottom=2.5cm}
+
+\tcbuselibrary{skins,breakable}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{31,78,121}
+\definecolor{accentred}{RGB}{192,0,0}
+\definecolor{softgreen}{RGB}{0,128,0}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{warnorange}{RGB}{204,102,0}
+\definecolor{derivepurple}{RGB}{102,0,153}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{mainblue}概率统计考研核心公式}
+\fancyhead[R]{\small\color{mainblue}强化版（变形与推导）}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 标题样式
+\titleformat{\section}{\Large\bfseries\color{mainblue}}{第\thesection 章}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{mainblue!80!black}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{mainblue!60!black}}{\thesubsubsection}{0.5em}{}
+
+% 自定义环境
+\newtcolorbox{variation}[1][]{
+  enhanced,
+  colback=lightgray,
+  colframe=mainblue,
+  boxrule=0.6pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=8pt,yshift=-8pt},
+  boxed title style={colback=mainblue,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\newtcolorbox{derivation}[1][]{
+  enhanced,
+  colback=derivepurple!5,
+  colframe=derivepurple,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=8pt,yshift=-8pt},
+  boxed title style={colback=derivepurple,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\newtcolorbox{examtip}[1][]{
+  enhanced,
+  colback=warnorange!8,
+  colframe=warnorange,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=6pt,yshift=-7pt},
+  boxed title style={colback=warnorange,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\newtcolorbox{keypoint}[1][]{
+  enhanced,
+  colback=softgreen!5,
+  colframe=softgreen,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=6pt,yshift=-7pt},
+  boxed title style={colback=softgreen,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=mainblue,
+  bookmarksopen=true,
+  pdfstartview=FitH
+}
+
+\title{\textbf{\color{mainblue}概率论与数理统计考研核心公式}\\\large 强化版：变形与推导}
+\author{考研复习资料}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{examtip}[使用说明]
+本手册聚焦考研中\textbf{公式的变形形式}与\textbf{关键推导过程}，帮助考生理解公式本质、应对灵活考题。每个专题包含：\textbf{变形形式}（考研常考的等价写法与推广）、\textbf{推导过程}（理解公式来源）、\textbf{考点提示}（命题角度与解题技巧）。建议在掌握全公式版和挖空版后使用本册进行强化提升。
+\end{examtip}
+
+\tableofcontents
+\newpage
+
+%==================================================
+\section{随机事件与概率}
+%==================================================
+
+\subsection{加法公式的多种变形}
+
+\begin{variation}[加法公式的一般形式与变形]
+\textbf{两事件：}
+\[
+P(A\cup B) = P(A)+P(B)-P(AB).
+\]
+\textbf{三事件：}
+\[
+P(A\cup B\cup C) = P(A)+P(B)+P(C)-P(AB)-P(AC)-P(BC)+P(ABC).
+\]
+\textbf{变形 1（用对立事件）：}
+\[
+P(A\cup B) = 1 - P(\bar A\,\bar B) = 1 - P(\overline{A\cup B}).
+\]
+\textbf{变形 2（条件概率形式）：}
+\[
+P(A\cup B) = P(A) + P(B) - P(A)P(B\mid A) \quad (P(A)>0).
+\]
+\textbf{变形 3（差事件）：}
+\[
+P(A-B) = P(A) - P(AB) = P(A\bar B).
+\]
+\end{variation}
+
+\begin{derivation}[三事件加法公式推导]
+利用 $A\cup B\cup C = (A\cup B)\cup C$ 及两事件加法公式：
+\begin{align*}
+P(A\cup B\cup C) &= P(A\cup B) + P(C) - P((A\cup B)C) \\
+&= P(A)+P(B)-P(AB)+P(C)-P(AC\cup BC) \\
+&= P(A)+P(B)+P(C)-P(AB)-[P(AC)+P(BC)-P(ABC)] \\
+&= P(A)+P(B)+P(C)-P(AB)-P(AC)-P(BC)+P(ABC).
+\end{align*}
+\textbf{规律：}奇数个事件交的概率取正号，偶数个取负号（容斥原理）。
+\end{derivation}
+
+\begin{examtip}[考点提示]
+考研常考"至少发生一个"的概率，优先用对立事件 $P(A\cup B\cup C)=1-P(\bar A\bar B\bar C)$ 简化计算；当事件独立时，$P(\bar A\bar B\bar C)=P(\bar A)P(\bar B)P(\bar C)$ 尤为简便。
+\end{examtip}
+
+\subsection{全概率公式与贝叶斯公式的变形}
+
+\begin{variation}[完备事件组的常见选取]
+\textbf{变形 1（二划分）：}取 $A$ 与 $\bar A$ 作划分：
+\[
+P(B) = P(A)P(B\mid A) + P(\bar A)P(B\mid \bar A).
+\]
+\textbf{变形 2（多阶段划分）：}若试验分两阶段，第一阶段结果 $A_1,\dots,A_n$ 为划分，第二阶段结果 $B$ 的概率用全概率公式。
+\textbf{变形 3（贝叶斯的"后验"形式）：}
+\[
+P(A_k\mid B) = \frac{P(A_k)P(B\mid A_k)}{P(B)}, \quad P(B)=\sum_i P(A_i)P(B\mid A_i).
+\]
+\textbf{变形 4（连续型全概率）：}若 $X$ 有密度 $f(x)$，$Y\mid X=x \sim$ 条件密度 $f_{Y|X}(y|x)$，则
+\[
+f_Y(y) = \int_{-\infty}^{+\infty} f_{Y|X}(y|x)\,f_X(x)\,dx.
+\]
+\end{variation}
+
+\begin{derivation}[贝叶斯公式推导]
+由条件概率定义：
+\[
+P(A_k\mid B) = \frac{P(A_k B)}{P(B)}.
+\]
+分子用乘法公式：$P(A_k B)=P(A_k)P(B\mid A_k)$；
+分母用全概率公式：$P(B)=\sum_{i=1}^n P(A_i)P(B\mid A_i)$。
+代入即得贝叶斯公式。
+\end{derivation}
+
+\begin{keypoint}[解题模板]
+\textbf{全概率/贝叶斯题型四步法：}
+\begin{enumerate}[leftmargin=2em]
+  \item 识别"原因"（完备事件组 $A_1,\dots,A_n$）与"结果"（事件 $B$）；
+  \item 计算/给出先验概率 $P(A_i)$ 和条件概率 $P(B\mid A_i)$；
+  \item 全概率：$P(B)=\sum P(A_i)P(B\mid A_i)$；
+  \item 贝叶斯：$P(A_k\mid B)=\dfrac{P(A_k)P(B\mid A_k)}{P(B)}$。
+\end{enumerate}
+\end{keypoint}
+
+\subsection{独立性的等价条件与反例}
+
+\begin{variation}[独立性的等价表述]
+$A$ 与 $B$ 独立 $\iff$ 以下任一成立：
+\begin{enumerate}[leftmargin=2em]
+  \item $P(AB)=P(A)P(B)$；
+  \item $P(A\mid B)=P(A)$（$P(B)>0$）；
+  \item $P(A\mid \bar B)=P(A)$（$P(\bar B)>0$）；
+  \item $P(A\mid B)=P(A\mid \bar B)$（$P(B)P(\bar B)>0$）；
+  \item $A$ 与 $\bar B$ 独立；$\bar A$ 与 $B$ 独立；$\bar A$ 与 $\bar B$ 独立。
+\end{enumerate}
+\end{variation}
+
+\begin{examtip}[经典反例：两两独立但不相互独立]
+掷一枚均匀骰子，$A=\{1,2,3,4\}$，$B=\{1,2,5,6\}$，$C=\{1,3,5,7\}$（此处用 8 面骰）。
+可验证 $P(AB)=P(A)P(B)$，$P(AC)=P(A)P(C)$，$P(BC)=P(B)P(C)$（两两独立），
+但 $P(ABC)\neq P(A)P(B)P(C)$（不相互独立）。
+\textbf{结论：}两两独立 $\nRightarrow$ 相互独立。
+\end{examtip}
+
+%==================================================
+\section{随机变量及其分布}
+%==================================================
+
+\subsection{二项分布的近似与变形}
+
+\begin{variation}[二项分布的两种近似]
+\textbf{泊松近似（$n$ 大 $p$ 小）：}当 $n\geq 20$，$p\leq 0.05$，$np=\lambda$ 适中时：
+\[
+\binom{n}{k}p^k(1-p)^{n-k} \approx \frac{\lambda^k e^{-\lambda}}{k!}, \quad \lambda=np.
+\]
+\textbf{正态近似（$n$ 大 $p$ 适中）：}当 $n$ 大时（棣莫弗--拉普拉斯）：
+\[
+Y_n \sim B(n,p) \Rightarrow \frac{Y_n - np}{\sqrt{np(1-p)}} \overset{\cdot}{\sim} N(0,1).
+\]
+\textbf{变形（标准化计算）：}
+\[
+P(a \leq Y_n \leq b) \approx \Phi\!\left(\frac{b+0.5-np}{\sqrt{np(1-p)}}\right) - \Phi\!\left(\frac{a-0.5-np}{\sqrt{np(1-p)}}\right).
+\]
+\end{variation}
+
+\begin{examtip}[连续性修正]
+用正态近似二项分布时，离散值用 $\pm 0.5$ 修正（连续性修正），提高精度。例如 $P(Y_n=k)\approx P(k-0.5<Y_n<k+0.5)$。
+\end{examtip}
+
+\subsection{正态分布的线性变换与可加性}
+
+\begin{variation}[正态分布的性质]
+\textbf{线性变换：}若 $X\sim N(\mu,\sigma^2)$，则 $aX+b\sim N(a\mu+b, a^2\sigma^2)$（$a\neq 0$）。
+\textbf{标准化：}$Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$。
+\textbf{独立正态可加性：}若 $X_i\sim N(\mu_i,\sigma_i^2)$ 独立，则
+\[
+\sum_{i=1}^n X_i \sim N\!\left(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma_i^2\right).
+\]
+\textbf{线性组合：}$Y=\sum c_i X_i \sim N\!\left(\sum c_i\mu_i, \sum c_i^2\sigma_i^2\right)$（独立时）。
+\end{variation}
+
+\begin{derivation}[线性变换推导]
+设 $X\sim N(\mu,\sigma^2)$，$Y=aX+b$（$a>0$），用分布函数法：
+\[
+F_Y(y) = P(aX+b\leq y) = P\!\left(X\leq \frac{y-b}{a}\right) = \Phi\!\left(\frac{(y-b)/a - \mu}{\sigma}\right) = \Phi\!\left(\frac{y-(a\mu+b)}{a\sigma}\right).
+\]
+求导得 $f_Y(y)=\dfrac{1}{a\sigma}\varphi\!\left(\dfrac{y-(a\mu+b)}{a\sigma}\right)$，即 $Y\sim N(a\mu+b, a^2\sigma^2)$。
+$a<0$ 时类似（注意绝对值）。
+\end{derivation}
+
+\begin{keypoint}[$3\sigma$ 原则与查表技巧]
+\begin{itemize}[leftmargin=2em]
+  \item $P(|X-\mu|<\sigma)\approx 0.6827$，$P(|X-\mu|<2\sigma)\approx 0.9545$，$P(|X-\mu|<3\sigma)\approx 0.9973$；
+  \item $\Phi(-x)=1-\Phi(x)$（对称性）；
+  \item $P(X\leq x)=\Phi\!\left(\dfrac{x-\mu}{\sigma}\right)$；
+  \item $P(X>x)=1-\Phi\!\left(\dfrac{x-\mu}{\sigma}\right)=\Phi\!\left(\dfrac{\mu-x}{\sigma}\right)$。
+\end{itemize}
+\end{keypoint}
+
+\subsection{随机变量函数分布的公式法推导}
+
+\begin{derivation}[公式法 $f_Y(y)=f_X(h(y))|h'(y)|$ 的推导]
+设 $Y=g(X)$，$g$ 严格单调递增、可导，反函数 $x=h(y)$。
+\[
+F_Y(y) = P(Y\leq y) = P(g(X)\leq y) = P(X\leq h(y)) = F_X(h(y)).
+\]
+求导（链式法则）：
+\[
+f_Y(y) = F_Y'(y) = f_X(h(y))\cdot h'(y).
+\]
+若 $g$ 严格单调递减，则 $P(g(X)\leq y)=P(X\geq h(y))=1-F_X(h(y))$，求导得 $f_Y(y)=-f_X(h(y))h'(y)$。
+由于递减时 $h'(y)<0$，故 $-h'(y)=|h'(y)|$。合并两种情况：
+\[
+f_Y(y) = f_X(h(y))\cdot |h'(y)|.
+\]
+\end{derivation}
+
+\begin{variation}[分段单调的处理]
+若 $g(x)$ 在区间 $I_1,I_2,\dots$ 上分别单调，反函数 $h_1(y),h_2(y),\dots$，则
+\[
+f_Y(y) = \sum_{j} f_X(h_j(y))\cdot |h_j'(y)|.
+\]
+\textbf{经典例：}$Y=X^2$，$X\sim N(0,1)$，则 $f_Y(y)=\dfrac{1}{\sqrt{2\pi y}}e^{-y/2}$，$y>0$（自由度为 1 的 $\chi^2$ 分布）。
+\end{variation}
+
+\begin{examtip}[常见函数的密度]
+\begin{itemize}[leftmargin=2em]
+  \item $Y=aX+b$（$a\neq 0$）：$f_Y(y)=\dfrac{1}{|a|}f_X\!\left(\dfrac{y-b}{a}\right)$；
+  \item $Y=X^2$（$X$ 对称于 0）：$f_Y(y)=\dfrac{1}{\sqrt{y}}\bigl[f_X(\sqrt y)+f_X(-\sqrt y)\bigr]$，$y>0$；
+  \item $Y=e^X$：$f_Y(y)=f_X(\ln y)\cdot\dfrac{1}{y}$，$y>0$。
+\end{itemize}
+\end{examtip}
+
+%==================================================
+\section{数字特征}
+%==================================================
+
+\subsection{期望与方差的性质汇总}
+
+\begin{variation}[期望与方差的运算性质]
+\textbf{期望的线性性（无需独立）：}
+\[
+E\!\left(\sum_{i=1}^n a_i X_i\right) = \sum_{i=1}^n a_i E(X_i).
+\]
+\textbf{乘积的期望：}
+\[
+E(XY) = E(X)E(Y) + \mathrm{Cov}(X,Y).
+\]
+独立时 $\mathrm{Cov}(X,Y)=0$，故 $E(XY)=E(X)E(Y)$。
+
+\textbf{方差的可加性（需独立或已知协方差）：}
+\[
+D\!\left(\sum_{i=1}^n a_i X_i\right) = \sum_{i=1}^n a_i^2 D(X_i) + 2\sum_{i<j} a_i a_j\,\mathrm{Cov}(X_i,X_j).
+\]
+独立时协方差项为 0，简化为 $D\!\left(\sum a_i X_i\right)=\sum a_i^2 D(X_i)$。
+\end{variation}
+
+\begin{derivation}[{方差公式 $D(X)=E(X^2)-[E(X)]^2$ 的推导}]
+\begin{align*}
+D(X) &= E\bigl[(X-E(X))^2\bigr] = E\bigl[X^2 - 2XE(X) + (E(X))^2\bigr] \\
+&= E(X^2) - 2E(X)\cdot E(X) + [E(X)]^2 \quad (\text{线性性})\\
+&= E(X^2) - [E(X)]^2.
+\end{align*}
+\textbf{关键：}$E(X)$ 是常数，可提出期望符号；$E[E(X)]=E(X)$。
+\end{derivation}
+
+\begin{examtip}[常见分布的期望方差速查]
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+分布 & 记号 & $E(X)$ & $D(X)$ \\
+\midrule
+0--1 分布 & $B(1,p)$ & $p$ & $p(1-p)$ \\
+二项分布 & $B(n,p)$ & $np$ & $np(1-p)$ \\
+泊松分布 & $P(\lambda)$ & $\lambda$ & $\lambda$ \\
+均匀分布 & $U(a,b)$ & $\dfrac{a+b}{2}$ & $\dfrac{(b-a)^2}{12}$ \\
+正态分布 & $N(\mu,\sigma^2)$ & $\mu$ & $\sigma^2$ \\
+指数分布 & $\mathrm{Exp}(\lambda)$ & $\dfrac{1}{\lambda}$ & $\dfrac{1}{\lambda^2}$ \\
+几何分布 & $\mathrm{Geo}(p)$ & $\dfrac{1}{p}$ & $\dfrac{1-p}{p^2}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{examtip}
+
+\subsection{协方差与相关系数的变形}
+
+\begin{variation}[协方差与相关系数的等价形式]
+\textbf{协方差的变形：}
+\[
+\mathrm{Cov}(X,Y) = E(XY)-E(X)E(Y) = E\bigl[(X-E(X))(Y-E(Y))\bigr].
+\]
+\textbf{相关系数的变形：}
+\[
+\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}} = \frac{E(XY)-E(X)E(Y)}{\sqrt{D(X)}\sqrt{D(Y)}}.
+\]
+\textbf{标准化变量的协方差：}令 $X^*=\dfrac{X-E(X)}{\sqrt{D(X)}}$，$Y^*=\dfrac{Y-E(Y)}{\sqrt{D(Y)}}$，则
+\[
+\rho_{XY} = \mathrm{Cov}(X^*, Y^*) = E(X^* Y^*).
+\]
+\textbf{方差与协方差的关系：}
+\[
+D(X\pm Y) = D(X)+D(Y)\pm 2\,\mathrm{Cov}(X,Y).
+\]
+\end{variation}
+
+\begin{derivation}[$|\rho|\leq 1$ 的证明（柯西--施瓦茨不等式）]
+对任意实数 $t$，令 $Z=t(X-E(X))+(Y-E(Y))$，则 $D(Z)\geq 0$：
+\[
+D(Z) = t^2 D(X) + 2t\,\mathrm{Cov}(X,Y) + D(Y) \geq 0.
+\]
+这是关于 $t$ 的二次非负式，判别式 $\leq 0$：
+\[
+[2\,\mathrm{Cov}(X,Y)]^2 - 4\,D(X)\,D(Y) \leq 0 \implies \mathrm{Cov}(X,Y)^2 \leq D(X)\,D(Y).
+\]
+即 $|\rho_{XY}|\leq 1$。等号成立 $\iff Z=0$ a.s. $\iff Y$ 是 $X$ 的线性函数。
+\end{derivation}
+
+\begin{keypoint}[独立与不相关的等价条件]
+\begin{itemize}[leftmargin=2em]
+  \item 独立 $\Rightarrow$ 不相关（$\rho=0$），\textbf{反之不成立}；
+  \item \textbf{二维正态分布}：独立 $\iff$ 不相关（$\rho=0$）；
+  \item 不相关 $\iff \mathrm{Cov}(X,Y)=0$ $\iff E(XY)=E(X)E(Y)$ $\iff D(X\pm Y)=D(X)+D(Y)$。
+\end{itemize}
+\end{keypoint}
+
+\subsection{随机变量和的期望与方差}
+
+\begin{variation}[和的数字特征]
+\textbf{期望（无条件）：}$E(X+Y)=E(X)+E(Y)$。
+
+\textbf{方差：}
+\[
+D(X+Y)=D(X)+D(Y)+2\,\mathrm{Cov}(X,Y), \quad D(X-Y)=D(X)+D(Y)-2\,\mathrm{Cov}(X,Y).
+\]
+独立时：$D(X\pm Y)=D(X)+D(Y)$。
+
+\textbf{样本均值的数字特征：}$X_1,\dots,X_n$ 独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2$：
+\[
+E(\bar X)=\mu, \quad D(\bar X)=\frac{\sigma^2}{n}, \quad E(S^2)=\sigma^2.
+\]
+\end{variation}
+
+\begin{derivation}[$E(S^2)=\sigma^2$ 的证明（无偏性）]
+\begin{align*}
+\sum_{i=1}^n (X_i-\bar X)^2 &= \sum_{i=1}^n \bigl[(X_i-\mu)-(\bar X-\mu)\bigr]^2 \\
+&= \sum_{i=1}^n (X_i-\mu)^2 - n(\bar X-\mu)^2.
+\end{align*}
+取期望：
+\[
+E\!\left[\sum_{i=1}^n (X_i-\bar X)^2\right] = n\sigma^2 - n\cdot\frac{\sigma^2}{n} = (n-1)\sigma^2.
+\]
+故 $E(S^2)=E\!\left[\dfrac{1}{n-1}\sum(X_i-\bar X)^2\right]=\sigma^2$（无偏）。
+
+若除以 $n$（即 $B_2$），则 $E(B_2)=\dfrac{n-1}{n}\sigma^2\neq\sigma^2$（有偏）。
+\end{derivation}
+
+%==================================================
+\section{大数定律与中心极限定理}
+%==================================================
+
+\subsection{切比雪夫不等式的应用与变形}
+
+\begin{variation}[切比雪夫不等式的变形]
+\textbf{标准形式：}
+\[
+P(|X-E(X)|\geq \varepsilon) \leq \frac{D(X)}{\varepsilon^2}.
+\]
+\textbf{等价形式：}
+\[
+P(|X-E(X)|<\varepsilon) \geq 1 - \frac{D(X)}{\varepsilon^2}.
+\]
+\textbf{取 $\varepsilon=k\sqrt{D(X)}$（$k$ 倍标准差）：}
+\[
+P(|X-E(X)|\geq k\sqrt{D(X)}) \leq \frac{1}{k^2}.
+\]
+\textbf{应用于样本均值：}$X_1,\dots,X_n$ 独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2$：
+\[
+P(|\bar X-\mu|\geq \varepsilon) \leq \frac{D(\bar X)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2}.
+\]
+\end{variation}
+
+\begin{derivation}[切比雪夫不等式推导]
+设 $X$ 的期望 $\mu$，方差 $\sigma^2$，密度 $f(x)$（离散型类似）。
+\begin{align*}
+D(X) &= \int_{-\infty}^{+\infty} (x-\mu)^2 f(x)\,dx \\
+&\geq \int_{|x-\mu|\geq \varepsilon} (x-\mu)^2 f(x)\,dx \quad (\text{缩小积分域})\\
+&\geq \int_{|x-\mu|\geq \varepsilon} \varepsilon^2 f(x)\,dx \quad (|x-\mu|^2\geq \varepsilon^2)\\
+&= \varepsilon^2 P(|X-\mu|\geq \varepsilon).
+\end{align*}
+移项得 $P(|X-\mu|\geq \varepsilon)\leq \dfrac{D(X)}{\varepsilon^2}$。
+\end{derivation}
+
+\begin{examtip}[应用场景]
+切比雪夫不等式用于\textbf{估计概率范围}（不知分布只知期望方差时）；考研中常用于证明题或估计题，注意它给出的是\textbf{上界}，实际概率通常更小。
+\end{examtip}
+
+\subsection{中心极限定理的标准化变形}
+
+\begin{variation}[中心极限定理的实用形式]
+\textbf{一般形式（独立同分布）：}$X_1,\dots,X_n$ 独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2$：
+\[
+\frac{\sum_{i=1}^n X_i - n\mu}{\sqrt{n}\sigma} \overset{\cdot}{\sim} N(0,1) \quad (n\text{ 大}).
+\]
+\textbf{样本均值形式：}
+\[
+\frac{\bar X - \mu}{\sigma/\sqrt n} \overset{\cdot}{\sim} N(0,1), \quad \bar X \overset{\cdot}{\sim} N\!\left(\mu, \frac{\sigma^2}{n}\right).
+\]
+\textbf{二项分布形式（棣莫弗--拉普拉斯）：}$Y_n\sim B(n,p)$：
+\[
+\frac{Y_n - np}{\sqrt{np(1-p)}} \overset{\cdot}{\sim} N(0,1).
+\]
+\textbf{频率形式：}
+\[
+\frac{n_A/n - p}{\sqrt{p(1-p)/n}} \overset{\cdot}{\sim} N(0,1).
+\]
+\end{variation}
+
+\begin{derivation}[棣莫弗--拉普拉斯定理是 CLT 的特例]
+设 $X_i$ 为第 $i$ 次伯努利试验的结果（$X_i\sim B(1,p)$），则 $Y_n=\sum_{i=1}^n X_i\sim B(n,p)$。
+$E(X_i)=p$，$D(X_i)=p(1-p)$，由 CLT：
+\[
+\frac{\sum X_i - np}{\sqrt{n\,p(1-p)}} = \frac{Y_n - np}{\sqrt{np(1-p)}} \overset{\cdot}{\sim} N(0,1).
+\]
+\end{derivation}
+
+\begin{keypoint}[CLT 解题模板]
+\textbf{四步法：}
+\begin{enumerate}[leftmargin=2em]
+  \item 识别独立同分布序列 $X_1,\dots,X_n$，计算 $\mu=E(X_i)$，$\sigma^2=D(X_i)$；
+  \item 写出和 $S_n=\sum X_i$ 或均值 $\bar X$；
+  \item 标准化：$Z=\dfrac{S_n-n\mu}{\sqrt n\sigma}$ 或 $Z=\dfrac{\bar X-\mu}{\sigma/\sqrt n}$；
+  \item 用 $\Phi$ 表查值：$P(a<S_n<b)\approx \Phi\!\left(\dfrac{b-n\mu}{\sqrt n\sigma}\right)-\Phi\!\left(\dfrac{a-n\mu}{\sqrt n\sigma}\right)$。
+\end{enumerate}
+\end{keypoint}
+
+\begin{examtip}[易错：标准化分母]
+\textbf{常见错误：}分母写成 $\sigma$ 或 $n\sigma$。
+\textbf{正确：}和的标准化分母为 $\sqrt{n}\sigma=\sqrt{n\sigma^2}=\sqrt{D(\sum X_i)}$；均值的标准化分母为 $\sigma/\sqrt n=\sqrt{D(\bar X)}$。
+\textbf{记忆口诀：}"标准化 = (统计量 $-$ 期望) $/$ 标准差"。
+\end{examtip}
+
+%==================================================
+\section{数理统计的基本概念}
+%==================================================
+
+\subsection{三大抽样分布的构造与性质}
+
+\begin{variation}[三大分布的构造与可加性]
+\textbf{$\chi^2$ 分布：}
+\begin{itemize}[leftmargin=2em]
+  \item 构造：$X_1,\dots,X_n\sim N(0,1)$ 独立 $\Rightarrow$ $\sum X_i^2\sim\chi^2(n)$；
+  \item 期望方差：$E=n$，$D=2n$；
+  \item 可加性：$\chi^2_1(n_1)+\chi^2_2(n_2)\sim\chi^2(n_1+n_2)$（独立时）；
+  \item 变形：$\sum_{i=1}^n\!\left(\dfrac{X_i-\mu}{\sigma}\right)^2\sim\chi^2(n)$（$\mu,\sigma$ 已知）。
+\end{itemize}
+
+\textbf{$t$ 分布：}
+\begin{itemize}[leftmargin=2em]
+  \item 构造：$X\sim N(0,1)$，$Y\sim\chi^2(n)$ 独立 $\Rightarrow$ $T=\dfrac{X}{\sqrt{Y/n}}\sim t(n)$；
+  \item 对称性：关于 $y$ 轴对称，$t_{1-\alpha}(n)=-t_\alpha(n)$；
+  \item 极限：$t(n)\xrightarrow{d}N(0,1)$（$n\to\infty$，一般 $n>30$ 可用正态近似）。
+\end{itemize}
+
+\textbf{$F$ 分布：}
+\begin{itemize}[leftmargin=2em]
+  \item 构造：$X\sim\chi^2(n_1)$，$Y\sim\chi^2(n_2)$ 独立 $\Rightarrow$ $F=\dfrac{X/n_1}{Y/n_2}\sim F(n_1,n_2)$；
+  \item 倒数：$\dfrac{1}{F}\sim F(n_2,n_1)$；
+  \item 分位点：$F_{1-\alpha}(n_1,n_2)=\dfrac{1}{F_\alpha(n_2,n_1)}$。
+\end{itemize}
+\end{variation}
+
+\begin{derivation}[单正态总体抽样分布的推导]
+设 $X_1,\dots,X_n\sim N(\mu,\sigma^2)$。
+
+\textbf{(1) $\bar X$ 的分布：}正态分布线性组合仍正态：
+\[
+\bar X=\frac{1}{n}\sum X_i \sim N\!\left(\mu, \frac{\sigma^2}{n}\right), \quad \frac{\bar X-\mu}{\sigma/\sqrt n}\sim N(0,1).
+\]
+
+\textbf{(2) $\dfrac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$：}
+\[
+\sum_{i=1}^n\!\left(\frac{X_i-\mu}{\sigma}\right)^2 = \sum_{i=1}^n\!\left(\frac{X_i-\bar X}{\sigma}\right)^2 + n\!\left(\frac{\bar X-\mu}{\sigma}\right)^2.
+\]
+左边 $\sim\chi^2(n)$，右边第二项 $\sim\chi^2(1)$，且二者独立（$\bar X$ 与 $S^2$ 独立），故
+\[
+\sum_{i=1}^n\!\left(\frac{X_i-\bar X}{\sigma}\right)^2 = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1).
+\]
+
+\textbf{(3) $\dfrac{\bar X-\mu}{S/\sqrt n}\sim t(n-1)$：}
+\[
+\frac{\bar X-\mu}{\sigma/\sqrt n}\sim N(0,1), \quad \frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1), \quad \text{二者独立}.
+\]
+由 $t$ 分布构造：
+\[
+\frac{(\bar X-\mu)/(\sigma/\sqrt n)}{\sqrt{\frac{(n-1)S^2/\sigma^2}{n-1}}} = \frac{\bar X-\mu}{S/\sqrt n} \sim t(n-1).
+\]
+\end{derivation}
+
+\begin{keypoint}[$\bar X$ 与 $S^2$ 独立的重要性]
+\textbf{重要结论：}正态总体下，$\bar X$ 与 $S^2$ \textbf{相互独立}。这是构造 $t$ 统计量的关键，也是置信区间和假设检验的理论基础。非正态总体此结论不成立。
+\end{keypoint}
+
+\subsection{样本方差的两种定义对比}
+
+\begin{variation}[$S^2$ 与 $B_2$ 的关系]
+\[
+S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2, \quad B_2 = \frac{1}{n}\sum_{i=1}^n (X_i-\bar X)^2.
+\]
+\textbf{关系：}
+\[
+B_2 = \frac{n-1}{n}S^2, \quad S^2 = \frac{n}{n-1}B_2.
+\]
+\textbf{无偏性：}
+\[
+E(S^2)=\sigma^2 \text{（无偏）}, \quad E(B_2)=\frac{n-1}{n}\sigma^2 \text{（有偏）}.
+\]
+\textbf{渐近性：}$n\to\infty$ 时 $B_2\to S^2\to\sigma^2$。
+\end{variation}
+
+\begin{examtip}[何时用哪个]
+\textbf{区间估计与假设检验}中用 $S^2$（无偏）；\textbf{矩估计}中用 $B_2=A_2-\bar X^2$（按定义）；\textbf{最大似然估计}中视具体分布而定（正态总体 MLE 为 $B_2$）。
+\end{examtip}
+
+%==================================================
+\section{参数估计}
+%==================================================
+
+\subsection{矩估计的求解流程}
+
+\begin{variation}[矩估计的一般步骤]
+\textbf{单参数：}令 $E(X)=\bar X$（一阶矩等于样本一阶矩），解出参数。
+
+\textbf{双参数：}令方程组
+\[
+\begin{cases}
+E(X) = \bar X = A_1, \\
+E(X^2) = A_2 = \dfrac{1}{n}\sum X_i^2,
+\end{cases}
+\]
+解出两个参数。也可用 $D(X)=E(X^2)-[E(X)]^2$ 配合。
+
+\textbf{变形（用方差）：}若参数与方差有关，可令 $D(X)=B_2=\dfrac{1}{n}\sum(X_i-\bar X)^2$。
+\end{variation}
+
+\begin{derivation}[正态总体 $N(\mu,\sigma^2)$ 的矩估计]
+令
+\[
+\begin{cases}
+E(X) = \bar X \implies \mu = \bar X, \\
+E(X^2) = A_2 \implies \mu^2+\sigma^2 = A_2.
+\end{cases}
+\]
+代入 $\hat\mu=\bar X$：
+\[
+\hat\sigma^2 = A_2 - \bar X^2 = \frac{1}{n}\sum X_i^2 - \bar X^2 = \frac{1}{n}\sum(X_i-\bar X)^2 = B_2.
+\]
+\textbf{注意：}矩估计 $\hat\sigma^2=B_2$（有偏），与无偏估计 $S^2$ 不同。
+\end{derivation}
+
+\begin{examtip}[常见分布的矩估计]
+\begin{itemize}[leftmargin=2em]
+  \item $B(n,p)$（$n$ 已知）：$\hat p=\bar X/n$；
+  \item $P(\lambda)$：$\hat\lambda=\bar X$（也可用 $S^2$，因 $E=D=\lambda$）；
+  \item $U(a,b)$：$\hat a=\bar X-\sqrt{3}S_n$，$\hat b=\bar X+\sqrt{3}S_n$（$S_n^2=B_2$）；
+  \item $\mathrm{Exp}(\lambda)$：$\hat\lambda=\dfrac{1}{\bar X}$；
+  \item $N(\mu,\sigma^2)$：$\hat\mu=\bar X$，$\hat\sigma^2=B_2$。
+\end{itemize}
+\end{examtip}
+
+\subsection{最大似然估计的求解流程}
+
+\begin{variation}[MLE 求解步骤]
+\textbf{步骤 1：}构造似然函数
+\[
+L(\theta) = \prod_{i=1}^n f(x_i;\theta) \text{（连续）}, \quad L(\theta)=\prod_{i=1}^n P(X=x_i;\theta) \text{（离散）}.
+\]
+\textbf{步骤 2：}取对数 $\ln L(\theta)=\sum_{i=1}^n \ln f(x_i;\theta)$。
+
+\textbf{步骤 3：}求导令其为零 $\dfrac{\partial\ln L}{\partial\theta}=0$，解出 $\hat\theta$。
+
+\textbf{步骤 4（验证）：}确认是最大值（二阶导 $<0$ 或单调性分析）。
+
+\textbf{变形（无导数法）：}若 $L(\theta)$ 关于 $\theta$ 单调或不可导，直接求 $L$ 的最大值点。例如 $U(0,\theta)$ 的 MLE 为 $\hat\theta=X_{(n)}=\max X_i$（不能用求导法）。
+\end{variation}
+
+\begin{derivation}[正态总体 $N(\mu,\sigma^2)$ 的 MLE]
+\[
+L(\mu,\sigma^2) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x_i-\mu)^2}{2\sigma^2}} = (2\pi\sigma^2)^{-n/2} e^{-\frac{1}{2\sigma^2}\sum(x_i-\mu)^2}.
+\]
+取对数：
+\[
+\ln L = -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln\sigma^2 - \frac{1}{2\sigma^2}\sum(x_i-\mu)^2.
+\]
+分别对 $\mu,\sigma^2$ 求偏导令其为零：
+\[
+\frac{\partial\ln L}{\partial\mu} = \frac{1}{\sigma^2}\sum(x_i-\mu)=0 \implies \hat\mu=\bar X.
+\]
+\[
+\frac{\partial\ln L}{\partial\sigma^2} = -\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum(x_i-\mu)^2=0 \implies \hat\sigma^2=\frac{1}{n}\sum(x_i-\bar X)^2=B_2.
+\]
+\textbf{结论：}正态总体 MLE $\hat\mu=\bar X$，$\hat\sigma^2=B_2$（有偏）。
+\end{derivation}
+
+\begin{keypoint}[MLE 的不变性]
+若 $\hat\theta$ 是 $\theta$ 的 MLE，则 $g(\hat\theta)$ 是 $g(\theta)$ 的 MLE（$g$ 为单值函数，不必单调）。
+\textbf{例：}正态总体 $\sigma$ 的 MLE 为 $\hat\sigma=\sqrt{B_2}$（不是 $S$）。
+\end{keypoint}
+
+\subsection{区间估计的构造原理}
+
+\begin{variation}[区间估计的"枢轴量"法]
+\textbf{核心思想：}构造枢轴量 $G=G(\theta, X_1,\dots,X_n)$，其分布\textbf{不依赖} $\theta$，由分布表查分位点，反解出 $\theta$ 的区间。
+
+\textbf{正态总体枢轴量汇总：}
+\begin{center}
+\begin{tabular}{lcl}
+\toprule
+情形 & 枢轴量 & 分布 \\
+\midrule
+$\sigma^2$ 已知，估 $\mu$ & $\dfrac{\bar X-\mu}{\sigma/\sqrt n}$ & $N(0,1)$ \\
+$\sigma^2$ 未知，估 $\mu$ & $\dfrac{\bar X-\mu}{S/\sqrt n}$ & $t(n-1)$ \\
+$\mu$ 未知，估 $\sigma^2$ & $\dfrac{(n-1)S^2}{\sigma^2}$ & $\chi^2(n-1)$ \\
+$\mu$ 已知，估 $\sigma^2$ & $\dfrac{\sum(X_i-\mu)^2}{\sigma^2}$ & $\chi^2(n)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{variation}
+
+\begin{derivation}[$\sigma^2$ 置信区间的推导]
+枢轴量 $Q=\dfrac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1)$，分布不依赖 $\sigma^2$。
+由 $P\!\left(\chi^2_{1-\alpha/2}(n-1)\leq Q\leq \chi^2_{\alpha/2}(n-1)\right)=1-\alpha$，即
+\[
+\chi^2_{1-\alpha/2} \leq \frac{(n-1)S^2}{\sigma^2} \leq \chi^2_{\alpha/2}.
+\]
+反解 $\sigma^2$（注意不等式方向反转，因 $\sigma^2$ 在分母）：
+\[
+\frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)} \leq \sigma^2 \leq \frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)}.
+\]
+\textbf{关键：}$\chi^2$ 分布右偏，$\chi^2_{\alpha/2}>\chi^2_{1-\alpha/2}$，故大分位点对应小区间端点。
+\end{derivation}
+
+\begin{examtip}[分位点记忆口诀]
+\textbf{$z$/$t$ 区间}：对称分布，$\bar X\mp$（分位点）$\times$（标准误）；
+\textbf{$\chi^2$ 区间}：非对称，$(n-1)S^2$ 在分子，分母是 $\chi^2_{\alpha/2}$（小端）和 $\chi^2_{1-\alpha/2}$（大端），\textbf{大分位点对应左端点}。
+\end{examtip}
+
+%==================================================
+\section{假设检验}
+%==================================================
+
+\subsection{假设检验与区间估计的对偶关系}
+
+\begin{variation}[检验与置信区间的对偶]
+\textbf{对偶原理：}参数 $\theta$ 的水平 $1-\alpha$ 置信区间 $C$ 与显著性水平 $\alpha$ 的双侧检验 $H_0:\theta=\theta_0$ 对应：
+\[
+\theta_0 \in C \iff \text{接受 } H_0.
+\]
+
+\textbf{对应关系表（单正态总体）：}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+检验 & 统计量 & 对应置信区间 \\
+\midrule
+$\sigma^2$ 已知检 $\mu$ & $Z=\dfrac{\bar X-\mu_0}{\sigma/\sqrt n}$ & $\bar X\mp z_{\alpha/2}\dfrac{\sigma}{\sqrt n}$ \\
+$\sigma^2$ 未知检 $\mu$ & $T=\dfrac{\bar X-\mu_0}{S/\sqrt n}$ & $\bar X\mp t_{\alpha/2}(n-1)\dfrac{S}{\sqrt n}$ \\
+$\mu$ 未知检 $\sigma^2$ & $\chi^2=\dfrac{(n-1)S^2}{\sigma_0^2}$ & $\left(\dfrac{(n-1)S^2}{\chi^2_{\alpha/2}},\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2}}\right)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{variation}
+
+\begin{keypoint}[对偶关系的应用]
+\textbf{已知置信区间 $\Rightarrow$ 判断检验：}若 $\mu_0$ 落在 $\mu$ 的 $1-\alpha$ 置信区间内，则在水平 $\alpha$ 下接受 $H_0:\mu=\mu_0$；否则拒绝。
+\textbf{已知检验结果 $\Rightarrow$ 构造区间：}接受域即为置信区间。
+\end{keypoint}
+
+\subsection{单侧检验与双侧检验的拒绝域}
+
+\begin{variation}[拒绝域的确定规则]
+\textbf{双侧检验} $H_1:\theta\neq\theta_0$：拒绝域在两侧，用 $\alpha/2$ 分位点。
+\textbf{单侧检验} $H_1:\theta>\theta_0$（右侧）：拒绝域在右侧，用 $\alpha$ 分位点。
+\textbf{单侧检验} $H_1:\theta<\theta_0$（左侧）：拒绝域在左侧，用 $\alpha$ 分位点。
+
+\textbf{单正态总体均值检验拒绝域：}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+$H_1$ & $\sigma^2$ 已知（$Z$ 检验） & $\sigma^2$ 未知（$t$ 检验） \\
+\midrule
+$\mu\neq\mu_0$ & $|Z|>z_{\alpha/2}$ & $|T|>t_{\alpha/2}(n-1)$ \\
+$\mu>\mu_0$ & $Z>z_\alpha$ & $T>t_\alpha(n-1)$ \\
+$\mu<\mu_0$ & $Z<-z_\alpha$ & $T<-t_\alpha(n-1)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{方差检验拒绝域（$\mu$ 未知）：}
+\begin{itemize}[leftmargin=2em]
+  \item $H_1:\sigma^2\neq\sigma_0^2$：$\chi^2>\chi^2_{\alpha/2}(n-1)$ 或 $\chi^2<\chi^2_{1-\alpha/2}(n-1)$；
+  \item $H_1:\sigma^2>\sigma_0^2$：$\chi^2>\chi^2_\alpha(n-1)$；
+  \item $H_1:\sigma^2<\sigma_0^2$：$\chi^2<\chi^2_{1-\alpha}(n-1)$。
+\end{itemize}
+\end{variation}
+
+\begin{derivation}[双侧与单侧分位点的关系]
+双侧检验将 $\alpha$ 平分到两侧，每侧 $\alpha/2$，故用 $z_{\alpha/2}$（满足 $P(Z>z_{\alpha/2})=\alpha/2$）。
+单侧检验将全部 $\alpha$ 放一侧，故用 $z_\alpha$（满足 $P(Z>z_\alpha)=\alpha$）。
+\textbf{关系：}$z_{\alpha/2}>z_\alpha$（双侧临界值更大，更难拒绝）。
+\end{derivation}
+
+\subsection{两类错误与功效函数}
+
+\begin{variation}[两类错误的关系]
+\textbf{第一类错误（弃真）：}$\alpha=P(\text{拒}H_0\mid H_0\text{真})$；
+\textbf{第二类错误（取伪）：}$\beta=P(\text{接}H_0\mid H_0\text{假})$；
+\textbf{功效（1 $-$ 第二类错误）：}$1-\beta=P(\text{拒}H_0\mid H_0\text{假})$。
+
+\textbf{关系：}样本量固定时，$\alpha\downarrow \Rightarrow \beta\uparrow$；要同时减小 $\alpha,\beta$，需增大样本量 $n$。
+
+\textbf{显著性水平：}$\alpha$ 是犯第一类错误的上限，由检验者事先指定。
+\end{variation}
+
+\begin{derivation}[$\beta$ 的计算示例]
+设 $X\sim N(\mu,1)$，$H_0:\mu=0$ vs $H_1:\mu=1$，$n=25$，$\alpha=0.05$。
+检验统计量 $Z=\dfrac{\bar X-0}{1/\sqrt{25}}=5\bar X$，拒绝域 $|Z|>z_{0.025}=1.96$，即 $\bar X>0.392$ 或 $\bar X<-0.392$。
+
+当 $H_1$ 真（$\mu=1$）时，$\bar X\sim N(1, 1/25)$，$Z=5\bar X\sim N(5,1)$：
+\[
+\beta = P(\text{接}H_0\mid \mu=1) = P(-0.392\leq \bar X\leq 0.392\mid \mu=1) = P(-1.96\leq Z'\leq 0.392\times 5 - 5\mid Z'\sim N(5,1)).
+\]
+即 $\beta=\Phi(0)-\Phi(-5\times 1+1.96)\approx 0.5-0=\text{极小}$（此处简化说明思路）。
+\end{derivation}
+
+\begin{examtip}[考研重点]
+\textbf{常考：}(1) 给定 $\alpha$ 求拒绝域；(2) 计算检验统计量观测值判断；(3) $\beta$ 的计算（较少但需掌握思路）；(4) 对偶关系（置信区间判断检验）。
+\textbf{易错：}单侧检验方向由 $H_1$ 决定，不是由样本决定；$F$ 检验约定大方差放分子。
+\end{examtip}
+
+%==================================================
+\section{综合应用与跨模块联系}
+%==================================================
+
+\subsection{正态分布在各模块的贯穿}
+
+\begin{keypoint}[正态分布的核心地位]
+正态分布贯穿概率统计各模块：
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{概率计算：}标准化查 $\Phi$ 表；
+  \item \textbf{数字特征：}$E=\mu$，$D=\sigma^2$，线性变换仍正态；
+  \item \textbf{中心极限定理：}独立同分布和的极限分布为正态；
+  \item \textbf{抽样分布：}$\chi^2,t,F$ 均由正态变量构造；
+  \item \textbf{参数估计：}正态总体区间估计与假设检验体系完整；
+  \item \textbf{二维正态：}独立 $\iff$ 不相关（唯一例外）。
+\end{enumerate}
+\end{keypoint}
+
+\subsection{独立同分布条件的统一理解}
+
+\begin{variation}[独立同分布的应用场景]
+\textbf{辛钦大数定律：}独立同分布 $\Rightarrow$ $\bar X\xrightarrow{P}\mu$（矩估计理论依据）。
+
+\textbf{中心极限定理：}独立同分布 $\Rightarrow$ $\bar X\overset{\cdot}{\sim}N(\mu,\sigma^2/n)$（近似计算依据）。
+
+\textbf{抽样分布：}样本 $X_1,\dots,X_n$ 独立同分布（来自同一总体）$\Rightarrow$ 构造 $\chi^2,t,F$。
+
+\textbf{最大似然估计：}独立同分布 $\Rightarrow$ $L(\theta)=\prod f(x_i;\theta)$（似然函数构造）。
+
+\textbf{联系：}独立同分布是统计推断的\textbf{基本假设}，贯穿大数定律、中心极限定理、抽样分布、参数估计四大模块。
+\end{variation}
+
+\subsection{考研高频题型与公式对应}
+
+\begin{examtip}[高频题型公式速查]
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{求概率（古典/几何/公式）：}加法、乘法、全概率、贝叶斯；
+  \item \textbf{求分布（函数的分布）：}分布函数法、公式法（单调可导）；
+  \item \textbf{求期望方差：}定义法、性质法、分解法（$X=X_1+\cdots+X_n$）；
+  \item \textbf{协方差与相关系数：}$\mathrm{Cov}=E(XY)-E(X)E(Y)$，$\rho=\mathrm{Cov}/(\sigma_X\sigma_Y)$；
+  \item \textbf{切比雪夫估计：}$P(|X-\mu|\geq\varepsilon)\leq \sigma^2/\varepsilon^2$；
+  \item \textbf{CLT 近似计算：}标准化 $+$ 查 $\Phi$ 表；
+  \item \textbf{抽样分布识别：}正态 $\to\chi^2\to t\to F$ 的构造链；
+  \item \textbf{矩估计/MLE：}构造方程组/似然函数，求导令零；
+  \item \textbf{区间估计：}枢轴量法，查分位点；
+  \item \textbf{假设检验：}选统计量，定拒绝域，判断。
+\end{enumerate}
+\end{examtip}
+
+\end{document}

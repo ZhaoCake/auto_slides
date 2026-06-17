@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>概率统计考研核心公式 - 动态背记幻灯片</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/white.css" id="theme">
+
+<style>
+:root {
+  --main-blue: #1f4e79;
+  --accent-red: #c00000;
+  --soft-green: #008000;
+  --blank-yellow: #fff8dc;
+  --answer-green: #006400;
+  --light-gray: #f5f5f5;
+  --warn-orange: #cc6600;
+}
+
+.reveal {
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 32px;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: var(--main-blue);
+  text-transform: none;
+  text-shadow: none;
+}
+
+.reveal h1 { font-size: 1.8em; }
+.reveal h2 { font-size: 1.4em; }
+.reveal h3 { font-size: 1.1em; }
+.reveal h4 { font-size: 0.95em; color: var(--main-blue); }
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal .slides section.title-slide {
+  text-align: center;
+}
+
+/* 挖空样式 */
+.blank {
+  display: inline-block;
+  min-width: 80px;
+  padding: 2px 12px;
+  margin: 0 2px;
+  background: var(--blank-yellow);
+  border-bottom: 2px solid var(--accent-red);
+  border-radius: 3px;
+  color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+.blank.revealed {
+  color: var(--answer-green);
+  background: #f0fff0;
+  border-bottom-color: var(--soft-green);
+}
+
+.blank:hover:not(.revealed) {
+  background: #ffe4b5;
+}
+
+/* 数学模式中的挖空 */
+.blank-math {
+  color: transparent !important;
+  background: var(--blank-yellow);
+  border-bottom: 2px solid var(--accent-red);
+  border-radius: 2px;
+  padding: 0 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.blank-math.revealed {
+  color: var(--answer-green) !important;
+  background: #f0fff0;
+  border-bottom-color: var(--soft-green);
+}
+
+.blank-math:hover:not(.revealed) {
+  background: #ffe4b5;
+}
+
+/* 公式块 */
+.formula-box {
+  background: var(--light-gray);
+  border-left: 4px solid var(--main-blue);
+  padding: 12px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.condition-box {
+  background: #f0fff0;
+  border-left: 4px solid var(--soft-green);
+  padding: 8px 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.warning-box {
+  background: #fff5f5;
+  border-left: 4px solid var(--accent-red);
+  padding: 8px 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* 控制按钮 */
+.controls {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+}
+
+.ctrl-btn {
+  background: var(--main-blue);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.ctrl-btn:hover {
+  background: #2c5f8f;
+}
+
+.ctrl-btn.green { background: var(--soft-green); }
+.ctrl-btn.green:hover { background: #009900; }
+.ctrl-btn.orange { background: var(--warn-orange); }
+.ctrl-btn.orange:hover { background: #d97706; }
+
+/* 模块标签 */
+.module-tag {
+  display: inline-block;
+  background: var(--main-blue);
+  color: white;
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 0.6em;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+
+/* MathJax 调整 */
+.reveal .MathJax {
+  font-size: 0.95em;
+}
+
+.reveal mjx-container {
+  font-size: 100% !important;
+}
+
+/* 进度提示 */
+.progress-hint {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  z-index: 100;
+  background: rgba(31, 78, 121, 0.9);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+/* 目录页 */
+.toc-item {
+  display: block;
+  padding: 6px 15px;
+  margin: 5px 0;
+  background: var(--light-gray);
+  border-left: 3px solid var(--main-blue);
+  border-radius: 3px;
+  font-size: 0.7em;
+  color: var(--main-blue);
+}
+
+.toc-item:hover {
+  background: #e8e8e8;
+}
+
+/* 强调 */
+.highlight {
+  color: var(--accent-red);
+  font-weight: bold;
+}
+
+/* 小字说明 */
+.small-note {
+  font-size: 0.7em;
+  color: #666;
+  margin-top: 5px;
+}
+</style>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    macros: {
+      blk: ["\\class{blank-math}{#1}", 1]
+    }
+  },
+  svg: { fontCache: 'global' },
+  startup: {
+    ready() {
+      MathJax.startup.defaultReady();
+      MathJax.startup.promise.then(() => {
+        attachMathBlankHandlers();
+      });
+    }
+  }
+};
+
+function attachMathBlankHandlers() {
+  document.querySelectorAll('.blank-math').forEach(el => {
+    if (!el.dataset.bound) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('revealed');
+        updateProgress();
+      });
+      el.dataset.bound = 'true';
+    }
+  });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+</head>
+<body>
+
+<div class="controls">
+  <button class="ctrl-btn" onclick="revealCurrentSlide()">显示本页答案</button>
+  <button class="ctrl-btn green" onclick="revealAll()">全部显示</button>
+  <button class="ctrl-btn orange" onclick="hideAll()">全部隐藏</button>
+</div>
+
+<div class="progress-hint" id="progressHint">点击黄色挖空处显示答案 | ← → 翻页</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- ============ 封面 ============ -->
+<section class="title-slide">
+  <h1 style="font-size:1.6em">概率论与数理统计</h1>
+  <h2 style="color:var(--accent-red)">考研核心公式 · 动态背记</h2>
+  <p style="font-size:0.7em; margin-top:30px; color:#666">
+    点击黄色挖空处显示答案 · 七大模块全覆盖<br>
+    适用于考研冲刺阶段公式记忆与自测
+  </p>
+  <p style="font-size:0.5em; margin-top:40px; color:#999">
+    使用 Reveal.js + MathJax 构建
+  </p>
+</section>
+
+<!-- ============ 目录 ============ -->
+<section>
+  <h2>目录</h2>
+  <div style="margin-top:20px">
+    <span class="toc-item">1. 随机事件与概率</span>
+    <span class="toc-item">2. 随机变量及其分布</span>
+    <span class="toc-item">3. 数字特征</span>
+    <span class="toc-item">4. 大数定律与中心极限定理</span>
+    <span class="toc-item">5. 数理统计的基本概念</span>
+    <span class="toc-item">6. 参数估计</span>
+    <span class="toc-item">7. 假设检验</span>
+  </div>
+  <p class="small-note">提示：使用键盘 ← → 翻页，点击黄色区域显示答案</p>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块1：随机事件与概率 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 1</span>
+    <h2>随机事件与概率</h2>
+    <div class="formula-box">
+      <p><strong>概率的公理化定义：</strong></p>
+      <p>非负性：$P(A) \geq$<span class="blank">0</span></p>
+      <p>规范性：$P(\Omega) =$<span class="blank">1</span></p>
+      <p>可列可加性：$A_1,A_2,\dots $互不相容$ \Rightarrow P\!\left(\bigcup A_i\right) =$<span class="blank">$\sum P(A_i)$</span></p>
+    </div>
+    <div class="condition-box"><strong>适用条件：</strong>$A_i$两两互不相容（$A_i A_j = \emptyset, i\neq j$）</div>
+  </section>
+
+  <section>
+    <h3>条件概率与乘法公式</h3>
+    <div class="formula-box">
+      <p><strong>条件概率：</strong></p>
+      <p>$$P(A\mid B) = \frac{P(AB)}{\blk{P(B)}} \quad (P(B)>0)$$</p>
+      <p><strong>乘法公式：</strong></p>
+      <p>$$P(AB) = P(A\mid B)P(B) = \blk{P(B\mid A)P(A)}$$</p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>条件概率$P(A\mid B) \neq P(AB)$，前者是"在 B 发生条件下 A 的概率"，后者是"A,B 同时发生的概率"。</div>
+  </section>
+
+  <section>
+    <h3>全概率公式</h3>
+    <div class="formula-box">
+      <p>$$P(B) = \sum_{i=1}^n P(A_i)P(B\mid A_i)$$</p>
+      <p>其中$ A_1, A_2, \dots, A_n $为<span class="blank">完备事件组</span></p>
+    </div>
+    <div class="condition-box">
+      <strong>完备事件组条件：</strong>
+      <br>$(1) A_i A_j = \emptyset$（$i\neq j$，互斥）
+      <br>$(2) \bigcup_{i=1}^n A_i = \Omega$（完备）
+    </div>
+    <div class="warning-box"><strong>考点：</strong>"由因求果"——已知各"原因"A_i 的概率及条件下"结果"B 的概率，求 B 的概率。</div>
+  </section>
+
+  <section>
+    <h3>贝叶斯公式</h3>
+    <div class="formula-box">
+      <p>$$P(A_k\mid B) = \frac{P(A_k)P(B\mid A_k)}{\displaystyle\sum_{i=1}^n P(A_i)P(B\mid A_i)}$$</p>
+      <p>分子 = <span class="blank">$P(A_k B)$</span>，分母 = <span class="blank">P(B)</span></p>
+    </div>
+    <div class="condition-box"><strong>适用条件：</strong>$A_1,\dots,A_n$为完备事件组，P(B)>0</div>
+    <div class="warning-box"><strong>考点：</strong>"执果索因"——已知结果 B 发生，反推原因 A_k 的概率（后验概率）。</div>
+  </section>
+
+  <section>
+    <h3>事件独立性</h3>
+    <div class="formula-box">
+      <p><strong>两事件独立：</strong>P(AB) = <span class="blank">P(A)P(B)</span></p>
+      <p><strong>等价条件：</strong>$P(A\mid B) =$<span class="blank">P(A)</span>（P(B)>0）</p>
+      <p><strong>n 个事件相互独立：</strong>任意$ k $个（$2\leq k\leq n$）的交概率等于各概率之积</p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>两两独立$\nRightarrow$相互独立；相互独立$\Rightarrow$两两独立。</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块2：随机变量及其分布 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 2</span>
+    <h2>随机变量及其分布</h2>
+    <div class="formula-box">
+      <p><strong>分布函数：</strong>$F(x) = P(X \leq x)$</p>
+      <p>性质：$F(-\infty)=$<span class="blank">0</span>，$F(+\infty)=$<span class="blank">1</span>，<span class="blank">右连续</span>，单调不减</p>
+    </div>
+    <div class="condition-box"><strong>密度与分布函数：</strong>$F(x)=\int_{-\infty}^x f(t)\,dt$，f(x)=F'(x)</div>
+  </section>
+
+  <section>
+    <h3>二项分布 B(n,p)</h3>
+    <div class="formula-box">
+      <p>$$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k=0,1,\dots,n$$</p>
+      <p>E(X) = <span class="blank">np</span>，D(X) = <span class="blank">np(1-p)</span></p>
+    </div>
+    <div class="condition-box"><strong>适用条件：</strong>n 次独立重复伯努利试验，每次成功概率 p</div>
+    <div class="warning-box"><strong>变形：</strong>n=1 时为 0--1 分布；n 大 p 小（$np=\lambda$）时近似泊松分布。</div>
+  </section>
+
+  <section>
+    <h3>泊松分布$P(\lambda)$</h3>
+    <div class="formula-box">
+      <p>$$P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k=0,1,2,\dots$$</p>
+      <p>E(X) = <span class="blank">$\lambda$</span>，D(X) = <span class="blank">$\lambda$</span></p>
+    </div>
+    <div class="condition-box"><strong>特点：</strong>期望与方差相等，均等于$\lambda$</div>
+    <div class="warning-box"><strong>应用：</strong>单位时间内稀有事件发生次数；二项分布的极限（$n\to\infty, np\to\lambda$）。</div>
+  </section>
+
+  <section>
+    <h3>均匀分布 U(a,b)</h3>
+    <div class="formula-box">
+      <p>$$f(x) = \begin{cases} \dfrac{1}{b-a}, & a < x < b \\ 0, & \text{其他} \end{cases}$$</p>
+      <p>E(X) = <span class="blank">$\frac{a+b}{2}$</span>，D(X) = <span class="blank">$\frac{(b-a)^2}{12}$</span></p>
+    </div>
+    <div class="condition-box"><strong>性质：</strong>$P(c < X < d) = \dfrac{d-c}{b-a}$（$a\leq c < d \leq b$）</div>
+  </section>
+
+  <section>
+    <h3>正态分布$N(\mu,\sigma^2)$</h3>
+    <div class="formula-box">
+      <p>$$f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \quad -\infty < x < +\infty$$</p>
+      <p>E(X) = <span class="blank">$\mu$</span>，D(X) = <span class="blank">$\sigma^2$</span></p>
+      <p>标准化：$Z = \dfrac{X-\mu}{\sigma} \sim$<span class="blank">N(0,1)</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>$\sigma$是标准差，$\sigma^2$是方差；D(aX+b)=a^2 D(X)。</div>
+  </section>
+
+  <section>
+    <h3>指数分布$\mathrm{Exp}(\lambda)$</h3>
+    <div class="formula-box">
+      <p>$$f(x) = \begin{cases} \lambda e^{-\lambda x}, & x > 0 \\ 0, & x \leq 0 \end{cases}$$</p>
+      <p>E(X) = <span class="blank">$\frac{1}{\lambda}$</span>，D(X) = <span class="blank">$\frac{1}{\lambda^2}$</span></p>
+    </div>
+    <div class="condition-box"><strong>无记忆性：</strong>$P(X>s+t\mid X>s) = P(X>t)$</div>
+    <div class="warning-box"><strong>考点：</strong>无记忆性是指数分布的特征性质（连续型中唯一）。</div>
+  </section>
+
+  <section>
+    <h3>随机变量函数的分布</h3>
+    <div class="formula-box">
+      <p><strong>分布函数法：</strong></p>
+      <p>$$F_Y(y) = P(Y \leq y) = P(g(X) \leq y)$$</p>
+      <p><strong>公式法（g 单调可导）：</strong></p>
+      <p>$$f_Y(y) = f_X(h(y)) \cdot |h'(y)|$$</p>
+      <p>其中 h(y) 是 g(x) 的<span class="blank">反函数</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>公式法必须加绝对值 |h'(y)|；非单调时分段处理。</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块3：数字特征 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 3</span>
+    <h2>数字特征</h2>
+    <div class="formula-box">
+      <p><strong>期望定义：</strong></p>
+      <p>离散型：$E(X) = \sum_k x_k P(X=x_k)$</p>
+      <p>连续型：$E(X) = \int_{-\infty}^{+\infty} x f(x)\,dx$</p>
+    </div>
+    <div class="condition-box"><strong>线性性：</strong>E(aX+bY) = aE(X)+bE(Y)（无需独立）</div>
+  </section>
+
+  <section>
+    <h3>方差</h3>
+    <div class="formula-box">
+      <p><strong>定义：</strong>D(X) = E[(X-E(X))^2]</p>
+      <p><strong>计算公式：</strong>D(X) = <span class="blank">E(X^2) - [E(X)]^2</span></p>
+      <p><strong>性质：</strong>D(aX+b) = <span class="blank">a^2 D(X)</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>D(X) 是方差，$\sqrt{D(X)}$是标准差；样本方差 S^2 除以 n-1（无偏）。</div>
+  </section>
+
+  <section>
+    <h3>协方差</h3>
+    <div class="formula-box">
+      <p><strong>定义：</strong>$\mathrm{Cov}(X,Y) = E[(X-E(X))(Y-E(Y))]$</p>
+      <p><strong>计算公式：</strong>$\mathrm{Cov}(X,Y) =$<span class="blank">E(XY) - E(X)E(Y)</span></p>
+      <p><strong>性质：</strong>$D(X\pm Y) = D(X)+D(Y) \pm$<span class="blank">$2\,\mathrm{Cov}(X,Y)$</span></p>
+    </div>
+    <div class="condition-box"><strong>独立时：</strong>$\mathrm{Cov}(X,Y)=0$，故$D(X\pm Y)=D(X)+D(Y)$</div>
+  </section>
+
+  <section>
+    <h3>相关系数</h3>
+    <div class="formula-box">
+      <p>$$\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}$$</p>
+      <p>取值范围：<span class="blank">$-1 \leq \rho \leq 1$</span></p>
+      <p>$\rho=0 $表示<span class="blank">不相关</span></p>
+    </div>
+    <div class="warning-box">
+      <strong>关键关系：</strong>
+      <br>独立$\Rightarrow$不相关（$\rho=0$）
+      <br>不相关$\nRightarrow$独立（二维正态例外：独立$\iff$不相关）
+    </div>
+  </section>
+
+  <section>
+    <h3>矩</h3>
+    <div class="formula-box">
+      <p><strong>k 阶原点矩：</strong>E(X^k)</p>
+      <p><strong>k 阶中心矩：</strong>E[(X-E(X))^k]</p>
+      <p>一阶原点矩 = <span class="blank">E(X)</span>（期望）</p>
+      <p>二阶中心矩 = <span class="blank">D(X)</span>（方差）</p>
+    </div>
+    <div class="condition-box"><strong>关系：</strong>D(X) = E(X^2) - [E(X)]^2（二阶原点矩 - 一阶原点矩的平方）</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块4：大数定律与中心极限定理 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 4</span>
+    <h2>大数定律与中心极限定理</h2>
+    <div class="formula-box">
+      <p><strong>切比雪夫不等式：</strong></p>
+      <p>$$P(|X-E(X)| \geq \varepsilon) \leq \frac{D(X)}{\varepsilon^2}$$</p>
+      <p>等价形式：$P(|X-E(X)| < \varepsilon) \geq$<span class="blank">$1 - \frac{D(X)}{\varepsilon^2}$</span></p>
+    </div>
+    <div class="warning-box"><strong>应用：</strong>不知分布只知期望方差时，估计概率范围（给出上界）。</div>
+  </section>
+
+  <section>
+    <h3>伯努利大数定律</h3>
+    <div class="formula-box">
+      <p>$$\lim_{n\to\infty} P\!\left(\left|\frac{n_A}{n} - p\right| < \varepsilon\right) = 1$$</p>
+      <p>其中$ n_A $为$ n $次试验中事件$ A $发生的<span class="blank">次数</span></p>
+    </div>
+    <div class="condition-box"><strong>含义：</strong>频率$\dfrac{n_A}{n}$依概率收敛于概率 p（频率稳定性）</div>
+  </section>
+
+  <section>
+    <h3>辛钦大数定律</h3>
+    <div class="formula-box">
+      <p>$$\lim_{n\to\infty} P\!\left(\left|\frac{1}{n}\sum_{i=1}^n X_i - \mu\right| < \varepsilon\right) = 1$$</p>
+      <p>条件：$X_i$<span class="blank">独立同分布</span>，$E(X_i)=\mu$</p>
+    </div>
+    <div class="warning-box"><strong>考点：</strong>样本均值$\bar X$依概率收敛于总体均值$\mu——$矩估计的理论依据。</div>
+  </section>
+
+  <section>
+    <h3>中心极限定理（CLT）</h3>
+    <div class="formula-box">
+      <p>$$\lim_{n\to\infty} P\!\left(\frac{\sum_{i=1}^n X_i - n\mu}{\sqrt{n}\sigma} \leq x\right) = \Phi(x)$$</p>
+      <p>条件：$X_i $独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2$</p>
+    </div>
+    <div class="condition-box">
+      <strong>实用形式：</strong>
+      <br>$\bar X \overset{\cdot}{\sim} N\!\left(\mu, \dfrac{\sigma^2}{n}\right)$
+      <br>标准化：$\dfrac{\bar X - \mu}{\sigma/\sqrt n} \overset{\cdot}{\sim} N(0,1)$
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>标准化分母为$\sqrt n\sigma$（和）或$\sigma/\sqrt n$（均值），不是$\sigma$或$n\sigma$。</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块5：数理统计的基本概念 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 5</span>
+    <h2>数理统计的基本概念</h2>
+    <div class="formula-box">
+      <p><strong>样本均值：</strong></p>
+      <p>$$\bar X = \frac{1}{n}\sum_{i=1}^n X_i$$</p>
+      <p><strong>样本方差：</strong></p>
+      <p>$$S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar X)^2$$</p>
+      <p>分母为 <span class="blank">n-1</span>（保证无偏性）</p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>样本方差除以 n-1，不是 n；$E(S^2)=\sigma^2$（无偏）。</div>
+  </section>
+
+  <section>
+    <h3>样本矩</h3>
+    <div class="formula-box">
+      <p><strong>样本 k 阶原点矩：</strong></p>
+      <p>$$A_k = \frac{1}{n}\sum_{i=1}^n X_i^k$$</p>
+      <p><strong>样本 k 阶中心矩：</strong></p>
+      <p>$$B_k = \frac{1}{n}\sum_{i=1}^n (X_i - \bar X)^k$$</p>
+      <p>关系：$B_2 = \dfrac{n-1}{n}$<span class="blank">S^2</span></p>
+    </div>
+  </section>
+
+  <section>
+    <h3>三大抽样分布$— \chi^2$分布</h3>
+    <div class="formula-box">
+      <p><strong>构造：</strong>$X_1,\dots,X_n \sim N(0,1) $独立</p>
+      <p>$$\chi^2 = \sum_{i=1}^n X_i^2 \sim \chi^2(n)$$</p>
+      <p>$E(\chi^2) =$<span class="blank">n</span>$，D(\chi^2) =$<span class="blank">2n</span></p>
+    </div>
+    <div class="condition-box"><strong>可加性：</strong>$\chi^2_1(n_1)+\chi^2_2(n_2)\sim\chi^2(n_1+n_2)$（独立时）</div>
+  </section>
+
+  <section>
+    <h3>三大抽样分布 — t 分布</h3>
+    <div class="formula-box">
+      <p><strong>构造：</strong>$X\sim N(0,1)$，$Y\sim\chi^2(n) $独立</p>
+      <p>$$T = \frac{X}{\sqrt{Y/n}} \sim t(n)$$</p>
+      <p><strong>性质：</strong>关于 y 轴<span class="blank">对称</span>；$n\to\infty $时$ \to N(0,1)$</p>
+    </div>
+    <div class="warning-box"><strong>分位点：</strong>$t_{1-\alpha}(n) = -t_\alpha(n)$（对称性）</div>
+  </section>
+
+  <section>
+    <h3>三大抽样分布 — F 分布</h3>
+    <div class="formula-box">
+      <p><strong>构造：</strong>$X\sim\chi^2(n_1)$，$Y\sim\chi^2(n_2) $独立</p>
+      <p>$$F = \frac{X/n_1}{Y/n_2} \sim F(n_1, n_2)$$</p>
+      <p><strong>性质：</strong>$\dfrac{1}{F} \sim$<span class="blank">$F(n_2, n_1)$</span></p>
+    </div>
+    <div class="warning-box"><strong>分位点：</strong>$F_{1-\alpha}(n_1,n_2) = \dfrac{1}{F_\alpha(n_2,n_1)}$</div>
+  </section>
+
+  <section>
+    <h3>正态总体抽样分布</h3>
+    <div class="formula-box">
+      <p>设$ X_1,\dots,X_n \sim N(\mu,\sigma^2)$：</p>
+      <p>$(1) \bar X \sim N\!\left(\mu, \dfrac{\sigma^2}{n}\right)$</p>
+      <p>$(2) \dfrac{(n-1)S^2}{\sigma^2} \sim$<span class="blank">$\chi^2(n-1)$</span></p>
+      <p>$(3) \dfrac{\bar X - \mu}{S/\sqrt n} \sim$<span class="blank">t(n-1)</span></p>
+    </div>
+    <div class="condition-box"><strong>关键：</strong>$\bar X$与 S^2 相互独立（正态总体特有）</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块6：参数估计 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 6</span>
+    <h2>参数估计</h2>
+    <div class="formula-box">
+      <p><strong>矩估计法：</strong>用样本矩估计总体矩</p>
+      <p>令$ E(X) = \bar X$（一阶矩）</p>
+      <p>若两参数，再令 E(X^2) = <span class="blank">$A_2 = \frac{1}{n}\sum X_i^2$</span></p>
+    </div>
+    <div class="condition-box"><strong>也可用：</strong>D(X) = E(X^2)-[E(X)]^2 = B_2</div>
+  </section>
+
+  <section>
+    <h3>最大似然估计（MLE）</h3>
+    <div class="formula-box">
+      <p><strong>步骤 1：</strong>构造似然函数</p>
+      <p>$$L(\theta) = \prod_{i=1}^n f(x_i;\theta)$$</p>
+      <p><strong>步骤 2：</strong>取对数$ \ln L(\theta)$</p>
+      <p><strong>步骤 3：</strong>求导令其为零：$\dfrac{d\ln L}{d\theta} =$<span class="blank">0</span></p>
+      <p><strong>步骤 4：</strong>解出$ \hat\theta$</p>
+    </div>
+    <div class="warning-box"><strong>注意：</strong>离散型用$L=\prod P(X_i=x_i;\theta)$；若 L 单调无驻点，直接求最大值点。</div>
+  </section>
+
+  <section>
+    <h3>估计量的评价标准</h3>
+    <div class="formula-box">
+      <p><strong>无偏性：</strong>$E(\hat\theta) =$<span class="blank">$\theta$</span></p>
+      <p><strong>有效性：</strong>$D(\hat\theta_1) \leq D(\hat\theta_2)$（两者均无偏）</p>
+      <p><strong>相合性：</strong>$\hat\theta_n \xrightarrow{P} \theta（n\to\infty）$</p>
+    </div>
+    <div class="condition-box"><strong>例：</strong>$E(\bar X)=\mu$（无偏），$E(S^2)=\sigma^2$（无偏），$E(B_2)=\dfrac{n-1}{n}\sigma^2$（有偏）</div>
+  </section>
+
+  <section>
+    <h3>置信区间$— \mu$（$\sigma^2$已知）</h3>
+    <div class="formula-box">
+      <p>$$\left(\bar X - z_{\alpha/2}\frac{\sigma}{\sqrt n},\; \bar X + z_{\alpha/2}\frac{\sigma}{\sqrt n}\right)$$</p>
+      <p>枢轴量：$\dfrac{\bar X - \mu}{\sigma/\sqrt n} \sim$<span class="blank">N(0,1)</span></p>
+    </div>
+    <div class="condition-box"><strong>条件：</strong>正态总体（或 n 大），$\sigma^2$已知</div>
+  </section>
+
+  <section>
+    <h3>置信区间$— \mu$（$\sigma^2$未知）</h3>
+    <div class="formula-box">
+      <p>$$\left(\bar X - t_{\alpha/2}(n-1)\frac{S}{\sqrt n},\; \bar X + t_{\alpha/2}(n-1)\frac{S}{\sqrt n}\right)$$</p>
+      <p>枢轴量：$\dfrac{\bar X - \mu}{S/\sqrt n} \sim$<span class="blank">t(n-1)</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>$\sigma^2$未知时用 S 替代$\sigma$，分布由 N(0,1) 变为 t(n-1)。</div>
+  </section>
+
+  <section>
+    <h3>置信区间$— \sigma^2$</h3>
+    <div class="formula-box">
+      <p>$$\left(\frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)},\; \frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)}\right)$$</p>
+      <p>枢轴量：$\dfrac{(n-1)S^2}{\sigma^2} \sim$<span class="blank">$\chi^2(n-1)$</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>$\chi^2$非对称，大分位点$\chi^2_{\alpha/2}$对应左端点（小值），小分位点对应右端点（大值）。</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 模块7：假设检验 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <span class="module-tag">模块 7</span>
+    <h2>假设检验</h2>
+    <div class="formula-box">
+      <p><strong>两类错误：</strong></p>
+      <p>第一类（弃真）：$\alpha = P(\text{拒}H_0 \mid H_0\text{真})$</p>
+      <p>第二类（取伪）：$\beta = P(\text{接}H_0 \mid H_0\text{假})$</p>
+      <p>显著性水平 = <span class="blank">$\alpha$</span>（犯第一类错误的上限）</p>
+    </div>
+    <div class="warning-box"><strong>关系：</strong>样本量固定时$\alpha\downarrow \Rightarrow \beta\uparrow$；同时减小需增大 n。</div>
+  </section>
+
+  <section>
+    <h3>单正态总体均值检验（$\sigma^2$已知）</h3>
+    <div class="formula-box">
+      <p><strong>检验统计量：</strong></p>
+      <p>$$Z = \frac{\bar X - \mu_0}{\sigma/\sqrt n} \sim N(0,1)$$</p>
+      <p><strong>双侧检验拒绝域：</strong>|Z| > <span class="blank">$z_{\alpha/2}$</span></p>
+    </div>
+    <div class="condition-box"><strong>条件：</strong>$X\sim N(\mu,\sigma^2)$，$\sigma^2$已知，$H_0:\mu=\mu_0$</div>
+  </section>
+
+  <section>
+    <h3>单正态总体均值检验（$\sigma^2$未知）</h3>
+    <div class="formula-box">
+      <p><strong>检验统计量：</strong></p>
+      <p>$$T = \frac{\bar X - \mu_0}{S/\sqrt n} \sim t(n-1)$$</p>
+      <p><strong>双侧检验拒绝域：</strong>|T| > <span class="blank">$t_{\alpha/2}(n-1)$</span></p>
+    </div>
+    <div class="warning-box"><strong>易错点：</strong>$\sigma^2$未知时用 t 检验，自由度为 n-1。</div>
+  </section>
+
+  <section>
+    <h3>单正态总体方差检验</h3>
+    <div class="formula-box">
+      <p><strong>检验统计量：</strong></p>
+      <p>$$\chi^2 = \frac{(n-1)S^2}{\sigma_0^2} \sim \chi^2(n-1)$$</p>
+      <p><strong>双侧拒绝域：</strong>$\chi^2 > \chi^2_{\alpha/2} $或$ \chi^2 <$<span class="blank">$\chi^2_{1-\alpha/2}$</span></p>
+    </div>
+    <div class="condition-box"><strong>条件：</strong>$\mu$未知，$H_0:\sigma^2=\sigma_0^2$</div>
+  </section>
+
+  <section>
+    <h3>双正态总体方差比检验</h3>
+    <div class="formula-box">
+      <p><strong>检验统计量：</strong></p>
+      <p>$$F = \frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-1)$$</p>
+      <p>条件：$H_0: \sigma_1^2 = \sigma_2^2$，两正态总体独立</p>
+    </div>
+    <div class="warning-box"><strong>技巧：</strong>约定将较大样本方差放分子，便于查表（单侧检验）。</div>
+  </section>
+
+  <section>
+    <h3>双正态总体均值差检验（$\sigma^2$相等未知）</h3>
+    <div class="formula-box">
+      <p><strong>检验统计量（pooled t）：</strong></p>
+      <p>$$T = \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{1/n_1+1/n_2}} \sim t(n_1+n_2-2)$$</p>
+      <p>其中$ S_w^2 = \dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}$</p>
+    </div>
+    <div class="condition-box"><strong>条件：</strong>两正态总体独立，$\sigma_1^2=\sigma_2^2$（方差齐性）</div>
+  </section>
+</section>
+
+<!-- ================================================== -->
+<!-- 总结页 -->
+<!-- ================================================== -->
+<section>
+  <section>
+    <h2>高频考点速查</h2>
+    <div class="formula-box" style="font-size:0.8em">
+      <ol>
+        <li>全概率公式与贝叶斯公式（"由因求果"与"执果索因"）</li>
+        <li>中心极限定理的应用（标准化、查$\Phi$表）</li>
+        <li>样本方差定义（除以 n-1）与无偏性</li>
+        <li>相关系数与独立的关系（二维正态下等价）</li>
+        <li>置信区间的构造（区分$z,t,\chi^2,F$）</li>
+        <li>最大似然估计的求解（取对数、求导）</li>
+        <li>三大抽样分布的构造与查表</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <h2>易错点速查</h2>
+    <div class="formula-box" style="font-size:0.8em">
+      <ol>
+        <li><strong>方差 vs 标准差</strong>：D(X) 是方差，$\sqrt{D(X)}$是标准差</li>
+        <li><strong>协方差 vs 相关系数</strong>：相关系数无量纲，$\rho\in[-1,1]$</li>
+        <li><strong>独立 vs 不相关</strong>：独立$\Rightarrow$不相关，反之不然（二维正态例外）</li>
+        <li><strong>CLT 条件</strong>：独立同分布，n 较大；分母为$\sqrt n\sigma$</li>
+        <li><strong>样本方差</strong>：除以 n-1 保证无偏</li>
+        <li><strong>置信区间分位点</strong>：$\chi^2$区间分母顺序易错</li>
+        <li><strong>连续型单点概率为 0</strong>：P(X=a)=0</li>
+        <li><strong>公式法求密度</strong>：必须加绝对值 |h'(y)|</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="title-slide">
+    <h2 style="color:var(--main-blue)">祝考研顺利！</h2>
+    <p style="font-size:0.8em; margin-top:30px">
+      坚持背记 · 理解推导 · 灵活应用
+    </p>
+    <p style="font-size:0.6em; margin-top:40px; color:#999">
+      点击"全部隐藏"重新开始背记练习
+    </p>
+  </section>
+</section>
+
+</div>
+</div>
+
+<script>
+// Reveal.js 初始化
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  transitionSpeed: 'default',
+  controls: true,
+  progress: true,
+  center: false,
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  minScale: 0.2,
+  maxScale: 2.0,
+  math: {
+    mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js',
+    config: 'TeX-AMS_HTML-full'
+  },
+  dependencies: []
+});
+
+// 挖空点击事件（HTML 挖空）
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('blank')) {
+    e.target.classList.toggle('revealed');
+    updateProgress();
+  }
+});
+
+// 显示当前幻灯片所有答案
+function revealCurrentSlide() {
+  var current = Reveal.getCurrentSlide();
+  var blanks = current.querySelectorAll('.blank:not(.revealed), .blank-math:not(.revealed)');
+  blanks.forEach(function(b) {
+    b.classList.add('revealed');
+  });
+  updateProgress();
+  // 重新渲染 MathJax
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    MathJax.typesetPromise([current]);
+  }
+}
+
+// 显示所有答案
+function revealAll() {
+  var blanks = document.querySelectorAll('.blank:not(.revealed), .blank-math:not(.revealed)');
+  blanks.forEach(function(b) {
+    b.classList.add('revealed');
+  });
+  updateProgress();
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    MathJax.typesetPromise();
+  }
+}
+
+// 隐藏所有答案
+function hideAll() {
+  var blanks = document.querySelectorAll('.blank.revealed, .blank-math.revealed');
+  blanks.forEach(function(b) {
+    b.classList.remove('revealed');
+  });
+  updateProgress();
+}
+
+// 更新进度提示
+function updateProgress() {
+  var total = document.querySelectorAll('.blank, .blank-math').length;
+  var revealed = document.querySelectorAll('.blank.revealed, .blank-math.revealed').length;
+  var hint = document.getElementById('progressHint');
+  if (total > 0) {
+    var percent = Math.round(revealed / total * 100);
+    hint.textContent = '背记进度：' + revealed + '/' + total + ' (' + percent + '%) | 点击挖空显示答案 | R=本页 A=全部 H=隐藏';
+  }
+}
+
+// 幻灯片切换后更新进度
+Reveal.on('slidechanged', function() {
+  updateProgress();
+  // 重新绑定数学挖空点击事件
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    MathJax.typesetPromise().then(() => {
+      attachMathBlankHandlers();
+      updateProgress();
+    });
+  }
+});
+
+// 初始化
+window.addEventListener('load', function() {
+  setTimeout(updateProgress, 500);
+});
+
+// 键盘快捷键
+document.addEventListener('keydown', function(e) {
+  // 按 R 键显示当前页答案
+  if (e.key === 'r' || e.key === 'R') {
+    revealCurrentSlide();
+  }
+  // 按 A 键显示所有
+  if (e.key === 'a' || e.key === 'A') {
+    revealAll();
+  }
+  // 按 H 键隐藏所有
+  if (e.key === 'h' || e.key === 'H') {
+    hideAll();
+  }
+});
+</script>
+
+</body>
+</html>

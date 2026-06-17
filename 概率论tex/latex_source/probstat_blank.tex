@@ -1,0 +1,618 @@
+% !TEX program = xelatex
+% 概率统计考研核心公式 - 挖空背记版
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8,heading=true]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{multicol}
+
+\geometry{left=2cm,right=2cm,top=2.5cm,bottom=2.5cm}
+
+\tcbuselibrary{skins,breakable}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{31,78,121}
+\definecolor{accentred}{RGB}{192,0,0}
+\definecolor{softgreen}{RGB}{0,128,0}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{blankyellow}{RGB}{255,248,220}
+\definecolor{answergreen}{RGB}{0,100,0}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{mainblue}概率统计考研核心公式}
+\fancyhead[R]{\small\color{mainblue}挖空背记版}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 标题样式
+\titleformat{\section}{\Large\bfseries\color{mainblue}}{第\thesection 章}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{mainblue!80!black}}{\thesubsection}{0.6em}{}
+
+% 挖空命令：\blank{宽度}{答案}
+\newcommand{\blank}[2]{\,\underline{\hspace{#1}}\,}
+% 答案命令（用于答案区）
+\newcommand{\ans}[1]{\textcolor{answergreen}{#1}}
+
+% 挖空框：使用 textcolor + rule，使用必选参数避免数学模式中方括号冲突
+\newcommand{\blankbox}[1]{%
+  \textcolor{blankyellow}{\rule[-0.1cm]{#1}{0.5cm}}%
+}
+
+% 自定义环境
+\newtcolorbox{formulabox}[1][]{
+  enhanced,
+  colback=lightgray,
+  colframe=mainblue,
+  boxrule=0.6pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=8pt,yshift=-8pt},
+  boxed title style={colback=mainblue,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\newtcolorbox{tipbox}{
+  enhanced,
+  colback=yellow!8,
+  colframe=accentred,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt
+}
+
+\newtcolorbox{answerbox}{
+  enhanced,
+  colback=white,
+  colframe=softgreen,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  title={\textbf{参考答案}},
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=6pt,yshift=-7pt},
+  boxed title style={colback=softgreen,arc=2pt,boxrule=0pt},
+  breakable
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=mainblue,
+  bookmarksopen=true,
+  pdfstartview=FitH
+}
+
+\title{\textbf{\color{mainblue}概率论与数理统计考研核心公式}\\\large 挖空背记版}
+\author{考研复习资料}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{tipbox}
+\textbf{使用说明：}本手册将核心公式中的关键部分挖空，供考生自测背记效果。建议先遮住下方"参考答案"独立填写，再对照答案订正。\textbf{红色虚线框}为填空处，\textbf{绿色框}为参考答案。反复练习直至能完整默写。
+\end{tipbox}
+
+\tableofcontents
+\newpage
+
+%==================================================
+\section{随机事件与概率}
+%==================================================
+
+\subsection{概率的基本性质}
+
+\begin{formulabox}[概率的公理化定义]
+\begin{enumerate}[leftmargin=2em]
+  \item 非负性：\blankbox{2cm}；
+  \item 规范性：\blankbox{2cm}；
+  \item 可列可加性：若 $A_1,A_2,\dots$ 两两互不相容，则
+  \[P\left(\bigcup_{i=1}^{\infty} A_i\right) = \blankbox{4cm}.\]
+\end{enumerate}
+\end{formulabox}
+
+\begin{answerbox}
+(1) $P(A)\geq 0$；(2) $P(\Omega)=1$；(3) $\displaystyle\sum_{i=1}^{\infty} P(A_i)$。
+\end{answerbox}
+
+\subsection{条件概率公式}
+
+\begin{formulabox}[条件概率]
+\[P(A\mid B) = \blankbox{3cm}, \quad \text{条件：}\blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$P(A\mid B)=\dfrac{P(AB)}{P(B)}$，条件 $P(B)>0$。
+\end{answerbox}
+
+\subsection{乘法公式}
+
+\begin{formulabox}[乘法公式]
+\[P(AB) = \blankbox{3cm} = \blankbox{3cm}.\]
+$n$ 个事件推广：
+\[P(A_1 A_2\cdots A_n) = \blankbox{6cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$P(AB)=P(A\mid B)P(B)=P(B\mid A)P(A)$；推广：$P(A_1)P(A_2\mid A_1)P(A_3\mid A_1A_2)\cdots P(A_n\mid A_1\cdots A_{n-1})$。
+\end{answerbox}
+
+\subsection{全概率公式}
+
+\begin{formulabox}[全概率公式]
+设 $A_1,\dots,A_n$ 为完备事件组，则
+\[P(B) = \blankbox{5cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$\displaystyle\sum_{i=1}^{n} P(A_i)\,P(B\mid A_i)$。
+\end{answerbox}
+
+\subsection{贝叶斯公式}
+
+\begin{formulabox}[贝叶斯公式]
+\[P(A_k\mid B) = \blankbox{6cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$\dfrac{P(A_k)\,P(B\mid A_k)}{\displaystyle\sum_{i=1}^{n} P(A_i)\,P(B\mid A_i)}$。
+\end{answerbox}
+
+\subsection{事件独立性}
+
+\begin{formulabox}[事件独立性]
+$A$ 与 $B$ 独立 $\iff$ \blankbox{3cm}。
+\end{formulabox}
+
+\begin{answerbox}
+$P(AB)=P(A)P(B)$。
+\end{answerbox}
+
+%==================================================
+\section{随机变量及其分布}
+%==================================================
+
+\subsection{分布函数与密度函数}
+
+\begin{formulabox}[分布函数]
+\[F(x) = \blankbox{3cm}.\]
+性质：$F(-\infty)=\blankbox{1.5cm}$，$F(+\infty)=\blankbox{1.5cm}$，\blankbox{2cm}连续。
+\end{formulabox}
+
+\begin{answerbox}
+$F(x)=P(X\leq x)$；$F(-\infty)=0$，$F(+\infty)=1$，右连续。
+\end{answerbox}
+
+\begin{formulabox}[连续型密度与分布函数关系]
+\[F(x) = \blankbox{4cm}, \quad P(a<X\leq b) = \blankbox{3cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$F(x)=\displaystyle\int_{-\infty}^{x} f(t)\,dt$；$P(a<X\leq b)=\displaystyle\int_a^b f(x)\,dx$。
+\end{answerbox}
+
+\subsection{离散型分布}
+
+\begin{formulabox}[二项分布 $B(n,p)$]
+\[P(X=k) = \blankbox{4cm}, \quad k=\blankbox{2cm}.\]
+$E(X)=\blankbox{1.5cm}$，$D(X)=\blankbox{2cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$，$k=0,1,\dots,n$；$E(X)=np$，$D(X)=np(1-p)$。
+\end{answerbox}
+
+\begin{formulabox}[泊松分布 $P(\lambda)$]
+\[P(X=k) = \blankbox{3cm}, \quad k=\blankbox{2cm}.\]
+$E(X)=\blankbox{1.5cm}$，$D(X)=\blankbox{1.5cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$P(X=k)=\dfrac{\lambda^k e^{-\lambda}}{k!}$，$k=0,1,2,\dots$；$E(X)=D(X)=\lambda$。
+\end{answerbox}
+
+\subsection{连续型分布}
+
+\begin{formulabox}[均匀分布 $U(a,b)$]
+\[f(x) = \blankbox{3cm}, \quad E(X)=\blankbox{2cm}, \quad D(X)=\blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$f(x)=\begin{cases}\frac{1}{b-a},&a<x<b\\0,&\text{其他}\end{cases}$；$E(X)=\frac{a+b}{2}$，$D(X)=\frac{(b-a)^2}{12}$。
+\end{answerbox}
+
+\begin{formulabox}[正态分布 $N(\mu,\sigma^2)$]
+\[f(x) = \blankbox{4cm}.\]
+$E(X)=\blankbox{1.5cm}$，$D(X)=\blankbox{1.5cm}$；标准化 $Z=\blankbox{2cm}\sim N(0,1)$。
+\end{formulabox}
+
+\begin{answerbox}
+$f(x)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$；$E(X)=\mu$，$D(X)=\sigma^2$；$Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$。
+\end{answerbox}
+
+\begin{formulabox}[指数分布 $\mathrm{Exp}(\lambda)$]
+\[f(x) = \blankbox{3cm}, \quad F(x) = \blankbox{3cm}.\]
+$E(X)=\blankbox{1.5cm}$，$D(X)=\blankbox{1.5cm}$；无记忆性：\blankbox{4cm}。
+\end{formulabox}
+
+\begin{answerbox}
+$f(x)=\begin{cases}\lambda e^{-\lambda x},&x>0\\0,&x\leq 0\end{cases}$，$F(x)=\begin{cases}1-e^{-\lambda x},&x>0\\0,&x\leq 0\end{cases}$；$E(X)=\frac{1}{\lambda}$，$D(X)=\frac{1}{\lambda^2}$；$P(X>s+t\mid X>s)=P(X>t)$。
+\end{answerbox}
+
+\subsection{随机变量函数的分布}
+
+\begin{formulabox}[公式法（单调可导）]
+若 $y=g(x)$ 严格单调可导，反函数 $x=h(y)$，则
+\[f_Y(y) = \blankbox{4cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$f_Y(y)=f_X(h(y))\cdot |h'(y)|$（注意绝对值）。
+\end{answerbox}
+
+%==================================================
+\section{数字特征}
+%==================================================
+
+\subsection{数学期望}
+
+\begin{formulabox}[数学期望]
+离散型：$E(X)=\blankbox{3cm}$；连续型：$E(X)=\blankbox{3cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+离散型：$\displaystyle\sum_k x_k P(X=x_k)$；连续型：$\displaystyle\int_{-\infty}^{+\infty} x f(x)\,dx$。
+\end{answerbox}
+
+\subsection{方差}
+
+\begin{formulabox}[方差]
+\[D(X) = \blankbox{3cm} = \blankbox{3cm}.\]
+性质：$D(aX+b)=\blankbox{2cm}$；$X,Y$ 独立时 $D(X\pm Y)=\blankbox{2cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$D(X)=E[(X-E(X))^2]=E(X^2)-[E(X)]^2$；$D(aX+b)=a^2 D(X)$；独立时 $D(X\pm Y)=D(X)+D(Y)$。
+\end{answerbox}
+
+\begin{formulabox}[样本方差]
+\[S^2 = \blankbox{4cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$S^2=\dfrac{1}{n-1}\displaystyle\sum_{i=1}^n (X_i-\bar X)^2$（除以 $n-1$ 保证无偏）。
+\end{answerbox}
+
+\subsection{协方差与相关系数}
+
+\begin{formulabox}[协方差]
+\[\mathrm{Cov}(X,Y) = \blankbox{4cm} = \blankbox{3cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$\mathrm{Cov}(X,Y)=E[(X-E(X))(Y-E(Y))]=E(XY)-E(X)E(Y)$。
+\end{answerbox}
+
+\begin{formulabox}[相关系数]
+\[\rho_{XY} = \blankbox{4cm}, \quad \rho\in\blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$\rho_{XY}=\dfrac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}$；$\rho\in[-1,1]$。
+\end{answerbox}
+
+\begin{formulabox}[独立与不相关]
+独立 $\Rightarrow$ \blankbox{2cm}；反之\blankbox{2cm}（\blankbox{3cm} 分布例外，此时二者等价）。
+\end{formulabox}
+
+\begin{answerbox}
+独立 $\Rightarrow$ 不相关；反之不成立（二维正态分布例外，此时独立 $\iff$ 不相关）。
+\end{answerbox}
+
+\subsection{矩}
+
+\begin{formulabox}[原点矩与中心矩]
+$k$ 阶原点矩：\blankbox{3cm}；$k$ 阶中心矩：\blankbox{3cm}。
+\end{formulabox}
+
+\begin{answerbox}
+$\mu_k=E(X^k)$；$\nu_k=E[(X-E(X))^k]$。
+\end{answerbox}
+
+%==================================================
+\section{大数定律与中心极限定理}
+%==================================================
+
+\subsection{切比雪夫不等式}
+
+\begin{formulabox}[切比雪夫不等式]
+\[P(|X-E(X)|\geq \varepsilon) \leq \blankbox{3cm}.\]
+等价形式：$P(|X-E(X)|<\varepsilon) \geq \blankbox{3cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$\leq \dfrac{D(X)}{\varepsilon^2}$；$\geq 1-\dfrac{D(X)}{\varepsilon^2}$。
+\end{answerbox}
+
+\subsection{大数定律}
+
+\begin{formulabox}[伯努利大数定律]
+\[\lim_{n\to\infty} P\!\left(\left|\frac{n_A}{n}-p\right|<\varepsilon\right) = \blankbox{1.5cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$=1$（频率依概率收敛于概率）。
+\end{answerbox}
+
+\begin{formulabox}[辛钦大数定律]
+$X_1,X_2,\dots$ 独立同分布，$E(X_i)=\mu$，则
+\[\lim_{n\to\infty} P\!\left(\left|\frac{1}{n}\sum_{i=1}^n X_i - \mu\right|<\varepsilon\right) = \blankbox{1.5cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$=1$（只需期望存在，不要求方差存在）。
+\end{answerbox}
+
+\subsection{中心极限定理}
+
+\begin{formulabox}[独立同分布中心极限定理]
+$X_1,\dots,X_n$ 独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2$，则
+\[\lim_{n\to\infty} P\!\left(\frac{\sum_{i=1}^n X_i - \blankbox{1.5cm}}{\blankbox{2cm}} \leq x\right) = \blankbox{1.5cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+分子：$n\mu$；分母：$\sqrt n\,\sigma$；极限：$\Phi(x)$（标准正态分布函数）。
+\end{answerbox}
+
+\begin{formulabox}[棣莫弗--拉普拉斯定理]
+$Y_n\sim B(n,p)$，则
+\[\lim_{n\to\infty} P\!\left(\frac{Y_n - \blankbox{1.5cm}}{\blankbox{2cm}} \leq x\right) = \Phi(x).\]
+\end{formulabox}
+
+\begin{answerbox}
+分子：$np$；分母：$\sqrt{np(1-p)}$。
+\end{answerbox}
+
+%==================================================
+\section{数理统计的基本概念}
+%==================================================
+
+\subsection{统计量}
+
+\begin{formulabox}[样本均值与样本方差]
+$\bar X = \blankbox{3cm}$；$S^2 = \blankbox{4cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$\bar X=\dfrac{1}{n}\displaystyle\sum_{i=1}^n X_i$；$S^2=\dfrac{1}{n-1}\displaystyle\sum_{i=1}^n (X_i-\bar X)^2$。
+\end{answerbox}
+
+\subsection{样本矩}
+
+\begin{formulabox}[样本矩]
+样本 $k$ 阶原点矩：$A_k=\blankbox{3cm}$；样本 $k$ 阶中心矩：$B_k=\blankbox{3cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$A_k=\dfrac{1}{n}\displaystyle\sum_{i=1}^n X_i^k$；$B_k=\dfrac{1}{n}\displaystyle\sum_{i=1}^n (X_i-\bar X)^k$。
+\end{answerbox}
+
+\subsection{三大抽样分布}
+
+\begin{formulabox}[$\chi^2$ 分布]
+$X_1,\dots,X_n\sim N(0,1)$ 独立，则 $\chi^2=\blankbox{3cm}\sim\chi^2(n)$。
+$E(\chi^2)=\blankbox{1cm}$，$D(\chi^2)=\blankbox{1cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$\chi^2=\displaystyle\sum_{i=1}^n X_i^2$；$E(\chi^2)=n$，$D(\chi^2)=2n$。
+\end{answerbox}
+
+\begin{formulabox}[$t$ 分布]
+$X\sim N(0,1)$，$Y\sim\chi^2(n)$ 独立，则 $T=\blankbox{3cm}\sim t(n)$。
+\end{formulabox}
+
+\begin{answerbox}
+$T=\dfrac{X}{\sqrt{Y/n}}\sim t(n)$。
+\end{answerbox}
+
+\begin{formulabox}[$F$ 分布]
+$X\sim\chi^2(n_1)$，$Y\sim\chi^2(n_2)$ 独立，则 $F=\blankbox{3cm}\sim F(n_1,n_2)$。
+性质：$\dfrac{1}{F}\sim\blankbox{2cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$F=\dfrac{X/n_1}{Y/n_2}\sim F(n_1,n_2)$；$\dfrac{1}{F}\sim F(n_2,n_1)$。
+\end{answerbox}
+
+\subsection{正态总体抽样分布}
+
+\begin{formulabox}[单正态总体]
+$X_1,\dots,X_n\sim N(\mu,\sigma^2)$，则
+\begin{align*}
+&\frac{\bar X-\mu}{\sigma/\sqrt n}\sim\blankbox{2cm}; \\
+&\frac{(n-1)S^2}{\sigma^2}\sim\blankbox{2cm}; \\
+&\frac{\bar X-\mu}{S/\sqrt n}\sim\blankbox{2cm}.
+\end{align*}
+\end{formulabox}
+
+\begin{answerbox}
+$N(0,1)$；$\chi^2(n-1)$；$t(n-1)$。
+\end{answerbox}
+
+%==================================================
+\section{参数估计}
+%==================================================
+
+\subsection{矩估计}
+
+\begin{formulabox}[矩估计法]
+令 $E(X)=\blankbox{2cm}$（一阶矩）；若两参数再令 $E(X^2)=\blankbox{2cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$E(X)=\bar X$；$E(X^2)=A_2=\dfrac{1}{n}\sum X_i^2$。
+\end{answerbox}
+
+\subsection{最大似然估计}
+
+\begin{formulabox}[最大似然估计]
+似然函数 $L(\theta)=\blankbox{3cm}$（连续型）；
+取对数 $\ln L(\theta)=\blankbox{3cm}$；
+令 $\blankbox{2cm}=0$，解出 $\hat\theta$。
+\end{formulabox}
+
+\begin{answerbox}
+$L(\theta)=\prod_{i=1}^n f(x_i;\theta)$；$\ln L=\sum_{i=1}^n \ln f(x_i;\theta)$；令 $\dfrac{\partial\ln L}{\partial\theta}=0$。
+\end{answerbox}
+
+\subsection{估计量评选标准}
+
+\begin{formulabox}[三大标准]
+无偏性：$E(\hat\theta)=\blankbox{1.5cm}$；
+有效性：$D(\hat\theta_1)\blankbox{1cm} D(\hat\theta_2)$；
+相合性：$\hat\theta_n\xrightarrow{P}\blankbox{1.5cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+$E(\hat\theta)=\theta$；$D(\hat\theta_1)<D(\hat\theta_2)$（均无偏时）；$\hat\theta_n\xrightarrow{P}\theta$。
+\end{answerbox}
+
+\subsection{区间估计}
+
+\begin{formulabox}[$\sigma^2$ 已知，$\mu$ 的置信区间]
+\[\Bigl(\bar X - \blankbox{3cm},\ \bar X + \blankbox{3cm}\Bigr).\]
+\end{formulabox}
+
+\begin{answerbox}
+$\bar X \mp z_{\alpha/2}\dfrac{\sigma}{\sqrt n}$。
+\end{answerbox}
+
+\begin{formulabox}[$\sigma^2$ 未知，$\mu$ 的置信区间]
+\[\Bigl(\bar X - \blankbox{3cm},\ \bar X + \blankbox{3cm}\Bigr).\]
+\end{formulabox}
+
+\begin{answerbox}
+$\bar X \mp t_{\alpha/2}(n-1)\dfrac{S}{\sqrt n}$。
+\end{answerbox}
+
+\begin{formulabox}[$\sigma^2$ 的置信区间]
+\[\left(\frac{\blankbox{2cm}}{\blankbox{2cm}},\ \frac{\blankbox{2cm}}{\blankbox{2cm}}\right).\]
+\end{formulabox}
+
+\begin{answerbox}
+$\left(\dfrac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)},\ \dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)}\right)$。
+\end{answerbox}
+
+%==================================================
+\section{假设检验}
+%==================================================
+
+\subsection{两类错误}
+
+\begin{formulabox}[两类错误]
+第一类错误：$P(\text{拒}H_0\mid H_0\text{真})=\blankbox{1.5cm}$；
+第二类错误：$P(\text{接}H_0\mid H_0\text{假})=\blankbox{1.5cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+第一类 $=\alpha$；第二类 $=\beta$。
+\end{answerbox}
+
+\subsection{单正态总体均值检验}
+
+\begin{formulabox}[$\sigma^2$ 已知 — $Z$ 检验]
+\[Z = \blankbox{4cm} \sim \blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$Z=\dfrac{\bar X-\mu_0}{\sigma/\sqrt n}\sim N(0,1)$。
+\end{answerbox}
+
+\begin{formulabox}[$\sigma^2$ 未知 — $t$ 检验]
+\[T = \blankbox{4cm} \sim \blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$T=\dfrac{\bar X-\mu_0}{S/\sqrt n}\sim t(n-1)$。
+\end{answerbox}
+
+\subsection{单正态总体方差检验}
+
+\begin{formulabox}[$\chi^2$ 检验]
+\[\chi^2 = \blankbox{4cm} \sim \blankbox{2cm}.\]
+\end{formulabox}
+
+\begin{answerbox}
+$\chi^2=\dfrac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(n-1)$。
+\end{answerbox}
+
+\subsection{双正态总体方差比检验}
+
+\begin{formulabox}[$F$ 检验]
+\[F = \blankbox{3cm} \sim \blankbox{2cm} \quad (H_0:\sigma_1^2=\sigma_2^2).\]
+\end{formulabox}
+
+\begin{answerbox}
+$F=\dfrac{S_1^2}{S_2^2}\sim F(n_1-1,n_2-1)$。
+\end{answerbox}
+
+\subsection{双正态总体均值差检验（$\sigma^2$ 相等未知）}
+
+\begin{formulabox}[ pooled $t$ 检验]
+\[T = \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\blankbox{4cm}} \sim t(n_1+n_2-2).\]
+其中 $S_w^2=\blankbox{4cm}$。
+\end{formulabox}
+
+\begin{answerbox}
+分母：$S_w\sqrt{1/n_1+1/n_2}$；$S_w^2=\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}$。
+\end{answerbox}
+
+%==================================================
+\section*{综合自测}
+\addcontentsline{toc}{section}{综合自测}
+%==================================================
+
+\begin{tipbox}
+\textbf{综合自测：}请独立完成以下综合填空，检验整体掌握情况。
+\end{tipbox}
+
+\begin{formulabox}[综合填空]
+\begin{enumerate}[leftmargin=2em]
+  \item 设 $X\sim B(n,p)$，当 $n$ 大 $p$ 小，$np=\lambda$ 时，$X$ 近似服从\blankbox{2cm}分布。
+  \item 设 $X\sim N(\mu,\sigma^2)$，则 $P(|X-\mu|<3\sigma)\approx$\blankbox{2cm}。
+  \item $E(XY)=E(X)E(Y)$ 成立的充要条件是\blankbox{3cm}。
+  \item $\bar X$ 与 $S^2$ 独立的条件是总体服从\blankbox{2cm}分布。
+  \item $F_{1-\alpha}(n_1,n_2)=$\blankbox{3cm}。
+  \item 中心极限定理中，$\bar X$ 近似服从\blankbox{3cm}分布。
+\end{enumerate}
+\end{formulabox}
+
+\begin{answerbox}
+\begin{enumerate}[leftmargin=2em]
+  \item 泊松分布 $P(\lambda)$；
+  \item $0.9973$（$3\sigma$ 原则）；
+  \item $\mathrm{Cov}(X,Y)=0$（即 $X,Y$ 不相关）；
+  \item 正态分布；
+  \item $\dfrac{1}{F_{\alpha}(n_2,n_1)}$；
+  \item $N\!\left(\mu,\dfrac{\sigma^2}{n}\right)$。
+\end{enumerate}
+\end{answerbox}
+
+\end{document}

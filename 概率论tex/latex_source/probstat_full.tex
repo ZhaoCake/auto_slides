@@ -1,0 +1,790 @@
+% !TEX program = xelatex
+% 概率统计考研核心公式 - 全公式版
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8,heading=true]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\geometry{left=2.2cm,right=2.2cm,top=2.5cm,bottom=2.5cm}
+
+\tcbuselibrary{skins,breakable}
+
+% 颜色定义
+\definecolor{mainblue}{RGB}{31,78,121}
+\definecolor{accentred}{RGB}{192,0,0}
+\definecolor{softgreen}{RGB}{0,128,0}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{warnorange}{RGB}{204,102,0}
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{mainblue}概率统计考研核心公式}
+\fancyhead[R]{\small\color{mainblue}全公式版}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 标题样式
+\titleformat{\section}{\Large\bfseries\color{mainblue}}{第\thesection 章}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{mainblue!80!black}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{mainblue!60!black}}{\thesubsubsection}{0.5em}{}
+
+% 自定义环境
+\newtcolorbox{formula}[1][]{
+  enhanced,
+  colback=lightgray,
+  colframe=mainblue,
+  boxrule=0.6pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=8pt,yshift=-8pt},
+  boxed title style={colback=mainblue,arc=2pt,boxrule=0pt},
+  title={#1},
+  breakable
+}
+
+\newtcolorbox{condition}{
+  enhanced,
+  colback=white,
+  colframe=softgreen,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  title={\textbf{适用条件}},
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=6pt,yshift=-7pt},
+  boxed title style={colback=softgreen,arc=2pt,boxrule=0pt}
+}
+
+\newtcolorbox{warning}{
+  enhanced,
+  colback=white,
+  colframe=accentred,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  title={\textbf{易错点}},
+  fonttitle=\bfseries\color{white},
+  coltitle=white,
+  attach boxed title to top left={xshift=6pt,yshift=-7pt},
+  boxed title style={colback=accentred,arc=2pt,boxrule=0pt}
+}
+
+\newtcolorbox{tipbox}{
+  enhanced,
+  colback=yellow!8,
+  colframe=warnorange,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=mainblue,
+  urlcolor=mainblue,
+  bookmarksopen=true,
+  pdfstartview=FitH
+}
+
+\title{\textbf{\color{mainblue}概率论与数理统计考研核心公式}\\\large 全公式版}
+\author{考研复习资料}
+\date{\today}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{tipbox}
+\textbf{使用说明：}本手册按考研大纲七大模块系统整理概率统计核心公式，每个公式包含\textbf{公式名称}、\textbf{LaTeX 公式}、\textbf{适用条件}、\textbf{易错点}四要素。建议先通读全公式版建立框架，再用挖空版自测，最后用强化版攻克变形与推导。
+\end{tipbox}
+
+\tableofcontents
+\newpage
+
+%==================================================
+\section{随机事件与概率}
+%==================================================
+
+\subsection{概率的基本性质}
+
+\begin{formula}[概率的公理化定义]
+对任意事件 $A$，概率 $P(A)$ 满足：
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{非负性：} $P(A) \geq 0$；
+  \item \textbf{规范性：} $P(\Omega) = 1$；
+  \item \textbf{可列可加性：} 若 $A_1, A_2, \dots$ 两两互不相容，则
+  \[
+  P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i).
+  \]
+\end{enumerate}
+\end{formula}
+
+\begin{condition}
+适用于任意概率空间 $(\Omega, \mathcal{F}, P)$，是 Kolmogorov 公理体系的基础。
+\end{condition}
+
+\begin{warning}
+(1) 可列可加性要求事件\textbf{两两互不相容}，否则只能用一般加法公式 $P(A\cup B)=P(A)+P(B)-P(AB)$；
+(2) 由公理可推出 $P(\varnothing)=0$，但 $P(A)=0$ 不一定意味着 $A=\varnothing$（如连续型随机变量取单点概率为 0）。
+\end{warning}
+
+\subsection{条件概率公式}
+
+\begin{formula}[条件概率]
+\[
+P(A\mid B) = \frac{P(AB)}{P(B)}, \quad P(B) > 0.
+\]
+\end{formula}
+
+\begin{condition}
+要求 $P(B)>0$；条件概率 $P(\cdot\mid B)$ 仍是概率，满足非负性、规范性、可列可加性。
+\end{condition}
+
+\begin{warning}
+$P(A\mid B)$ 与 $P(A)$ 一般不相等；$P(A\mid B)+P(\bar A\mid B)=1$，但 $P(A\mid B)+P(A\mid \bar B)$ 不一定等于 1。
+\end{warning}
+
+\subsection{乘法公式}
+
+\begin{formula}[乘法公式]
+\[
+P(AB) = P(A\mid B)\,P(B) = P(B\mid A)\,P(A).
+\]
+推广到 $n$ 个事件：
+\[
+P(A_1 A_2 \cdots A_n) = P(A_1)\,P(A_2\mid A_1)\,P(A_3\mid A_1 A_2)\cdots P(A_n\mid A_1\cdots A_{n-1}).
+\]
+\end{formula}
+
+\begin{condition}
+每个条件概率中作为条件的事件概率必须大于 0。
+\end{condition}
+
+\begin{warning}
+乘法公式中条件事件的顺序不能随意调换；$P(A_2\mid A_1)\neq P(A_1\mid A_2)$。
+\end{warning}
+
+\subsection{全概率公式}
+
+\begin{formula}[全概率公式]
+设 $A_1, A_2, \dots, A_n$ 为完备事件组（即 $\bigcup_{i=1}^n A_i=\Omega$，$A_i A_j=\varnothing$，$i\neq j$，且 $P(A_i)>0$），则对任意事件 $B$：
+\[
+P(B) = \sum_{i=1}^{n} P(A_i)\,P(B\mid A_i).
+\]
+\end{formula}
+
+\begin{condition}
+$A_1,\dots,A_n$ 必须构成\textbf{完备事件组}（划分）；每个 $P(A_i)>0$。
+\end{condition}
+
+\begin{warning}
+完备事件组必须满足"互斥且完备"，常见错误是漏掉某个 $A_i$ 或事件之间有重叠。$n=2$ 时常用 $A$ 与 $\bar A$ 作划分。
+\end{warning}
+
+\subsection{贝叶斯公式}
+
+\begin{formula}[贝叶斯公式]
+设 $A_1,\dots,A_n$ 为完备事件组，$P(B)>0$，则
+\[
+P(A_k\mid B) = \frac{P(A_k)\,P(B\mid A_k)}{\displaystyle\sum_{i=1}^{n} P(A_i)\,P(B\mid A_i)}, \quad k=1,2,\dots,n.
+\]
+\end{formula}
+
+\begin{condition}
+$A_1,\dots,A_n$ 为完备事件组；$P(B)>0$；$P(A_i)>0$。
+\end{condition}
+
+\begin{warning}
+分子是分母中的一项；$P(A_k)$ 是\textbf{先验概率}，$P(A_k\mid B)$ 是\textbf{后验概率}。考研常考"已知结果反推原因"型问题。
+\end{warning}
+
+\subsection{事件独立性}
+
+\begin{formula}[事件独立性]
+$A$ 与 $B$ 独立 $\iff$ $P(AB)=P(A)P(B)$。
+$n$ 个事件相互独立 $\iff$ 对任意 $1\leq k\leq n$，任意 $1\leq i_1<\cdots<i_k\leq n$：
+\[
+P(A_{i_1}A_{i_2}\cdots A_{i_k}) = P(A_{i_1})P(A_{i_2})\cdots P(A_{i_k}).
+\]
+\end{formula}
+
+\begin{condition}
+独立性是概率性质，不是事件关系性质；两两独立 $\nRightarrow$ 相互独立。
+\end{condition}
+
+\begin{warning}
+若 $A,B$ 独立，则 $A,\bar B$；$\bar A,B$；$\bar A,\bar B$ 也分别独立。独立 $\nRightarrow$ 互斥（除非有零概率事件）。
+\end{warning}
+
+%==================================================
+\section{随机变量及其分布}
+%==================================================
+
+\subsection{分布函数与密度函数}
+
+\begin{formula}[分布函数]
+\[
+F(x) = P(X\leq x), \quad -\infty < x < +\infty.
+\]
+性质：(1) 单调不减；(2) $F(-\infty)=0$，$F(+\infty)=1$；(3) 右连续。
+\end{formula}
+
+\begin{formula}[概率密度函数]
+对连续型 $X$，$f(x)\geq 0$，$\displaystyle\int_{-\infty}^{+\infty} f(x)\,dx = 1$，且
+\[
+F(x) = \int_{-\infty}^{x} f(t)\,dt, \quad P(a<X\leq b) = \int_{a}^{b} f(x)\,dx.
+\]
+\end{formula}
+
+\begin{warning}
+连续型随机变量取单点概率为 0：$P(X=a)=0$；故 $P(a<X<b)=P(a\leq X<b)=P(a<X\leq b)=P(a\leq X\leq b)$。
+\end{warning}
+
+\subsection{离散型分布}
+
+\begin{formula}[二项分布 $B(n,p)$]
+\[
+P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k=0,1,\dots,n.
+\]
+$E(X)=np$，$D(X)=np(1-p)$。
+\end{formula}
+
+\begin{condition}
+$n$ 重伯努利试验中事件 $A$ 发生的次数；每次试验概率 $p$ 相同；试验相互独立。
+\end{condition}
+
+\begin{warning}
+$n=1$ 时退化为 0--1 分布（两点分布）；二项分布与泊松分布的近似关系：当 $n$ 大、$p$ 小、$np=\lambda$ 适中时，$B(n,p)\approx P(\lambda)$。
+\end{warning}
+
+\begin{formula}[泊松分布 $P(\lambda)$]
+\[
+P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k=0,1,2,\dots; \quad \lambda > 0.
+\]
+$E(X)=D(X)=\lambda$。
+\end{formula}
+
+\begin{condition}
+描述稀有事件在单位时间/空间内发生次数；$\lambda$ 为强度参数。
+\end{condition}
+
+\begin{warning}
+泊松分布期望与方差\textbf{相等}，均为 $\lambda$，这是重要特征；$\sum_{k=0}^{\infty}\frac{\lambda^k e^{-\lambda}}{k!}=1$。
+\end{warning}
+
+\begin{formula}[几何分布与超几何分布]
+几何分布：$P(X=k)=(1-p)^{k-1}p$，$k=1,2,\dots$（首次成功所需试验次数），$E(X)=\frac{1}{p}$，$D(X)=\frac{1-p}{p^2}$。
+
+超几何分布：$P(X=k)=\dfrac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}$，$k=0,1,\dots,\min(M,n)$。
+\end{formula}
+
+\subsection{连续型分布}
+
+\begin{formula}[均匀分布 $U(a,b)$]
+\[
+f(x) = \begin{cases} \dfrac{1}{b-a}, & a < x < b, \\[4pt] 0, & \text{其他}. \end{cases}
+\]
+$E(X)=\dfrac{a+b}{2}$，$D(X)=\dfrac{(b-a)^2}{12}$。
+\end{formula}
+
+\begin{formula}[正态分布 $N(\mu,\sigma^2)$]
+\[
+f(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\, e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \quad -\infty < x < +\infty.
+\]
+$E(X)=\mu$，$D(X)=\sigma^2$。标准正态 $N(0,1)$：密度 $\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-x^2/2}$，分布函数 $\Phi(x)$。
+\end{formula}
+
+\begin{condition}
+$\sigma>0$；标准化 $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$，$F(x)=\Phi\!\left(\dfrac{x-\mu}{\sigma}\right)$。
+\end{condition}
+
+\begin{warning}
+$\Phi(-x)=1-\Phi(x)$；$P(|X-\mu|<\sigma)\approx 0.6827$，$P(|X-\mu|<2\sigma)\approx 0.9545$，$P(|X-\mu|<3\sigma)\approx 0.9973$（$3\sigma$ 原则）。
+\end{warning}
+
+\begin{formula}[指数分布 $\mathrm{Exp}(\lambda)$]
+\[
+f(x) = \begin{cases} \lambda e^{-\lambda x}, & x > 0, \\ 0, & x \leq 0. \end{cases} \quad F(x) = \begin{cases} 1-e^{-\lambda x}, & x>0, \\ 0, & x\leq 0. \end{cases}
+\]
+$E(X)=\dfrac{1}{\lambda}$，$D(X)=\dfrac{1}{\lambda^2}$。
+\end{formula}
+
+\begin{condition}
+$\lambda>0$；具有\textbf{无记忆性}：$P(X>s+t\mid X>s)=P(X>t)$。
+\end{condition}
+
+\begin{warning}
+指数分布是无记忆性\textbf{唯一}的连续型分布；与泊松过程关系密切：泊松过程中相邻事件间隔服从指数分布。
+\end{warning}
+
+\subsection{随机变量函数的分布}
+
+\begin{formula}[离散型：分布律转换]
+若 $Y=g(X)$，$X$ 取值 $x_1,x_2,\dots$，则 $Y$ 取值 $g(x_1),g(x_2),\dots$；相同 $g(x_i)$ 对应的概率相加。
+\end{formula}
+
+\begin{formula}[连续型：分布函数法]
+\[
+F_Y(y) = P(Y\leq y) = P(g(X)\leq y), \quad f_Y(y) = F_Y'(y).
+\]
+\end{formula}
+
+\begin{formula}[连续型：公式法（单调可导）]
+若 $y=g(x)$ 严格单调、可导，反函数 $x=h(y)$，则
+\[
+f_Y(y) = f_X\bigl(h(y)\bigr)\cdot |h'(y)|.
+\]
+\end{formula}
+
+\begin{condition}
+公式法要求 $g$ 严格单调且可导；非单调时必须分段用分布函数法。
+\end{condition}
+
+\begin{warning}
+公式法中\textbf{绝对值} $|h'(y)|$ 不能漏；分段单调时需对各段分别求密度再相加。
+\end{warning}
+
+%==================================================
+\section{数字特征}
+%==================================================
+
+\subsection{数学期望}
+
+\begin{formula}[数学期望]
+离散型：$\displaystyle E(X) = \sum_{k} x_k\, P(X=x_k)$；
+
+连续型：$\displaystyle E(X) = \int_{-\infty}^{+\infty} x\, f(x)\, dx$。
+
+随机变量函数：$E[g(X)] = \sum_k g(x_k)P(X=x_k)$ 或 $\displaystyle\int_{-\infty}^{+\infty} g(x)f(x)\,dx$。
+\end{formula}
+
+\begin{condition}
+级数或积分\textbf{绝对收敛}时期望才存在。
+\end{condition}
+
+\begin{warning}
+$E[g(X)]\neq g(E[X])$（除非 $g$ 为线性）；期望具有线性性 $E(aX+bY)=aE(X)+bE(Y)$，无需独立性。
+\end{warning}
+
+\subsection{方差}
+
+\begin{formula}[方差]
+\[
+D(X) = E\bigl[(X-E(X))^2\bigr] = E(X^2) - [E(X)]^2.
+\]
+性质：$D(C)=0$；$D(aX+b)=a^2 D(X)$；若 $X,Y$ 独立，$D(X\pm Y)=D(X)+D(Y)$。
+\end{formula}
+
+\begin{condition}
+方差存在要求 $E(X^2)<\infty$；样本方差 $S^2=\dfrac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2$ 是无偏估计。
+\end{condition}
+
+\begin{warning}
+\textbf{方差 $D(X)$ 与标准差 $\sqrt{D(X)}$ 区别}：方差量纲是原变量平方，标准差与原变量同量纲；$D(aX+b)=a^2 D(X)$（注意是 $a^2$ 不是 $a$）；不独立时 $D(X\pm Y)=D(X)+D(Y)\pm 2\,\mathrm{Cov}(X,Y)$。
+\end{warning}
+
+\subsection{协方差与相关系数}
+
+\begin{formula}[协方差]
+\[
+\mathrm{Cov}(X,Y) = E\bigl[(X-E(X))(Y-E(Y))\bigr] = E(XY) - E(X)E(Y).
+\]
+性质：$\mathrm{Cov}(X,X)=D(X)$；$\mathrm{Cov}(aX+b,cY+d)=ac\,\mathrm{Cov}(X,Y)$；$\mathrm{Cov}(X+Y,Z)=\mathrm{Cov}(X,Z)+\mathrm{Cov}(Y,Z)$。
+\end{formula}
+
+\begin{formula}[相关系数]
+\[
+\rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}, \quad D(X)>0,\ D(Y)>0.
+\]
+$-1\leq \rho_{XY}\leq 1$；$|\rho|=1 \iff$ 存在线性关系 $Y=aX+b$（$a.s.$）。
+\end{formula}
+
+\begin{condition}
+要求 $D(X),D(Y)$ 存在且大于 0；相关系数刻画\textbf{线性}相关程度。
+\end{condition}
+
+\begin{warning}
+\textbf{独立与不相关的关系：}独立 $\Rightarrow$ 不相关（$\rho=0$），但反之\textbf{不成立}（除非 $(X,Y)$ 服从二维正态分布，此时独立 $\iff$ 不相关）。相关系数\textbf{消除了量纲}影响，协方差有量纲。
+\end{warning}
+
+\subsection{矩}
+
+\begin{formula}[原点矩与中心矩]
+$k$ 阶原点矩：$\mu_k = E(X^k)$；
+
+$k$ 阶中心矩：$\nu_k = E\bigl[(X-E(X))^k\bigr]$。
+
+特别：一阶原点矩为期望，二阶中心矩为方差。
+\end{formula}
+
+\begin{warning}
+原点矩与中心矩的换算：$\nu_2 = \mu_2 - \mu_1^2$（即 $D(X)=E(X^2)-[E(X)]^2$）；偏度、峰度等高阶矩在考研中较少直接考查，但需理解定义。
+\end{warning}
+
+%==================================================
+\section{大数定律与中心极限定理}
+%==================================================
+
+\subsection{切比雪夫不等式}
+
+\begin{formula}[切比雪夫不等式]
+\[
+P\bigl(|X-E(X)| \geq \varepsilon\bigr) \leq \frac{D(X)}{\varepsilon^2}, \quad \forall \varepsilon>0.
+\]
+等价形式：$P\bigl(|X-E(X)|<\varepsilon\bigr) \geq 1 - \dfrac{D(X)}{\varepsilon^2}$。
+\end{formula}
+
+\begin{condition}
+$E(X),D(X)$ 存在；$\varepsilon>0$ 任意。给出概率的\textbf{上界}估计。
+\end{condition}
+
+\begin{warning}
+切比雪夫不等式给出的是\textbf{粗略上界}，实际概率通常远小于此；常用于理论证明，而非精确计算。
+\end{warning}
+
+\subsection{大数定律}
+
+\begin{formula}[切比雪夫大数定律（特殊形式）]
+设 $X_1,\dots,X_n$ 相互独立，期望 $E(X_i)=\mu_i$，方差有共同上界 $D(X_i)\leq C$，则
+\[
+\lim_{n\to\infty} P\!\left(\left|\frac{1}{n}\sum_{i=1}^n X_i - \frac{1}{n}\sum_{i=1}^n \mu_i\right|<\varepsilon\right)=1.
+\]
+\end{formula}
+
+\begin{formula}[伯努利大数定律]
+设 $n_A$ 为 $n$ 次独立试验中事件 $A$ 发生次数，$p=P(A)$，则
+\[
+\lim_{n\to\infty} P\!\left(\left|\frac{n_A}{n} - p\right|<\varepsilon\right)=1.
+\]
+\end{formula}
+
+\begin{condition}
+$n$ 重伯努利试验；频率 $\dfrac{n_A}{n}$ 依概率收敛于概率 $p$。
+\end{condition}
+
+\begin{formula}[辛钦大数定律]
+设 $X_1,X_2,\dots$ 独立同分布，$E(X_i)=\mu$，则
+\[
+\lim_{n\to\infty} P\!\left(\left|\frac{1}{n}\sum_{i=1}^n X_i - \mu\right|<\varepsilon\right)=1.
+\]
+\end{formula}
+
+\begin{condition}
+\textbf{独立同分布}；只需期望存在，\textbf{不要求方差存在}（这是与切比雪夫大数定律的关键区别）。
+\end{condition}
+
+\begin{warning}
+辛钦大数定律是\textbf{矩估计}的理论依据；伯努利大数定律是辛钦大数定律的特例（$X_i$ 为 0--1 分布）。
+\end{warning}
+
+\subsection{中心极限定理}
+
+\begin{formula}[林德伯格--列维中心极限定理（独立同分布）]
+设 $X_1,X_2,\dots$ 独立同分布，$E(X_i)=\mu$，$D(X_i)=\sigma^2>0$，则对任意 $x$：
+\[
+\lim_{n\to\infty} P\!\left(\frac{\sum_{i=1}^n X_i - n\mu}{\sqrt{n}\,\sigma} \leq x\right) = \Phi(x).
+\]
+等价地：$\displaystyle\sum_{i=1}^n X_i \overset{\cdot}{\sim} N(n\mu, n\sigma^2)$，$\bar X \overset{\cdot}{\sim} N\!\left(\mu,\dfrac{\sigma^2}{n}\right)$。
+\end{formula}
+
+\begin{condition}
+\textbf{独立同分布}；$n$ 较大（一般 $n\geq 30$）；$\sigma^2>0$。
+\end{condition}
+
+\begin{warning}
+\textbf{标准化不能忘}：分子减去 $n\mu$，分母为 $\sqrt{n}\sigma$（不是 $\sigma$，也不是 $n\sigma$）；实际计算时用 $\Phi$ 表查值。棣莫弗--拉普拉斯定理是其特例（$X_i\sim B(1,p)$）。
+\end{warning}
+
+\begin{formula}[棣莫弗--拉普拉斯定理]
+设 $Y_n\sim B(n,p)$，$0<p<1$，则
+\[
+\lim_{n\to\infty} P\!\left(\frac{Y_n - np}{\sqrt{np(1-p)}} \leq x\right) = \Phi(x).
+\]
+\end{formula}
+
+%==================================================
+\section{数理统计的基本概念}
+%==================================================
+
+\subsection{统计量}
+
+\begin{formula}[样本均值与样本方差]
+样本均值：$\displaystyle \bar X = \frac{1}{n}\sum_{i=1}^n X_i$；
+
+样本方差：$\displaystyle S^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar X)^2$；
+
+样本标准差：$S=\sqrt{S^2}$。
+\end{formula}
+
+\begin{condition}
+$X_1,\dots,X_n$ 为来自总体 $X$ 的简单随机样本（独立同分布）。
+\end{condition}
+
+\begin{warning}
+\textbf{样本方差除以 $n-1$}（不是 $n$），目的是保证 $S^2$ 是总体方差 $\sigma^2$ 的\textbf{无偏估计}；若除以 $n$ 则为有偏估计（二阶中心矩）。
+\end{warning}
+
+\subsection{样本矩}
+
+\begin{formula}[样本原点矩与样本中心矩]
+样本 $k$ 阶原点矩：$\displaystyle A_k = \frac{1}{n}\sum_{i=1}^n X_i^k$；
+
+样本 $k$ 阶中心矩：$\displaystyle B_k = \frac{1}{n}\sum_{i=1}^n (X_i-\bar X)^k$。
+
+特别：$A_1=\bar X$，$B_2=\dfrac{n-1}{n}S^2$。
+\end{formula}
+
+\begin{warning}
+$B_2\neq S^2$，二者差一个因子 $\dfrac{n-1}{n}$；当 $n\to\infty$ 时二者趋于一致。
+\end{warning}
+
+\subsection{抽样分布}
+
+\begin{formula}[$\chi^2$ 分布]
+设 $X_1,\dots,X_n$ 独立同分布于 $N(0,1)$，则 $\chi^2=\sum_{i=1}^n X_i^2 \sim \chi^2(n)$。
+$E(\chi^2)=n$，$D(\chi^2)=2n$；可加性：$\chi^2_1(n_1)+\chi^2_2(n_2)\sim\chi^2(n_1+n_2)$（独立时）。
+\end{formula}
+
+\begin{formula}[$t$ 分布]
+设 $X\sim N(0,1)$，$Y\sim\chi^2(n)$，且 $X,Y$ 独立，则 $T=\dfrac{X}{\sqrt{Y/n}}\sim t(n)$。
+$t$ 分布关于 $y$ 轴对称；$n\to\infty$ 时 $t(n)\to N(0,1)$。
+\end{formula}
+
+\begin{formula}[$F$ 分布]
+设 $X\sim\chi^2(n_1)$，$Y\sim\chi^2(n_2)$，且 $X,Y$ 独立，则 $F=\dfrac{X/n_1}{Y/n_2}\sim F(n_1,n_2)$。
+性质：$\dfrac{1}{F}\sim F(n_2,n_1)$。
+\end{formula}
+
+\begin{warning}
+三大抽样分布均要求\textbf{独立}的正态变量构造；$t$ 分布自由度大时近似标准正态；$F$ 分布的"倒数性质"在查表时常用。
+\end{warning}
+
+\subsection{正态总体下的抽样分布}
+
+\begin{formula}[单正态总体]
+设 $X_1,\dots,X_n\sim N(\mu,\sigma^2)$，$\bar X$ 与 $S^2$ 独立，则：
+\begin{align*}
+&\bar X \sim N\!\left(\mu,\frac{\sigma^2}{n}\right), \quad \frac{\bar X-\mu}{\sigma/\sqrt n}\sim N(0,1); \\
+&\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1); \\
+&\frac{\bar X-\mu}{S/\sqrt n}\sim t(n-1).
+\end{align*}
+\end{formula}
+
+\begin{formula}[双正态总体]
+设 $X_1,\dots,X_{n_1}\sim N(\mu_1,\sigma_1^2)$，$Y_1,\dots,Y_{n_2}\sim N(\mu_2,\sigma_2^2)$，二者独立，则：
+\begin{align*}
+&\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\sim N(0,1); \\
+&\frac{S_1^2/\sigma_1^2}{S_2^2/\sigma_2^2}\sim F(n_1-1,n_2-1); \\
+&\sigma_1^2=\sigma_2^2=\sigma^2\text{ 时：}\frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{1/n_1+1/n_2}}\sim t(n_1+n_2-2),
+\end{align*}
+其中 $S_w^2=\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}$。
+\end{formula}
+
+%==================================================
+\section{参数估计}
+%==================================================
+
+\subsection{矩估计}
+
+\begin{formula}[矩估计法]
+用样本矩估计总体矩：
+\[
+\hat\mu_k = A_k = \frac{1}{n}\sum_{i=1}^n X_i^k, \quad \text{即 } E(X^k) \approx A_k.
+\]
+具体步骤：令 $E(X)=\bar X$（一阶矩），若有两个参数则再令 $E(X^2)=A_2$，解方程组得参数估计。
+\end{formula}
+
+\begin{condition}
+总体矩必须存在；样本量较大时矩估计渐近正态。
+\end{condition}
+
+\begin{warning}
+矩估计\textbf{不一定唯一}（不同阶矩可能给出不同估计）；矩估计\textbf{不一定无偏}（如 $A_2-\bar X^2=\dfrac{n-1}{n}S^2$ 是 $\sigma^2$ 的有偏估计）。
+\end{warning}
+
+\subsection{最大似然估计}
+
+\begin{formula}[最大似然估计]
+似然函数（连续型）：$\displaystyle L(\theta) = \prod_{i=1}^n f(x_i;\theta)$；
+
+似然函数（离散型）：$\displaystyle L(\theta) = \prod_{i=1}^n P(X_i=x_i;\theta)$。
+
+取对数：$\ln L(\theta) = \sum_{i=1}^n \ln f(x_i;\theta)$；
+
+令 $\dfrac{\partial \ln L(\theta)}{\partial \theta}=0$，解出 $\hat\theta$。
+\end{formula}
+
+\begin{condition}
+似然函数关于 $\theta$ 可微；若不可微或最值在边界，需直接求 $L(\theta)$ 的最大值点。
+\end{condition}
+
+\begin{warning}
+\textbf{取对数是为了简化乘积为求和}，不改变极值点；若方程无解或参数有范围限制，应直接比较似然函数值；最大似然估计具有\textbf{不变性}：$\hat\theta$ 是 $\theta$ 的 MLE，则 $g(\hat\theta)$ 是 $g(\theta)$ 的 MLE（$g$ 单调时）。
+\end{warning}
+
+\subsection{估计量的评选标准}
+
+\begin{formula}[无偏性、有效性、相合性]
+\textbf{无偏性：} $E(\hat\theta)=\theta$；
+
+\textbf{有效性：} 若 $\hat\theta_1,\hat\theta_2$ 均无偏，$D(\hat\theta_1)<D(\hat\theta_2)$，则 $\hat\theta_1$ 更有效；
+
+\textbf{相合性（一致性）：} $\hat\theta_n \xrightarrow{P} \theta$（$n\to\infty$）。
+\end{formula}
+
+\begin{warning}
+样本均值 $\bar X$ 是 $\mu$ 的无偏估计；样本方差 $S^2$（除以 $n-1$）是 $\sigma^2$ 的无偏估计，但 $S$ 不是 $\sigma$ 的无偏估计。
+\end{warning}
+
+\subsection{区间估计（正态总体）}
+
+\begin{formula}[$\sigma^2$ 已知，$\mu$ 的置信区间（置信度 $1-\alpha$）]
+\[
+\left(\bar X - z_{\alpha/2}\,\frac{\sigma}{\sqrt n},\ \bar X + z_{\alpha/2}\,\frac{\sigma}{\sqrt n}\right).
+\]
+\end{formula}
+
+\begin{formula}[$\sigma^2$ 未知，$\mu$ 的置信区间]
+\[
+\left(\bar X - t_{\alpha/2}(n-1)\,\frac{S}{\sqrt n},\ \bar X + t_{\alpha/2}(n-1)\,\frac{S}{\sqrt n}\right).
+\]
+\end{formula}
+
+\begin{formula}[$\mu$ 未知，$\sigma^2$ 的置信区间]
+\[
+\left(\frac{(n-1)S^2}{\chi^2_{\alpha/2}(n-1)},\ \frac{(n-1)S^2}{\chi^2_{1-\alpha/2}(n-1)}\right).
+\]
+\end{formula}
+
+\begin{condition}
+总体服从正态分布 $N(\mu,\sigma^2)$；样本为简单随机样本；置信度 $1-\alpha$。
+\end{condition}
+
+\begin{warning}
+\textbf{分位点顺序易错}：$\sigma^2$ 的置信区间中，$\chi^2_{\alpha/2}$ 在\textbf{分母}（对应较大值，因 $\chi^2$ 右偏），$\chi^2_{1-\alpha/2}$ 在\textbf{分母}（对应较小值）；$z_{\alpha/2}$ 满足 $\Phi(z_{\alpha/2})=1-\alpha/2$；$t_{\alpha/2}(n-1)$ 满足 $P(T>t_{\alpha/2})=\alpha/2$。
+\end{warning}
+
+%==================================================
+\section{假设检验}
+%==================================================
+
+\subsection{假设检验基本思想}
+
+\begin{formula}[假设检验步骤]
+(1) 提出原假设 $H_0$ 与备择假设 $H_1$；
+
+(2) 选取检验统计量，确定分布；
+
+(3) 给定显著性水平 $\alpha$，确定拒绝域；
+
+(4) 计算统计量观测值，判断是否落入拒绝域；
+
+(5) 两类错误：第一类 $P(\text{拒}H_0\mid H_0\text{真})=\alpha$；第二类 $P(\text{接}H_0\mid H_0\text{假})=\beta$。
+\end{formula}
+
+\begin{warning}
+显著性水平 $\alpha$ 是\textbf{犯第一类错误}的概率上限；$\alpha$ 与 $\beta$ 此消彼长，样本量固定时不能同时减小。
+\end{warning}
+
+\subsection{单正态总体均值检验}
+
+\begin{formula}[$\sigma^2$ 已知 — $Z$ 检验]
+\[
+Z = \frac{\bar X - \mu_0}{\sigma/\sqrt n} \sim N(0,1) \quad (H_0:\mu=\mu_0).
+\]
+\end{formula}
+
+\begin{formula}[$\sigma^2$ 未知 — $t$ 检验]
+\[
+T = \frac{\bar X - \mu_0}{S/\sqrt n} \sim t(n-1) \quad (H_0:\mu=\mu_0).
+\]
+\end{formula}
+
+\begin{condition}
+总体服从正态分布；样本独立；$\sigma^2$ 已知用 $Z$ 检验，未知用 $t$ 检验。
+\end{condition}
+
+\begin{warning}
+双侧检验 $H_1:\mu\neq\mu_0$，拒绝域 $|Z|>z_{\alpha/2}$；单侧检验 $H_1:\mu>\mu_0$，拒绝域 $Z>z_\alpha$；单侧检验的方向由 $H_1$ 决定。
+\end{warning}
+
+\subsection{单正态总体方差检验}
+
+\begin{formula}[$\mu$ 未知 — $\chi^2$ 检验]
+\[
+\chi^2 = \frac{(n-1)S^2}{\sigma_0^2} \sim \chi^2(n-1) \quad (H_0:\sigma^2=\sigma_0^2).
+\]
+\end{formula}
+
+\subsection{双正态总体均值差检验}
+
+\begin{formula}[双正态总体均值差检验]
+$\sigma_1^2,\sigma_2^2$ 已知：
+\[
+Z = \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}} \sim N(0,1).
+\]
+$\sigma_1^2=\sigma_2^2=\sigma^2$ 未知：
+\[
+T = \frac{(\bar X-\bar Y)-(\mu_1-\mu_2)}{S_w\sqrt{1/n_1+1/n_2}} \sim t(n_1+n_2-2).
+\]
+\end{formula}
+
+\subsection{双正态总体方差比检验}
+
+\begin{formula}[$F$ 检验]
+\[
+F = \frac{S_1^2}{S_2^2} \sim F(n_1-1,n_2-1) \quad (H_0:\sigma_1^2=\sigma_2^2).
+\]
+\end{formula}
+
+\begin{condition}
+两正态总体独立；$H_0:\sigma_1^2=\sigma_2^2$ 时 $F=S_1^2/S_2^2$；约定将较大样本方差放分子，便于查表。
+\end{condition}
+
+\begin{warning}
+\textbf{方差比检验}中，若 $H_1:\sigma_1^2\neq\sigma_2^2$，拒绝域 $F>F_{\alpha/2}(n_1-1,n_2-1)$ 或 $F<F_{1-\alpha/2}(n_1-1,n_2-1)$；利用 $F_{1-\alpha/2}(n_1,n_2)=1/F_{\alpha/2}(n_2,n_1)$ 查表。
+\end{warning}
+
+%==================================================
+\section*{附录：高频考点与易错点速查}
+\addcontentsline{toc}{section}{附录：高频考点与易错点速查}
+%==================================================
+
+\subsection*{高频考点}
+\begin{enumerate}[leftmargin=2em]
+  \item 全概率公式与贝叶斯公式（"由因求果"与"执果索因"）；
+  \item 中心极限定理的应用（标准化、查 $\Phi$ 表）；
+  \item 样本方差定义（除以 $n-1$）与无偏性；
+  \item 相关系数与独立的关系（二维正态下等价）；
+  \item 置信区间的构造（区分 $z,t,\chi^2,F$）；
+  \item 最大似然估计的求解（取对数、求导）；
+  \item 三大抽样分布的构造与查表。
+\end{enumerate}
+
+\subsection*{易错点速查}
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{方差 vs 标准差}：$D(X)$ 是方差，$\sqrt{D(X)}$ 是标准差；$D(aX+b)=a^2 D(X)$。
+  \item \textbf{协方差 vs 相关系数}：相关系数无量纲，协方差有量纲；$\rho\in[-1,1]$。
+  \item \textbf{独立 vs 不相关}：独立 $\Rightarrow$ 不相关，反之不然（二维正态例外）。
+  \item \textbf{中心极限定理条件}：独立同分布，$n$ 较大；标准化分母为 $\sqrt n\sigma$。
+  \item \textbf{样本方差}：除以 $n-1$ 保证无偏；$B_2=\frac{n-1}{n}S^2$。
+  \item \textbf{置信区间分位点}：$\chi^2$ 区间分母顺序易错；$z_{\alpha/2}$ 满足 $\Phi(z_{\alpha/2})=1-\alpha/2$。
+  \item \textbf{连续型单点概率为 0}：$P(X=a)=0$，区间开闭等价。
+  \item \textbf{公式法求密度}：必须加绝对值 $|h'(y)|$；非单调时分段处理。
+\end{enumerate}
+
+\end{document}

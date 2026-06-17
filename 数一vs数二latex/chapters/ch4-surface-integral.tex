@@ -1,0 +1,148 @@
+% 第四章：曲面积分
+
+\section{曲面积分}
+
+曲面积分是曲线积分从一维曲线到二维曲面的自然推广。正如曲线积分将积分的舞台从区间推广到曲线，曲面积分将积分的舞台从平面区域推广到空间曲面。曲面积分同样分为两类：第一类曲面积分（对面积的积分）和第二类曲面积分（对坐标的积分），它们分别是第一类和第二类曲线积分在高一维度的对应。
+
+\subsection{第一类曲面积分：面上的"称重"}
+
+\subsubsection{定义与物理原型}
+
+设 $\Sigma$ 是光滑曲面，$f(x,y,z)$ 在 $\Sigma$ 上有界。将 $\Sigma$ 分成 $n$ 个小块 $\Delta S_i$，在第 $i$ 块上任取一点 $(\xi_i,\eta_i,\zeta_i)$，作和式 $\sum_{i=1}^n f(\xi_i,\eta_i,\zeta_i)\Delta S_i$。当各小块的最大直径 $\lambda\to 0$ 时，若极限存在，则称为 $f$ 在 $\Sigma$ 上对面积的曲面积分：
+\[
+\iint_\Sigma f(x,y,z)\,\mathrm{d}S = \lim_{\lambda\to 0}\sum_{i=1}^n f(\xi_i,\eta_i,\zeta_i)\Delta S_i
+\]
+
+\begin{essencebox}
+第一类曲面积分的本质是\textbf{沿曲面的加权累积}。若 $f(x,y,z)$ 表示曲面上点 $(x,y,z)$ 处的面密度，则 $\iint_\Sigma f\,\mathrm{d}S$ 就是曲面的总质量。微元 $\mathrm{d}S$ 是面积元素，代表曲面上一个"无穷小"的面积。当 $f\equiv 1$ 时，积分结果就是曲面的面积。
+
+与第一类曲线积分一样，第一类曲面积分与曲面的\textbf{侧（方向）无关}——面积 $\mathrm{d}S$ 始终为正。
+\end{essencebox}
+
+\subsubsection{计算方法}
+
+若曲面 $\Sigma$ 的方程为 $z=z(x,y)$，$(x,y)\in D_{xy}$，则：
+\[
+\iint_\Sigma f(x,y,z)\,\mathrm{d}S = \iint_{D_{xy}} f(x,y,z(x,y))\sqrt{1+z_x^2+z_y^2}\,\mathrm{d}\sigma
+\]
+
+\begin{insightbox}
+\textbf{推理步骤}：为什么出现 $\sqrt{1+z_x^2+z_y^2}$？
+\begin{enumerate}[leftmargin=2em]
+    \item 曲面的面积元素 $\mathrm{d}S$ 与其在 $xy$ 平面上的投影面积 $\mathrm{d}\sigma$ 的关系为 $\mathrm{d}S = \frac{\mathrm{d}\sigma}{|\cos\gamma|}$，其中 $\gamma$ 是曲面法向量与 $z$ 轴的夹角
+    \item 曲面 $z=z(x,y)$ 的法向量为 $\vec{n} = (-z_x, -z_y, 1)$
+    \item $\cos\gamma = \frac{1}{\sqrt{1+z_x^2+z_y^2}}$
+    \item 因此 $\mathrm{d}S = \sqrt{1+z_x^2+z_y^2}\,\mathrm{d}\sigma$
+\end{enumerate}
+这个因子的几何意义是：当曲面倾斜时，其面积大于投影面积；当曲面水平时（$z_x=z_y=0$），$\mathrm{d}S = \mathrm{d}\sigma$，面积等于投影面积。
+\end{insightbox}
+
+\subsection{第二类曲面积分：通量}
+
+\subsubsection{定义与物理原型}
+
+第二类曲面积分的定义为：
+\[
+\iint_\Sigma P\,\mathrm{d}y\mathrm{d}z + Q\,\mathrm{d}z\mathrm{d}x + R\,\mathrm{d}x\mathrm{d}y \quad \text{或} \quad \iint_\Sigma \vec{F}\cdot\mathrm{d}\vec{S}
+\]
+
+其中 $\vec{F} = (P, Q, R)$ 是向量场，$\mathrm{d}\vec{S} = \vec{n}\,\mathrm{d}S$ 是有向面积元素。
+
+\begin{essencebox}
+第二类曲面积分的物理原型是\textbf{向量场穿过曲面的通量}。设 $\vec{v}$ 是流体的速度场，则 $\iint_\Sigma \vec{v}\cdot\mathrm{d}\vec{S}$ 表示单位时间内穿过曲面 $\Sigma$ 的流体体积（流量）。微元 $\vec{v}\cdot\mathrm{d}\vec{S}$ 是速度在法向量方向上的分量乘以面积，即微元流量。
+
+关键点：第二类曲面积分与曲面的\textbf{侧（方向）有关}。取不同的侧，法向量方向相反，积分结果相差一个负号。
+\end{essencebox}
+
+\subsubsection{计算方法}
+
+若曲面 $\Sigma$ 的方程为 $z=z(x,y)$，$(x,y)\in D_{xy}$，取上侧，则：
+\[
+\iint_\Sigma R\,\mathrm{d}x\mathrm{d}y = \iint_{D_{xy}} R(x,y,z(x,y))\,\mathrm{d}x\mathrm{d}y
+\]
+
+取下侧则加负号。类似地可处理对 $\mathrm{d}y\mathrm{d}z$ 和 $\mathrm{d}z\mathrm{d}x$ 的积分。
+
+\begin{warnbox}
+\textbf{方向约定}：
+\begin{itemize}[leftmargin=2em]
+    \item 对 $\mathrm{d}x\mathrm{d}y$ 的积分：上侧为正，下侧为负
+    \item 对 $\mathrm{d}y\mathrm{d}z$ 的积分：前侧为正，后侧为负
+    \item 对 $\mathrm{d}z\mathrm{d}x$ 的积分：右侧为正，左侧为负
+\end{itemize}
+\end{warnbox}
+
+\subsection{高斯公式}
+
+设空间闭区域 $\Omega$ 由分片光滑闭曲面 $\Sigma$ 围成，$\vec{F} = (P, Q, R)$ 在 $\Omega$ 上有连续一阶偏导数，则：
+\[
+\oiint_\Sigma \vec{F}\cdot\mathrm{d}\vec{S} = \iiint_\Omega \nabla\cdot\vec{F}\,\mathrm{d}v
+\]
+
+即：
+\[
+\oiint_\Sigma P\,\mathrm{d}y\mathrm{d}z + Q\,\mathrm{d}z\mathrm{d}x + R\,\mathrm{d}x\mathrm{d}y = \iiint_\Omega \left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\right)\mathrm{d}v
+\]
+
+其中 $\Sigma$ 取外侧。
+
+\begin{essencebox}
+高斯公式的本质是\textbf{散度定理}——它将封闭曲面上的通量与区域内的散度积分联系起来。物理意义是：流出封闭曲面的净通量等于区域内部所有"源"的总强度。如果区域内有更多的"源"（正散度），则净流出为正；如果有更多的"汇"（负散度），则净流入为正；如果源汇平衡（散度为零），则净通量为零。
+\end{essencebox}
+
+\subsection{斯托克斯公式}
+
+设光滑曲面 $\Sigma$ 的边界为分段光滑曲线 $\Gamma$，$\vec{F} = (P, Q, R)$ 在 $\Sigma$ 上有连续一阶偏导数，则：
+\[
+\oint_\Gamma P\,\mathrm{d}x + Q\,\mathrm{d}y + R\,\mathrm{d}z = \iint_\Sigma (\nabla\times\vec{F})\cdot\mathrm{d}\vec{S}
+\]
+
+其中 $\Gamma$ 的方向与 $\Sigma$ 的侧符合右手法则。
+
+\begin{essencebox}
+斯托克斯公式的本质是\textbf{旋度定理}——它将边界曲线上的环量与曲面上的旋度通量联系起来。物理意义是：向量场沿边界曲线的环量等于曲面上的旋度通量。旋度越大的地方，沿边界曲线的"旋转效应"越强。
+\end{essencebox}
+
+\subsection{四大积分公式的统一}
+
+牛顿-莱布尼茨公式、格林公式、高斯公式和斯托克斯公式可以统一表述为：
+\[
+\int_{\partial\Omega} \omega = \int_\Omega \mathrm{d}\omega
+\]
+
+其中 $\Omega$ 是某个几何对象，$\partial\Omega$ 是其边界，$\omega$ 是微分形式，$\mathrm{d}\omega$ 是其外微分。这就是\textbf{广义斯托克斯定理}，它是整个微积分最深刻的定理之一。
+
+\begin{table}[htbp]
+\centering
+\caption{四大积分公式的统一}
+\begin{tabularx}{0.95\textwidth}{llll}
+\toprule
+\textbf{公式} & \textbf{$\Omega$} & \textbf{$\partial\Omega$} & \textbf{核心关系} \\
+\midrule
+牛顿-莱布尼茨 & 区间 $[a,b]$ & 端点 $\{a,b\}$ & $\int_a^b f'\,\mathrm{d}x = f(b)-f(a)$ \\
+格林 & 平面区域 $D$ & 边界曲线 $L$ & $\oint_L = \iint_D (\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y})$ \\
+高斯 & 空间区域 $\Omega$ & 边界曲面 $\Sigma$ & $\oiint_\Sigma = \iiint_\Omega \nabla\cdot\vec{F}$ \\
+斯托克斯 & 曲面 $\Sigma$ & 边界曲线 $\Gamma$ & $\oint_\Gamma = \iint_\Sigma (\nabla\times\vec{F})\cdot\mathrm{d}\vec{S}$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{如何促进其他部分的理解}
+
+\begin{connectionbox}
+\textbf{1. 统一积分理论}
+
+曲面积分将积分理论从一维（定积分、曲线积分）和二维（二重积分）推广到了曲面上的积分。结合高斯公式和斯托克斯公式，整个向量微积分的理论框架得以完整：从一维到三维，从区间到曲面，所有积分公式都统一在广义斯托克斯定理之下。
+
+\textbf{2. 深化对方向和定向的理解}
+
+第二类曲面积分需要指定曲面的"侧"，这引入了\textbf{定向}（orientation）的概念。定向不仅仅是符号的约定，它反映了空间几何的深层结构——可定向性。莫比乌斯带就是一个不可定向曲面的经典例子。理解定向对于理解微分形式和外微分的理论至关重要。
+
+\textbf{3. 为场论提供完整框架}
+
+高斯公式和斯托克斯公式是场论的两大支柱。高斯公式联系了散度和通量，斯托克斯公式联系了旋度和环量。这两个公式加上梯度、散度、旋度的定义，构成了向量场分析的完整数学框架。电磁学的麦克斯韦方程组就是在这个框架下表述的。
+
+\textbf{4. 反哺对二重积分的理解}
+
+通过高斯公式 $\oiint_\Sigma \vec{F}\cdot\mathrm{d}\vec{S} = \iiint_\Omega \nabla\cdot\vec{F}\,\mathrm{d}v$，我们可以从更高维度回看二重积分。二重积分可以理解为"二维区域上的累积"，而曲面积分是"弯曲的二维区域上的累积"。两者之间的关系，正如曲线积分与定积分的关系。
+\end{connectionbox}
